@@ -1,0 +1,13 @@
+{
+  "name": "tokenkan",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Tokenkan mobile app prototype - tokenised sukuk & bonds",
+  "scripts": {
+    "start": "node server.mjs"
+  },
+  "optionalDependencies": {
+    "@anthropic-ai/sdk": "^0.71.0"
+  }
+}

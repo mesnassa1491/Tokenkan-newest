@@ -1,0 +1,2234 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tokenkan — fractional sukuk &amp; bonds</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0C2A22; --green:#0E3D2F; --gold:#B0872F; --gold-ink:#8A6A22;
+    --muted:#71807A; --faint:#9AA5A0; --line:#E3DFD4; --hair:#F0EDE5;
+    --bg:#F4F2ED; --pos:#157A56; --neg:#C0392B;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:#E7E4DC;font-family:'IBM Plex Sans',system-ui,sans-serif}
+  a{color:var(--green)} a:hover{color:var(--gold)}
+  ::-webkit-scrollbar{width:0;height:0}
+  .stage{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:48px 24px}
+
+  /* ── iOS device frame ─────────────────────────────────────── */
+  .device{
+    width:402px;height:874px;border-radius:48px;overflow:hidden;position:relative;
+    background:#F2F2F7;box-shadow:0 40px 80px rgba(0,0,0,.18),0 0 0 1px rgba(0,0,0,.12);
+    font-family:-apple-system,system-ui,sans-serif;-webkit-font-smoothing:antialiased;
+  }
+  .island{position:absolute;top:11px;left:50%;transform:translateX(-50%);width:126px;height:37px;border-radius:24px;background:#000;z-index:50}
+  .statusbar{position:absolute;top:0;left:0;right:0;z-index:10;display:flex;gap:154px;align-items:center;justify-content:center;padding:21px 24px 19px;width:100%}
+  .statusbar > div{flex:1;height:22px;display:flex;align-items:center;justify-content:center}
+  .sb-time{font-family:-apple-system,'SF Pro',system-ui;font-weight:590;font-size:17px;line-height:22px;color:#000}
+  .sb-icons{gap:7px;padding-top:1px;padding-right:1px}
+  .home-ind{position:absolute;bottom:0;left:0;right:0;z-index:60;height:34px;display:flex;justify-content:center;align-items:flex-end;padding-bottom:8px;pointer-events:none}
+  .home-ind > div{width:139px;height:5px;border-radius:100px;background:rgba(0,0,0,.25)}
+
+  /* ── app shell ────────────────────────────────────────────── */
+  .app{position:relative;height:100%;background:var(--bg);color:var(--ink);
+       font-family:'IBM Plex Sans',system-ui,sans-serif;overflow:hidden}
+  .scroll{height:100%;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
+
+  /* ── shared bits ──────────────────────────────────────────── */
+  .mono{font-family:'IBM Plex Mono',ui-monospace,monospace}
+  .card{background:#fff;border:1px solid var(--line);border-radius:16px}
+  .lbl{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  .lbl-sm{font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  .lbl-xs{font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);font-weight:600}
+  .sec{margin:18px 20px 8px}
+  .badge{font-size:9.5px;font-weight:700;letter-spacing:.07em;padding:2px 5px;border-radius:4px}
+  .badge-lg{padding:3px 6px;border-radius:5px}
+  .row-b{border-bottom:1px solid var(--hair)}
+  .iconbtn{width:36px;height:36px;border-radius:11px;background:#fff;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;cursor:pointer}
+  .cta{background:var(--green);color:#fff;text-align:center;border-radius:14px;font-size:15px;font-weight:600;cursor:pointer;padding:16px}
+  .screen{padding:62px 0 108px}
+  .h1{font-size:24px;font-weight:600;letter-spacing:-.015em}
+  .barrier{position:absolute;left:0;right:0;bottom:0;background:rgba(244,242,237,.93);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line)}
+  .keypad{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+  .key{padding:15px 0;text-align:center;font-size:21px;font-weight:500;background:#fff;border:1px solid var(--line);border-radius:13px;cursor:pointer;user-select:none}
+
+  /* press states (the prototype's style-active) */
+  .t95:active{transform:scale(.95)} .t96:active{transform:scale(.96)}
+  .t97:active{transform:scale(.97)} .t98:active{transform:scale(.98)}
+  .t99:active{transform:scale(.99)} .tkey:active{background:#EDEAE1}
+
+  input[type=range]{width:100%;margin-top:14px;accent-color:var(--green)}
+  input[type=text]{font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:13px;color:var(--ink);
+    background:transparent;border:0;outline:0;width:100%;padding:0}
+  input[type=text]::placeholder{color:var(--faint)}
+
+  .dot-typing::after{content:'▍';animation:tkBlink 1s steps(2) infinite;color:var(--faint)}
+
+  @keyframes tkUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+  @keyframes tkFade{from{opacity:0}to{opacity:1}}
+  @keyframes tkIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes tkBlink{50%{opacity:0}}
+</style>
+</head>
+<body>
+
+<div class="stage">
+  <div class="device">
+    <div class="island"></div>
+    <div class="statusbar">
+      <div><span class="sb-time">9:41</span></div>
+      <div class="sb-icons">
+        <svg width="19" height="12" viewBox="0 0 19 12">
+          <rect x="0" y="7.5" width="3.2" height="4.5" rx="0.7" fill="#000"/>
+          <rect x="4.8" y="5" width="3.2" height="7" rx="0.7" fill="#000"/>
+          <rect x="9.6" y="2.5" width="3.2" height="9.5" rx="0.7" fill="#000"/>
+          <rect x="14.4" y="0" width="3.2" height="12" rx="0.7" fill="#000"/>
+        </svg>
+        <svg width="17" height="12" viewBox="0 0 17 12">
+          <path d="M8.5 3.2C10.8 3.2 12.9 4.1 14.4 5.6L15.5 4.5C13.7 2.7 11.2 1.5 8.5 1.5C5.8 1.5 3.3 2.7 1.5 4.5L2.6 5.6C4.1 4.1 6.2 3.2 8.5 3.2Z" fill="#000"/>
+          <path d="M8.5 6.8C9.9 6.8 11.1 7.3 12 8.2L13.1 7.1C11.8 5.9 10.2 5.1 8.5 5.1C6.8 5.1 5.2 5.9 3.9 7.1L5 8.2C5.9 7.3 7.1 6.8 8.5 6.8Z" fill="#000"/>
+          <circle cx="8.5" cy="10.5" r="1.5" fill="#000"/>
+        </svg>
+        <svg width="27" height="13" viewBox="0 0 27 13">
+          <rect x="0.5" y="0.5" width="23" height="12" rx="3.5" stroke="#000" stroke-opacity="0.35" fill="none"/>
+          <rect x="2" y="2" width="20" height="9" rx="2" fill="#000"/>
+          <path d="M25 4.5V8.5C25.8 8.2 26.5 7.2 26.5 6.5C26.5 5.8 25.8 4.8 25 4.5Z" fill="#000" fill-opacity="0.4"/>
+        </svg>
+      </div>
+    </div>
+
+    <div id="app" class="app"></div>
+
+    <div class="home-ind"><div></div></div>
+  </div>
+</div>
+
+<script>
+"use strict";
+
+/* ═══════════════════════════════════════════════════════════════
+   Reference data
+   ═══════════════════════════════════════════════════════════════ */
+
+var PAR = 100;                 // denomination, RM per token
+var ACCRUAL_DAYS = 146;        // days accrued since last distribution
+var BUYBACK_FEE = 0.0035;      // 0.35%
+var GROUNDED_ASSET_ID = 'aie'; // the only offering with a real prospectus behind it
+var TAX_NOTE = 'In Malaysia, profit/interest income from sukuk and corporate bonds is generally taxed at your personal income tax rate unless a specific exemption applies. General information only — confirm your position with LHDN or a tax adviser.';
+
+var ASSETS = [
+  {
+    id:'aie', code:'AIEB 4.30% 08/33', short:'Amanah Ihsan Education',
+    name:'Amanah Ihsan Education Bhd', kind:'SUKUK', shariah:true, green:true,
+    structure:'Sukuk Wakalah Bi Al-Istithmar (SRI)', programme:'RM1.0b SRI Sukuk Programme',
+    rate:'4.30%', rateNum:4.30, rating:'AAA (RAM)', tenure:'7 yrs', freq:'2× yr',
+    freqLong:'semi-annually', filled:'92%', maturity:'15 Aug 2033', maturityShort:'Aug 2033',
+    growTo:'RM 130.10', hasKpi:true, years:7, price:102.45, nextPayout:'2027-02-15',
+    isin:'MYAIE3200011', currency:'MYR (Ringgit Malaysia)', couponType:'Fixed', issueDate:'15 Aug 2026',
+    boardLot:'Fractional — no minimum board lot beyond RM100', issuerType:'Sukuk — quasi-sovereign (education trust)',
+    sector:'Education / social infrastructure', country:'Malaysia', issueSize:'RM 50.0 million (this tranche)',
+    liquidity:'Actively traded', seniority:'Senior, unsecured — ranks pari passu with other sukukholders',
+    callable:false, investmentGrade:true
+  },
+  {
+    id:'smd', code:'SMDB 4.85% 03/31', short:'Seri Mutiara Development',
+    name:'Seri Mutiara Development Bhd', kind:'SUKUK', shariah:true, green:false,
+    structure:'Sukuk Murabahah (Tawarruq)', programme:'RM800m Sukuk Programme',
+    rate:'4.85%', rateNum:4.85, rating:'AA2 (RAM)', tenure:'5 yrs', freq:'2× yr',
+    freqLong:'semi-annually', filled:'68%', maturity:'20 Mar 2031', maturityShort:'Mar 2031',
+    growTo:'RM 124.25', hasKpi:false, years:5, price:102.70, nextPayout:'2026-08-15',
+    isin:'MYSMD3100027', currency:'MYR (Ringgit Malaysia)', couponType:'Fixed', issueDate:'20 Mar 2026',
+    boardLot:'Fractional — no minimum board lot beyond RM100', issuerType:'Sukuk — corporate',
+    sector:'Property development', country:'Malaysia', issueSize:'RM 35.0 million (this tranche)',
+    liquidity:'Actively traded', seniority:'Senior unsecured Sukuk Murabahah',
+    callable:false, investmentGrade:true
+  },
+  {
+    id:'tsn', code:'TSNB 5.10% 06/36', short:'Tenaga Suria Nusantara',
+    name:'Tenaga Suria Nusantara Bhd', kind:'SUKUK', shariah:true, green:true,
+    structure:'Green SRI Sukuk Wakalah · 220MW solar', programme:'RM1.5b Green Sukuk Programme',
+    rate:'5.10%', rateNum:5.10, rating:'AA3 (MARC)', tenure:'10 yrs', freq:'2× yr',
+    freqLong:'semi-annually', filled:'41%', maturity:'30 Jun 2036', maturityShort:'Jun 2036',
+    growTo:'RM 151.00', hasKpi:false, years:10, price:101.20, nextPayout:'2026-12-30',
+    isin:'MYTSN3600014', currency:'MYR (Ringgit Malaysia)', couponType:'Fixed', issueDate:'30 Jun 2026',
+    boardLot:'Fractional — no minimum board lot beyond RM100', issuerType:'Sukuk — corporate',
+    sector:'Renewable energy (solar)', country:'Malaysia', issueSize:'RM 80.0 million (this tranche)',
+    liquidity:'Moderate — matched via Tokenkan order book', seniority:'Senior unsecured Sukuk Wakalah',
+    callable:false, investmentGrade:true
+  },
+  {
+    id:'klr', code:'KLRC 5.45% 11/30', short:'KL Ritel Capital',
+    name:'KL Ritel Capital Bhd', kind:'BOND', shariah:false, green:false,
+    structure:'Senior unsecured MTN · retail malls', programme:'RM600m MTN Programme',
+    rate:'5.45%', rateNum:5.45, rating:'A1 (RAM)', tenure:'4 yrs', freq:'2× yr',
+    freqLong:'semi-annually', filled:'77%', maturity:'12 Nov 2030', maturityShort:'Nov 2030',
+    growTo:'RM 121.80', hasKpi:false, years:4, price:103.10, nextPayout:'2026-11-12',
+    isin:'MYKLR3000032', currency:'MYR (Ringgit Malaysia)', couponType:'Fixed', issueDate:'12 Nov 2026',
+    boardLot:'Fractional — no minimum board lot beyond RM100', issuerType:'Bond — corporate',
+    sector:'Retail / real estate', country:'Malaysia', issueSize:'RM 25.0 million (this tranche)',
+    liquidity:'Thin — matched via Tokenkan order book, not continuously quoted', seniority:'Senior unsecured MTN',
+    callable:false, investmentGrade:true
+  },
+  {
+    id:'bwi', code:'BWIB 4.15% 05/29', short:'Bank Wawasan Islam',
+    name:'Bank Wawasan Islam Bhd', kind:'SUKUK', shariah:true, green:false,
+    structure:'Senior Sukuk Murabahah', programme:'RM2.0b Sukuk Programme',
+    rate:'4.15%', rateNum:4.15, rating:'AA1 (MARC)', tenure:'3 yrs', freq:'2× yr',
+    freqLong:'semi-annually', filled:'85%', maturity:'05 May 2029', maturityShort:'May 2029',
+    growTo:'RM 112.45', hasKpi:false, years:3, price:101.625, nextPayout:'2026-08-15',
+    isin:'MYBWI2900019', currency:'MYR (Ringgit Malaysia)', couponType:'Fixed', issueDate:'05 May 2026',
+    boardLot:'Fractional — no minimum board lot beyond RM100', issuerType:'Sukuk — corporate (Islamic bank)',
+    sector:'Financial services (Islamic banking)', country:'Malaysia', issueSize:'RM 40.0 million (this tranche)',
+    liquidity:'Actively traded', seniority:'Senior unsecured Sukuk Murabahah',
+    callable:false, investmentGrade:true
+  },
+  {
+    id:'mpi', code:'MPIB 4.05% 09/29', short:'Malaysian Prime Infrastructure',
+    name:'Malaysian Prime Infrastructure Bhd', kind:'BOND', shariah:false, green:false,
+    structure:'Government-guaranteed senior bond', programme:'RM3.0b Bond Programme',
+    rate:'4.05%', rateNum:4.05, rating:'AAA (MARC)', tenure:'3 yrs', freq:'2× yr',
+    freqLong:'semi-annually', filled:'58%', maturity:'18 Sep 2029', maturityShort:'Sep 2029',
+    growTo:'RM 112.15', hasKpi:false, years:3, price:100.80, nextPayout:'2026-09-18',
+    isin:'MYMPI2900045', currency:'MYR (Ringgit Malaysia)', couponType:'Fixed', issueDate:'18 Sep 2026',
+    boardLot:'Fractional — no minimum board lot beyond RM100', issuerType:'Bond — government-guaranteed',
+    sector:'Infrastructure', country:'Malaysia', issueSize:'RM 60.0 million (this tranche)',
+    liquidity:'Actively traded', seniority:'Senior, government-guaranteed',
+    callable:false, investmentGrade:true
+  }
+];
+
+/* Canned answers — used only when the server is unreachable. */
+var QA = [
+  { q:'What am I actually buying?',
+    a:'Not a loan. Your RM goes into a pool that buys Shariah-compliant tangible assets plus a commodity murabahah investment, and you own an undivided beneficial interest in that pool through the sukuk.\n\nThe issuer acts as your investment agent (wakeel) and passes the returns back to you. Every holder ranks equally — nobody gets paid ahead of you.',
+    c:'Section 4 — Wakalah Bi Al-Istithmar; "Sukuk Investments" = Tangible Assets + Commodity Murabahah Investment' },
+  { q:'How do I get paid?',
+    a:'Twice a year. The returns generated by the pool are distributed as Periodic Distributions — 4.30% a year on the face amount of your sukuk.\n\nThe amount is worked out on days actually elapsed over a 365-day year, so a payment landing 181 days after the last one pays 181/365 of the annual rate.',
+    c:'Definitions — Periodic Distribution Amount, calculated actual/365' },
+  { q:"What's the KPI step-down?",
+    a:"This is the unusual part, so read it twice.\n\nIf the schools hit their key performance targets, the nominal value of your sukuk is reduced at maturity — up to 6.5% of your principal is forgone and becomes your donation to the project.\n\nSo the better the project performs, the less capital you get back. You are trading return for impact on purpose. If the KPIs are missed, you are repaid in full.",
+    c:'Dissolution Distribution Amount — less any adjustment to nominal value in the event the KPIs are met' },
+  { q:'What happens at maturity?',
+    a:'On the scheduled dissolution date you receive the nominal value of your sukuk, plus any distribution accrued but not yet paid, minus the KPI adjustment if the targets were met.\n\nThat total is the Dissolution Distribution Amount. It is paid in cash to your Tokenkan balance.',
+    c:'Section 4 — Dissolution Distribution Amount on the Scheduled Dissolution Date' },
+  { q:'Can I lose money?',
+    a:'Yes. Three honest ways:\n\n1. The obligor fails to pay. There is no capital guarantee and no PIDM protection.\n2. You sell before maturity and the buyback price is below what you paid.\n3. The KPI step-down reduces your principal at maturity by up to 6.5%.\n\nHolding to maturity with a solvent issuer is the only path where you get the headline return.',
+    c:'Section 5.3 — Risks relating to the Retail Sukuk' },
+  { q:'Is it really Shariah compliant?',
+    a:"It is structured as Wakalah Bi Al-Istithmar with a commodity murabahah leg, approved by the Shariah adviser and lodged under the SC's SRI Sukuk framework.\n\nThere is no interest: your return comes from profit on real assets and a deferred sale price on commodities, not from lending money at a rate.",
+    c:'Section 4 — Islamic principle of Wakalah Bi Al-Istithmar; SC Sustainable and Responsible Investment Sukuk framework' },
+  { q:'Can I get out early?',
+    a:'Not from the issuer. There is no put option on this tranche — the issuer only repays at maturity.\n\nWhat you can do is sell your units back to Tokenkan at a quoted buyback price, usually within a percent or so of fair value, with a 0.35% fee. That price moves with rates, so early exit can cost you.',
+    c:"Section 4 — no certificate holders' optional dissolution on this tranche" }
+];
+
+var INCOME_BARS = [
+  { label:'Feb', h:'38%', color:'#CFE0D6' }, { label:'Mar', h:'22%', color:'#CFE0D6' },
+  { label:'Apr', h:'54%', color:'#CFE0D6' }, { label:'May', h:'31%', color:'#CFE0D6' },
+  { label:'Jun', h:'70%', color:'#CFE0D6' }, { label:'Jul', h:'92%', color:'#0E3D2F' }
+];
+
+var NOTIFICATIONS = [
+  { tag:'Payout', tagFg:'#157A56', dot:'#157A56', bg:'#FFFFFF', bd:'#E3DFD4', when:'2h',
+    title:'RM 144.00 distribution scheduled',
+    body:'Seri Mutiara and Bank Wawasan Islam pay on 15 Aug 2026. Funds land in your balance by 5pm.' },
+  { tag:'Closing soon', tagFg:'#8A6A22', dot:'#B0872F', bg:'#FBF7EC', bd:'#E8DDBF', when:'1d',
+    title:'Amanah Ihsan is 92% filled',
+    body:'Subscription closes 14 Aug 2026 or earlier if fully allocated. Balloting follows on 16 Aug.' },
+  { tag:'Disclosure', tagFg:'#0E3D2F', dot:'#0E3D2F', bg:'#FFFFFF', bd:'#E3DFD4', when:'3d',
+    title:'KPI evaluation report published',
+    body:'The independent auditor confirmed 18 of 20 trust schools met their targets. Nominal value adjustment applies at maturity.' },
+  { tag:'Market', tagFg:'#0E3D2F', dot:'#9AA5A0', bg:'#FFFFFF', bd:'#E3DFD4', when:'5d',
+    title:'New offering: Tenaga Suria Nusantara',
+    body:'5.10% p.a. green SRI sukuk funding a 220MW solar plant in Kedah. 10-year tenure, AA3.' }
+];
+
+var TAB_ICONS = {
+  home:'M3 10.5L12 3l9 7.5V21H3z',
+  market:'M3 17l5-6 4 4 5-8 4 5',
+  wallet:'M3 8h18v11H3zM3 8l2-4h14l2 4M16 13.5h2',
+  activity:'M4 6h16M4 12h16M4 18h10',
+  profile:'M4 20a8 8 0 0 1 16 0M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8'
+};
+var TABS = [['home','Portfolio'],['market','Market'],['wallet','Balance'],['activity','Activity'],['profile','Profile']];
+var FILTERS = ['All','Shariah','Sukuk','Bonds','SRI / Green','AAA only'];
+var HERO_METRICS = ['Total value','Projected income','Next payout'];
+var KEYPAD = ['1','2','3','4','5','6','7','8','9','00','0','⌫'];
+var MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+/* ═══════════════════════════════════════════════════════════════
+   Persistent state — the parts a user can actually change
+   ═══════════════════════════════════════════════════════════════ */
+
+var SAVE_KEY = 'tokenkan.v1';
+
+function seedBook(){
+  return {
+    wallet: 1240,
+    holdings: { smd:32, aie:58, bwi:32 },
+    distributions: 480.50,          // cash income received to date
+    activity: [
+      { glyph:'↓', kind:'in',  title:'Distribution received', sub:'Seri Mutiara Development Bhd', amount:77.60,   date:'15 Feb' },
+      { glyph:'↓', kind:'in',  title:'Distribution received', sub:'Bank Wawasan Islam Bhd',       amount:66.40,   date:'15 Feb' },
+      { glyph:'↑', kind:'buy', title:'Bought 18 units',       sub:'Amanah Ihsan Education Bhd',   amount:-1800,   date:'04 Feb' },
+      { glyph:'+', kind:'top', title:'Balance top-up',        sub:'DuitNow · Maybank Islamic ••4412', amount:2000, date:'03 Feb' },
+      { glyph:'↓', kind:'in',  title:'Distribution received', sub:'Amanah Ihsan Education Bhd',   amount:124.70,  date:'15 Jan' },
+      { glyph:'↑', kind:'buy', title:'Sold 6 units',          sub:'KL Ritel Capital Bhd',         amount:618.20,  date:'22 Dec' }
+    ],
+    incomeAvailable: 480.50,  // withdrawable coupon income; separate from `distributions` (lifetime total, used for performance stats)
+    clockOffsetMs: 0,         // demo-only "advance time" control — see today()
+    payoutDates: {}           // per-asset next-payout override once a coupon has been credited; falls back to ASSETS[].nextPayout
+  };
+}
+
+var book = loadBook();
+// Migrate saves written before these fields existed.
+if (typeof book.incomeAvailable !== 'number') book.incomeAvailable = book.distributions;
+if (typeof book.clockOffsetMs !== 'number') book.clockOffsetMs = 0;
+if (!book.payoutDates || typeof book.payoutDates !== 'object') book.payoutDates = {};
+
+function loadBook(){
+  try {
+    var raw = localStorage.getItem(SAVE_KEY);
+    if (raw) {
+      var parsed = JSON.parse(raw);
+      if (parsed && typeof parsed.wallet === 'number' && parsed.holdings) return parsed;
+    }
+  } catch (e) { /* fall through to seed */ }
+  return seedBook();
+}
+function saveBook(){
+  try { localStorage.setItem(SAVE_KEY, JSON.stringify(book)); } catch (e) {}
+}
+function resetBook(){
+  book = seedBook();
+  saveBook();
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Session state — where you are in the app
+   ═══════════════════════════════════════════════════════════════ */
+
+var state = {
+  tab:'home', screen:null, stack:[], assetId:'aie', hide:false,
+  filter:'All', buyStep:'entry', amount:'500', ack:false,
+  sellQty:12, doneKind:null, doneRows:null, doneMeta:null,
+  explainer:false, thinking:false, streaming:'', chatError:null,
+  cash:null,                       // { mode:'topup'|'withdraw', amount:'0' }
+  income:null,                     // { amount:'0', dest:'maybank'|'duitnow' }
+  heroMetric:'Total value', shariahOnly:false,
+  toast:null,                       // { title, body } — auto-dismisses, see showToast()
+  messages:[{ role:'ai', text:'That is the whole offering in plain English. Ask me anything below and I will quote the section I got it from.', cite:null }]
+};
+
+var toastTimer = null;
+function showToast(title, body){
+  if (toastTimer) clearTimeout(toastTimer);
+  state.toast = { title:title, body:body };
+  render();
+  toastTimer = setTimeout(function(){ state.toast = null; toastTimer = null; render(); }, 4500);
+}
+
+var pendingMsgScroll = false;
+var chatAbort = null;
+
+function setState(patch){ Object.assign(state, patch); render(); }
+function asset(){ for (var i=0;i<ASSETS.length;i++) if (ASSETS[i].id===state.assetId) return ASSETS[i]; return ASSETS[0]; }
+function assetById(id){ for (var i=0;i<ASSETS.length;i++) if (ASSETS[i].id===id) return ASSETS[i]; return null; }
+
+function fmt(n){ return n.toLocaleString('en-MY', { minimumFractionDigits:2, maximumFractionDigits:2 }); }
+function rm(n){ return 'RM ' + fmt(n); }
+function round2(n){ return Math.round(n * 100) / 100; }
+function esc(s){
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+/* ── dates ────────────────────────────────────────────────────── */
+
+// A virtual "now" the demo can fast-forward (see book.clockOffsetMs) so
+// coupon distributions can be shown arriving without a real multi-month wait.
+function today(){ var d = new Date(Date.now() + (book.clockOffsetMs || 0)); d.setHours(0,0,0,0); return d; }
+function shortDate(d){ return String(d.getDate()).padStart(2,'0') + ' ' + MONTHS[d.getMonth()]; }
+function longDate(d){ return String(d.getDate()).padStart(2,'0') + ' ' + MONTHS[d.getMonth()] + ' ' + d.getFullYear(); }
+function daysUntil(iso){
+  var target = new Date(iso + 'T00:00:00');
+  return Math.max(0, Math.ceil((target - today()) / 86400000));
+}
+function payoutLabel(iso){
+  var d = new Date(iso + 'T00:00:00');
+  return longDate(d);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Portfolio maths — everything below is derived from `book`
+   ═══════════════════════════════════════════════════════════════ */
+
+function heldIds(){
+  return Object.keys(book.holdings).filter(function(id){ return book.holdings[id] > 0; });
+}
+function tokensOf(id){ return book.holdings[id] || 0; }
+function positionValue(id){ var a = assetById(id); return a ? tokensOf(id) * a.price : 0; }
+function positionCost(id){ return tokensOf(id) * PAR; }
+function semiAnnualPayout(id){
+  var a = assetById(id);
+  return a ? round2(tokensOf(id) * PAR * (a.rateNum / 100) / 2) : 0;
+}
+function accruedPerToken(id){
+  var a = assetById(id);
+  return a ? PAR * (a.rateNum / 100) * (ACCRUAL_DAYS / 365) : 0;
+}
+
+// asset.maturity is a display string ('15 Aug 2033'), not ISO — parse it locally.
+function parseDMY(str){
+  var parts = str.trim().split(' ');
+  return new Date(parseInt(parts[2], 10), MONTHS.indexOf(parts[1]), parseInt(parts[0], 10));
+}
+function daysToMaturity(a){
+  return Math.max(0, Math.ceil((parseDMY(a.maturity) - today()) / 86400000));
+}
+
+// Coupon income received to date on one holding — summed from the activity
+// log rather than tracked separately, so it always matches what Activity shows.
+function assetIncomeReceived(id){
+  var a = assetById(id);
+  if (!a) return 0;
+  var total = 0;
+  book.activity.forEach(function(t){
+    if (t.kind === 'in' && t.sub === a.name) total += t.amount;
+  });
+  return round2(total);
+}
+
+// A small, deterministic bid ladder for visual "there is real demand" context.
+// It does not drive the actual quote — sellQuote() below is the only pricing
+// source of truth — so re-rendering never changes it mid-session.
+function bidDepth(a){
+  var seed = a.id.split('').reduce(function(s, c){ return s + c.charCodeAt(0); }, 7);
+  var rows = [];
+  for (var i = 0; i < 4; i++){
+    rows.push({ price: round2(a.price - i * 0.05), qty: 15 + ((seed * (i + 4)) % 95) });
+  }
+  return rows;
+}
+
+// Coupon income currently available to withdraw. Capped at wallet cash so it
+// can never show more than actually sits in the balance.
+function withdrawableIncome(){
+  return round2(Math.max(0, Math.min(book.incomeAvailable, book.wallet)));
+}
+
+// The amount keypad only enters whole ringgit, but coupon income accrues in
+// cents. If what was typed is the whole-ringgit floor of the full balance,
+// treat it as "withdraw everything" rather than stranding the odd cents.
+function effectiveWithdrawAmount(rawAmt, cap){
+  var floorCap = Math.floor(cap);
+  return (rawAmt === floorCap && cap > floorCap) ? cap : rawAmt;
+}
+
+// The next payout date for a holding. ASSETS[].nextPayout is the static seed
+// value; once a coupon has actually been credited, book.payoutDates overrides
+// it with the following period so the countdown keeps moving.
+function nextPayoutOf(id){
+  var a = assetById(id);
+  if (!a) return null;
+  return book.payoutDates[id] || a.nextPayout;
+}
+function addMonths(iso, n){
+  var d = new Date(iso + 'T00:00:00');
+  d.setMonth(d.getMonth() + n);
+  return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+}
+
+// Automatic coupon distribution: any holding whose payout date has arrived is
+// credited immediately — to the wallet and to the withdrawable income pool —
+// with no manual claim step. Advances that holding's payout to the next
+// period (semi-annual, matching every offering's freq in this dataset) and
+// queues a toast per credited payment. Safe to call on every load/render;
+// it's a no-op unless a date has actually passed.
+function checkAndCreditDistributions(){
+  var credited = [];
+  heldIds().forEach(function(id){
+    var guard = 0;
+    while (nextPayoutOf(id) <= isoOf(today()) && guard < 12) {
+      guard++;
+      var a = assetById(id);
+      var amt = semiAnnualPayout(id);
+      if (amt > 0) {
+        book.wallet = round2(book.wallet + amt);
+        book.incomeAvailable = round2(book.incomeAvailable + amt);
+        book.distributions = round2(book.distributions + amt);
+        logActivity({ glyph:'↓', kind:'in', title:'Distribution received', sub:a.name, amount:amt });
+        credited.push({ name:a.short, amount:amt });
+      }
+      book.payoutDates[id] = addMonths(nextPayoutOf(id), 6);
+    }
+  });
+  if (credited.length) saveBook();
+  return credited;
+}
+function isoOf(d){ return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); }
+
+/* ═══════════════════════════════════════════════════════════════
+   Bond metrics & the AI explainer's fact sheet — one source of truth
+   shared by the on-screen card and the /api/ask prompt payload.
+   ═══════════════════════════════════════════════════════════════ */
+
+function daysToYearsMonths(days){
+  var y = Math.floor(days / 365);
+  var m = Math.round((days % 365) / 30);
+  if (m === 12) { y += 1; m = 0; }
+  var parts = [];
+  if (y) parts.push(y + (y === 1 ? ' year' : ' years'));
+  if (m || !y) parts.push(m + (m === 1 ? ' month' : ' months'));
+  return parts.join(' ');
+}
+
+// All derived (not stored) pricing/risk figures. Duration and the price-move
+// estimate use a simplified approximation, not a full cash-flow model — fine
+// for an illustrative fact sheet, not for real trading decisions.
+function bondMetrics(a){
+  var perUnitCoupon = round2(PAR * (a.rateNum / 100) / 2);   // semi-annual on every current offering
+  var currentYield = round2(a.rateNum * 100 / a.price);
+  var ytm = round2((a.rateNum + (100 - a.price) / a.years) / ((100 + a.price) / 2) * 100);
+  var duration = Math.round(a.years * 0.88 * 10) / 10;
+  return {
+    priceStatus: a.price > 100 ? 'Premium' : a.price < 100 ? 'Discount' : 'At par',
+    perUnitCoupon: perUnitCoupon,
+    currentYield: currentYield,
+    ytm: ytm,
+    ytc: a.callable ? null : 'N/A — not callable',
+    accruedPerUnit: round2(accruedPerToken(a.id)),
+    duration: duration,
+    priceChangePer1pct: round2(duration * a.price / 100)
+  };
+}
+
+function plainLanguageSummary(a, m){
+  var verb = a.shariah ? 'invest' : 'lend';
+  var back = a.shariah ? 'your RM100 principal is returned' : 'your RM100 is repaid';
+  return 'You ' + verb + ' RM100 per unit in ' + a.name + ' and receive ' + rm(m.perUnitCoupon) +
+    ' every 6 months until ' + a.maturity + ', when ' + back + ' — assuming the issuer does not default.';
+}
+
+// Grouped [label, value] pairs — rendered as the explainer's fact-sheet card
+// AND sent verbatim to /api/ask, so the live chat is grounded in exactly what
+// the person on screen can already see.
+function explainerFacts(a){
+  var m = bondMetrics(a);
+  return {
+    identity: [
+      ['Bond name', a.name],
+      ['Issuer', a.name],
+      ['Issuer type', a.issuerType],
+      ['ISIN / bond code', a.isin],
+      ['Currency', a.currency]
+    ],
+    coreTerms: [
+      ['Face value (par)', 'RM100 per unit'],
+      ['Coupon rate', a.rate],
+      ['Coupon type', a.couponType],
+      ['Coupon frequency', 'Semi-annual'],
+      ['Issue date', a.issueDate],
+      ['Maturity date', a.maturity],
+      ['Time to maturity', daysToYearsMonths(daysToMaturity(a))],
+      ['Minimum investment', 'RM100 · ' + a.boardLot]
+    ],
+    pricing: [
+      ['Current market price', a.price.toFixed(2) + '% of par'],
+      ['Price status', m.priceStatus],
+      ['Current yield', m.currentYield.toFixed(2) + '%'],
+      ['Yield to maturity (approx.)', m.ytm.toFixed(2) + '%'],
+      ['Yield to call', m.ytc || (a.callable ? 'Callable — see call terms' : 'N/A — not callable')],
+      ['Accrued interest since last coupon', rm(m.accruedPerUnit) + ' / unit'],
+      ['Next coupon date', payoutLabel(nextPayoutOf(a.id))],
+      ['Next coupon amount', rm(m.perUnitCoupon) + ' / unit']
+    ],
+    risk: [
+      ['Credit rating', a.rating],
+      ['Grade', a.investmentGrade ? 'Investment grade' : 'Speculative grade'],
+      ['Duration (approx.)', m.duration + ' years'],
+      ['Est. price move per 1% rate change', '≈ ' + rm(m.priceChangePer1pct) + ' / unit (approx.)'],
+      ['Callable', a.callable ? 'Yes' : 'No'],
+      ['Seniority', a.seniority]
+    ],
+    context: [
+      ['Sector', a.sector],
+      ['Country', a.country],
+      ['Issue size', a.issueSize],
+      ['Liquidity', a.liquidity],
+      ['Tax treatment', TAX_NOTE]
+    ],
+    summary: plainLanguageSummary(a, m),
+    footer: 'Data as at ' + longDate(today()) + ' · issuer disclosures and rating agency data. Educational information only — not investment advice.'
+  };
+}
+
+function portfolio(){
+  var ids = heldIds();
+  var value = 0, cost = 0, weighted = 0, projected = 0;
+
+  ids.forEach(function(id){
+    var a = assetById(id);
+    value += positionValue(id);
+    cost  += positionCost(id);
+    weighted  += positionCost(id) * a.rateNum;
+    projected += positionCost(id) * (a.rateNum / 100) * a.years;
+  });
+
+  // Next distribution: the soonest payout date among held positions, and the
+  // total landing on that date.
+  var nextIso = null;
+  ids.forEach(function(id){
+    var iso = nextPayoutOf(id);
+    if (!nextIso || iso < nextIso) nextIso = iso;
+  });
+  var nextAmount = 0;
+  if (nextIso) {
+    ids.forEach(function(id){
+      if (nextPayoutOf(id) === nextIso) nextAmount += semiAnnualPayout(id);
+    });
+  }
+  var nextNames = ids
+    .filter(function(id){ return nextPayoutOf(id) === nextIso; })
+    .map(function(id){ return assetById(id).short; });
+
+  var unrealised = value - cost;
+  var earned = unrealised + book.distributions;   // capital gain + income received
+
+  return {
+    ids: ids,
+    positions: ids.length,
+    value: round2(value),
+    cost: round2(cost),
+    unrealised: round2(unrealised),
+    earned: round2(earned),
+    // Return on money actually put in, i.e. value net of what it has earned.
+    deltaPct: cost > 0 ? (earned / (value - earned)) * 100 : 0,
+    weightedYield: cost > 0 ? weighted / cost : 0,
+    projected: round2(projected),
+    nextIso: nextIso,
+    nextAmount: round2(nextAmount),
+    nextNames: nextNames,
+    nextDays: nextIso ? daysUntil(nextIso) : 0
+  };
+}
+
+/* ── transactions ─────────────────────────────────────────────── */
+
+function logActivity(entry){
+  entry.date = shortDate(new Date());
+  book.activity.unshift(entry);
+  if (book.activity.length > 40) book.activity.length = 40;
+}
+
+function buyTokens(id, amount){
+  var tokens = amount / PAR;
+  book.wallet = round2(book.wallet - amount);
+  book.holdings[id] = tokensOf(id) + tokens;
+  logActivity({ glyph:'↑', kind:'buy', title:'Bought ' + tokens + ' unit' + (tokens===1?'':'s'),
+                sub: assetById(id).name, amount: -amount });
+  saveBook();
+}
+
+function sellTokens(id, qty){
+  var q = sellQuote(id, qty);
+  book.wallet = round2(book.wallet + q.net);
+  book.holdings[id] = tokensOf(id) - qty;
+  if (book.holdings[id] <= 0) delete book.holdings[id];
+  logActivity({ glyph:'↑', kind:'sell', title:'Sold ' + qty + ' unit' + (qty===1?'':'s'),
+                sub: assetById(id).name, amount: q.net });
+  saveBook();
+  return q;
+}
+
+function sellQuote(id, qty){
+  var a = assetById(id);
+  var gross = round2(qty * a.price);
+  var fee = round2(gross * BUYBACK_FEE);
+  var accrued = round2(qty * accruedPerToken(id));
+  return { price:a.price, gross:gross, fee:fee, accrued:accrued, net: round2(gross - fee + accrued) };
+}
+
+function topUp(amount){
+  book.wallet = round2(book.wallet + amount);
+  logActivity({ glyph:'+', kind:'top', title:'Balance top-up',
+                sub:'DuitNow · Maybank Islamic ••4412', amount: amount });
+  saveBook();
+}
+
+function withdraw(amount){
+  book.wallet = round2(book.wallet - amount);
+  logActivity({ glyph:'−', kind:'out', title:'Withdrawal to bank',
+                sub:'Maybank Islamic ••4412 · 1 business day', amount: -amount });
+  saveBook();
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Navigation
+   ═══════════════════════════════════════════════════════════════ */
+
+function push(screen, patch){
+  state.stack.push({ tab:state.tab, screen:state.screen });
+  setState(Object.assign({ screen:screen, explainer:false }, patch || {}));
+}
+function back(){
+  if (state.screen === 'buy' && state.buyStep === 'review'){ setState({ buyStep:'entry' }); return; }
+  var prev = state.stack.pop() || { tab:'home', screen:null };
+  setState({ tab:prev.tab, screen:prev.screen, explainer:false });
+}
+function openAsset(id){
+  push('detail', { assetId:id, buyStep:'entry', ack:false, amount:'500',
+                   sellQty: tokensOf(id) || 1,   // sell defaults to the full holding
+                   messages:[state.messages[0]], chatError:null });
+}
+function goTab(id){ setState({ tab:id, screen:null, stack:[], explainer:false }); }
+
+/* ═══════════════════════════════════════════════════════════════
+   Derived view values
+   ═══════════════════════════════════════════════════════════════ */
+
+function derive(){
+  var a = asset();
+  var p = portfolio();
+  var amt = parseInt(state.amount, 10) || 0;
+  var valid = amt >= 100 && amt % 100 === 0 && amt <= book.wallet;
+
+  var list = ASSETS.slice();
+  if (state.shariahOnly) list = list.filter(function(x){ return x.shariah; });
+  if (state.filter === 'Shariah')     list = list.filter(function(x){ return x.shariah; });
+  if (state.filter === 'Sukuk')       list = list.filter(function(x){ return x.kind === 'SUKUK'; });
+  if (state.filter === 'Bonds')       list = list.filter(function(x){ return x.kind === 'BOND'; });
+  if (state.filter === 'SRI / Green') list = list.filter(function(x){ return x.green; });
+  if (state.filter === 'AAA only')    list = list.filter(function(x){ return x.rating.indexOf('AAA') === 0; });
+  list = list.sort(function(x,y){ return y.rateNum - x.rateNum; });
+
+  return {
+    a:a, p:p, amt:amt, valid:valid,
+    income: round2(amt * a.rateNum / 100 * a.years),
+    list:list,
+    owns: tokensOf(a.id) > 0,
+    buyHint: amt < 100 ? 'Minimum investment is RM100'
+           : amt % 100 !== 0 ? 'Invested in RM100 units'
+           : amt > book.wallet ? 'Exceeds available balance of ' + rm(book.wallet)
+           : 'Available: ' + rm(book.wallet)
+  };
+}
+
+function heroData(p){
+  var hidden = state.hide;
+  var sign = p.earned >= 0 ? '+' : '−';
+  var map = {
+    'Total value': {
+      label:'Portfolio value',
+      value: hidden ? 'RM ••••••' : rm(p.value),
+      delta: sign + Math.abs(p.deltaPct).toFixed(2) + '%',
+      sub: rm(Math.abs(p.earned)) + (p.earned >= 0 ? ' earned' : ' lost') + ' since Mar 2025'
+    },
+    'Projected income': {
+      label:'Projected income to maturity',
+      value: hidden ? 'RM ••••••' : rm(p.projected),
+      delta: p.weightedYield.toFixed(2) + '% p.a.',
+      sub:'across ' + p.positions + ' position' + (p.positions===1?'':'s') + ', if held to maturity'
+    },
+    'Next payout': {
+      label:'Next distribution',
+      value: hidden ? 'RM ••••' : rm(p.nextAmount),
+      delta: p.nextIso ? shortDate(new Date(p.nextIso + 'T00:00:00')) : '—',
+      sub: p.nextNames.length ? p.nextNames.join(' + ') : 'no positions held'
+    }
+  };
+  return map[state.heroMetric] || map['Total value'];
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Views
+   ═══════════════════════════════════════════════════════════════ */
+
+function view(){
+  var d = derive();
+  var body = '';
+
+  if (state.screen === null){
+    if (state.tab === 'home')     body = homeScreen(d);
+    if (state.tab === 'market')   body = marketScreen(d);
+    if (state.tab === 'wallet')   body = walletScreen(d);
+    if (state.tab === 'activity') body = activityScreen();
+    if (state.tab === 'profile')  body = profileScreen();
+  }
+  else if (state.screen === 'detail')        body = detailScreen(d);
+  else if (state.screen === 'buy')           body = buyScreen(d);
+  else if (state.screen === 'sell')          body = sellScreen(d);
+  else if (state.screen === 'income')        body = incomeScreen();
+  else if (state.screen === 'done')          body = doneScreen(d);
+  else if (state.screen === 'notifications') body = notificationsScreen();
+
+  var out = '<div id="scroll" class="scroll">' + body + '</div>';
+  if (state.screen === null) out += tabBar();
+  if (state.screen === 'detail') out += detailBar(d);
+  if (state.cash) out += cashSheet();
+  if (state.explainer) out += explainerSheet(d);
+  if (state.toast) out += toastBanner(state.toast);
+  return out;
+}
+
+function toastBanner(t){
+  return '<div data-act="dismissToast" style="position:absolute;top:56px;left:14px;right:14px;z-index:80;background:var(--green);color:#fff;border-radius:14px;padding:13px 14px;display:flex;gap:11px;align-items:flex-start;box-shadow:0 12px 28px rgba(0,0,0,.22);animation:tkIn .25s ease;cursor:pointer">' +
+    '<div style="width:28px;height:28px;border-radius:9px;background:rgba(255,255,255,.16);display:flex;align-items:center;justify-content:center;flex:0 0 auto">' +
+      '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4"><path d="M20 6L9 17l-5-5"></path></svg>' +
+    '</div>' +
+    '<div style="flex:1">' +
+      '<div style="font-size:13px;font-weight:600">' + esc(t.title) + '</div>' +
+      '<div style="font-size:12px;color:rgba(255,255,255,.85);margin-top:2px;line-height:1.4">' + esc(t.body) + '</div>' +
+    '</div>' +
+  '</div>';
+}
+
+/* ── Home ─────────────────────────────────────────────────────── */
+
+function homeScreen(d){
+  var p = d.p;
+  var hero = heroData(p);
+  return '<div class="screen">' +
+    '<div style="padding:0 20px;display:flex;align-items:center;justify-content:space-between">' +
+      '<div>' +
+        '<div style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600">Selamat pagi</div>' +
+        '<div style="font-size:22px;font-weight:600;letter-spacing:-.01em;margin-top:2px">Nur Aisyah</div>' +
+      '</div>' +
+      '<div style="display:flex;gap:8px">' +
+        '<div data-act="goNotifications" class="t95" style="width:38px;height:38px;border-radius:12px;background:#fff;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;position:relative;cursor:pointer">' +
+          '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#0C2A22" stroke-width="1.7"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.7 21a2 2 0 0 1-3.4 0"></path></svg>' +
+          '<div style="position:absolute;top:8px;right:9px;width:7px;height:7px;border-radius:50%;background:var(--neg);border:1.5px solid #fff"></div>' +
+        '</div>' +
+        '<div data-act="goProfile" class="t95" style="width:38px;height:38px;border-radius:12px;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;cursor:pointer">NA</div>' +
+      '</div>' +
+    '</div>' +
+
+    '<div style="margin:18px 20px 0;background:var(--green);border-radius:20px;padding:20px;color:#fff;position:relative;overflow:hidden">' +
+      '<div style="position:absolute;right:-40px;top:-40px;width:180px;height:180px;border-radius:50%;background:rgba(176,135,47,.16)"></div>' +
+      '<div style="position:relative">' +
+        '<div style="display:flex;align-items:center;justify-content:space-between">' +
+          '<div data-act="cycleHero" title="Switch metric" style="font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:rgba(255,255,255,.6);font-weight:600;cursor:pointer">' + esc(hero.label) + '</div>' +
+          '<div data-act="toggleHide" style="font-size:11px;color:rgba(255,255,255,.6);cursor:pointer;font-weight:500">' + (state.hide ? 'Show' : 'Hide') + '</div>' +
+        '</div>' +
+        '<div class="mono" style="font-size:38px;font-weight:600;letter-spacing:-.02em;margin-top:6px;font-variant-numeric:tabular-nums">' + esc(hero.value) + '</div>' +
+        '<div style="display:flex;align-items:center;gap:8px;margin-top:6px">' +
+          '<div class="mono" style="background:rgba(120,220,170,.16);color:#7FE0B4;padding:3px 8px;border-radius:6px;font-size:12px;font-weight:500">' + esc(hero.delta) + '</div>' +
+          '<div style="font-size:12px;color:rgba(255,255,255,.55)">' + esc(hero.sub) + '</div>' +
+        '</div>' +
+        '<div style="display:flex;gap:22px;margin-top:18px;padding-top:16px;border-top:1px solid rgba(255,255,255,.13)">' +
+          heroStat('Weighted yield', p.weightedYield.toFixed(2) + '% p.a.') +
+          heroStat('Next payout', state.hide ? 'RM ••••' : rm(p.nextAmount)) +
+          heroStat('In', p.nextIso ? p.nextDays + ' days' : '—') +
+        '</div>' +
+      '</div>' +
+    '</div>' +
+
+    '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:12px 20px 0">' +
+      quickAction('goMarket', 'Invest', 'from RM100') +
+      quickAction('openTopUp', 'Top up', 'FPX / DuitNow') +
+      quickAction('goActivity', 'Payouts', 'schedule') +
+    '</div>' +
+
+    '<div data-act="openIncome" class="card t99" style="margin:14px 20px 0;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;cursor:pointer">' +
+      '<div>' +
+        '<div class="lbl-sm">Total coupon income</div>' +
+        '<div class="mono" style="font-size:17px;font-weight:600;margin-top:3px">' + (state.hide ? 'RM ••••' : rm(withdrawableIncome())) + '</div>' +
+      '</div>' +
+      '<div data-act="openIncome" class="t97" style="padding:9px 14px;border-radius:100px;background:var(--green);color:#fff;font-size:12.5px;font-weight:600;cursor:pointer">Withdraw</div>' +
+    '</div>' +
+
+    '<div style="display:flex;align-items:baseline;justify-content:space-between;margin:26px 20px 10px">' +
+      '<div style="font-size:15px;font-weight:600">Your holdings</div>' +
+      '<div class="mono" style="font-size:12px;color:var(--muted)">' + p.positions + ' position' + (p.positions===1?'':'s') + '</div>' +
+    '</div>' +
+
+    '<div style="display:flex;flex-direction:column;gap:8px;padding:0 20px">' +
+      (p.ids.length
+        ? p.ids.map(holdingCard).join('')
+        : '<div class="card" style="padding:20px;text-align:center;font-size:13px;color:var(--muted)">No holdings yet. Tap Invest to buy your first sukuk.</div>') +
+    '</div>' +
+
+    '<div class="card" style="margin:22px 20px 0;padding:16px">' +
+      '<div style="display:flex;align-items:center;gap:7px">' +
+        '<div style="width:6px;height:6px;border-radius:50%;background:var(--gold)"></div>' +
+        '<div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-ink)">Closing soon</div>' +
+      '</div>' +
+      '<div style="font-size:15px;font-weight:600;margin-top:9px">Amanah Ihsan Education Bhd</div>' +
+      '<div style="font-size:12px;color:var(--muted);margin-top:3px;line-height:1.5">SRI sukuk funding 20 trust schools. 4.30% p.a., 7 years, AAA. Subscription closes 14 Aug 2026.</div>' +
+      '<div style="height:5px;background:var(--hair);border-radius:3px;margin-top:13px;overflow:hidden">' +
+        '<div style="width:92%;height:100%;background:var(--green);border-radius:3px"></div>' +
+      '</div>' +
+      '<div class="mono" style="display:flex;justify-content:space-between;margin-top:7px;font-size:11px;color:var(--muted)">' +
+        '<div>RM 46.0m of RM 50.0m</div><div>92% filled</div>' +
+      '</div>' +
+      '<div data-act="openFeatured" class="t98" style="margin-top:14px;background:var(--green);color:#fff;text-align:center;padding:12px;border-radius:12px;font-size:14px;font-weight:600;cursor:pointer">View offering</div>' +
+    '</div>' +
+  '</div>';
+}
+
+function heroStat(k, v){
+  return '<div>' +
+    '<div style="font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;color:rgba(255,255,255,.5);font-weight:600">' + esc(k) + '</div>' +
+    '<div class="mono" style="font-size:16px;margin-top:3px">' + esc(v) + '</div>' +
+  '</div>';
+}
+
+function quickAction(act, title, sub){
+  return '<div data-act="' + act + '" class="card t97" style="border-radius:14px;padding:12px 10px;text-align:center;cursor:pointer">' +
+    '<div style="font-size:13px;font-weight:600">' + esc(title) + '</div>' +
+    '<div style="font-size:10.5px;color:var(--muted);margin-top:2px">' + esc(sub) + '</div>' +
+  '</div>';
+}
+
+function holdingCard(id){
+  var a = assetById(id);
+  var tokens = tokensOf(id);
+  var value = positionValue(id);
+  var gain = value - positionCost(id);
+  var payout = semiAnnualPayout(id);
+
+  return '<div data-act="openAsset" data-arg="' + id + '" class="card t99" style="padding:14px;cursor:pointer">' +
+    '<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px">' +
+      '<div style="flex:1;min-width:0">' +
+        '<div style="display:flex;align-items:center;gap:6px">' +
+          '<div class="badge" style="background:#EEF3F0;color:var(--green)">' + esc(a.kind) + '</div>' +
+          '<div class="badge mono" style="background:#F6F0E2;color:var(--gold-ink)">' + esc(a.rating.split(' ')[0]) + '</div>' +
+        '</div>' +
+        '<div style="font-size:14.5px;font-weight:600;margin-top:7px;letter-spacing:-.01em">' + esc(a.name) + '</div>' +
+        '<div style="font-size:11.5px;color:var(--muted);margin-top:2px">' + tokens + ' units · ' + esc(a.rate) + ' p.a. · ' + esc(a.maturityShort) + '</div>' +
+      '</div>' +
+      '<div style="text-align:right">' +
+        '<div class="mono" style="font-size:15px;font-weight:500;font-variant-numeric:tabular-nums">' + (state.hide ? 'RM ••••' : rm(value)) + '</div>' +
+        '<div class="mono" style="font-size:11.5px;color:' + (gain >= 0 ? 'var(--pos)' : 'var(--neg)') + ';margin-top:3px">' +
+          (state.hide ? '••••' : (gain >= 0 ? '+' : '−') + rm(Math.abs(gain))) + '</div>' +
+      '</div>' +
+    '</div>' +
+    '<div style="display:flex;align-items:center;gap:5px;margin-top:12px;padding-top:11px;border-top:1px solid var(--hair)">' +
+      '<div style="flex:1;font-size:11px;color:var(--muted)">Next distribution</div>' +
+      '<div class="mono" style="font-size:11.5px;color:var(--ink)">' + rm(payout) + ' · ' + esc(payoutLabel(nextPayoutOf(id))) + '</div>' +
+    '</div>' +
+  '</div>';
+}
+
+/* ── Market ───────────────────────────────────────────────────── */
+
+function marketScreen(d){
+  return '<div class="screen">' +
+    '<div style="padding:0 20px">' +
+      '<div class="h1">Market</div>' +
+      '<div style="font-size:12.5px;color:var(--muted);margin-top:3px">' + ASSETS.length + ' live offerings · minimum RM100</div>' +
+    '</div>' +
+    '<div class="card" style="margin:14px 20px 0;border-radius:12px;padding:11px 13px;display:flex;align-items:center;gap:9px">' +
+      '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9AA5A0" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>' +
+      '<div style="font-size:13.5px;color:var(--faint)">Search issuer, rating or tenure</div>' +
+    '</div>' +
+    '<div style="display:flex;gap:7px;padding:14px 20px 2px;overflow-x:auto">' +
+      FILTERS.map(function(label){
+        var on = state.filter === label;
+        return '<div data-act="pickFilter" data-arg="' + esc(label) + '" style="flex:0 0 auto;padding:7px 13px;border-radius:100px;font-size:12.5px;font-weight:500;cursor:pointer;border:1px solid;' +
+          'background:' + (on ? '#0E3D2F' : '#FFFFFF') + ';color:' + (on ? '#FFFFFF' : '#4A5A54') + ';border-color:' + (on ? '#0E3D2F' : '#E3DFD4') + '">' + esc(label) + '</div>';
+      }).join('') +
+    '</div>' +
+    '<div style="display:flex;align-items:center;justify-content:space-between;padding:16px 20px 8px">' +
+      '<div class="lbl">' + d.list.length + ' offerings</div>' +
+      '<div style="font-size:11.5px;color:var(--muted)">Sorted by yield</div>' +
+    '</div>' +
+    '<div style="display:flex;flex-direction:column;gap:8px;padding:0 20px">' +
+      (d.list.length ? d.list.map(marketCard).join('')
+        : '<div class="card" style="padding:20px;text-align:center;font-size:13px;color:var(--muted)">No offerings match this filter.</div>') +
+    '</div>' +
+  '</div>';
+}
+
+function marketCard(a){
+  return '<div data-act="openAsset" data-arg="' + a.id + '" class="card t99" style="padding:14px;cursor:pointer">' +
+    '<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px">' +
+      '<div style="flex:1;min-width:0">' +
+        '<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">' +
+          '<div class="badge" style="background:#EEF3F0;color:var(--green)">' + esc(a.kind) + '</div>' +
+          (a.shariah ? '<div class="badge" style="background:#E9F2EC;color:var(--pos)">SHARIAH</div>' : '') +
+          (a.green   ? '<div class="badge" style="background:#EDF4E7;color:#4A6B22">SRI</div>' : '') +
+          (tokensOf(a.id) > 0 ? '<div class="badge" style="background:#F6F0E2;color:var(--gold-ink)">HELD</div>' : '') +
+        '</div>' +
+        '<div style="font-size:15px;font-weight:600;margin-top:8px;letter-spacing:-.012em;line-height:1.25">' + esc(a.name) + '</div>' +
+        '<div style="font-size:11.5px;color:var(--muted);margin-top:3px">' + esc(a.structure) + '</div>' +
+      '</div>' +
+      '<div style="text-align:right;flex:0 0 auto">' +
+        '<div class="mono" style="font-size:20px;font-weight:600;color:var(--green);letter-spacing:-.01em">' + esc(a.rate) + '</div>' +
+        '<div style="font-size:10px;color:var(--muted);letter-spacing:.05em;text-transform:uppercase;font-weight:600">p.a.</div>' +
+      '</div>' +
+    '</div>' +
+    '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:13px;padding-top:12px;border-top:1px solid var(--hair)">' +
+      miniStat('Rating', a.rating) + miniStat('Tenure', a.tenure) +
+      miniStat('Payout', a.freq) + miniStat('Filled', a.filled) +
+    '</div>' +
+  '</div>';
+}
+
+function miniStat(k, v){
+  return '<div><div class="lbl-xs">' + esc(k) + '</div>' +
+    '<div class="mono" style="font-size:12.5px;margin-top:2px">' + esc(v) + '</div></div>';
+}
+
+/* ── Wallet ───────────────────────────────────────────────────── */
+
+function walletScreen(d){
+  return '<div class="screen">' +
+    '<div style="padding:0 20px"><div class="h1">Balance</div></div>' +
+    '<div class="card" style="margin:16px 20px 0;border-radius:18px;padding:18px">' +
+      '<div class="lbl">Available cash</div>' +
+      '<div class="mono" style="font-size:32px;font-weight:600;margin-top:6px;letter-spacing:-.02em">' + rm(book.wallet) + '</div>' +
+      '<div style="font-size:12px;color:var(--muted);margin-top:4px">Held in a segregated trust account with Maybank Islamic</div>' +
+      '<div style="display:flex;gap:8px;margin-top:16px">' +
+        '<div data-act="openTopUp" class="t98" style="flex:1;background:var(--green);color:#fff;text-align:center;padding:12px;border-radius:12px;font-size:14px;font-weight:600;cursor:pointer">Top up</div>' +
+        '<div data-act="openWithdraw" class="t98" style="flex:1;background:var(--bg);border:1px solid var(--line);text-align:center;padding:12px;border-radius:12px;font-size:14px;font-weight:600;cursor:pointer">Withdraw</div>' +
+      '</div>' +
+    '</div>' +
+    '<div class="lbl" style="margin:20px 20px 8px">Linked accounts</div>' +
+    '<div class="card" style="margin:0 20px;overflow:hidden">' +
+      '<div class="row-b" style="padding:14px;display:flex;align-items:center;gap:12px">' +
+        '<div style="width:36px;height:36px;border-radius:10px;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--green)">MBB</div>' +
+        '<div style="flex:1">' +
+          '<div style="font-size:13.5px;font-weight:600">Maybank Islamic</div>' +
+          '<div class="mono" style="font-size:11.5px;color:var(--muted);margin-top:1px">•••• 4412 · DuitNow</div>' +
+        '</div>' +
+        '<div style="font-size:10px;font-weight:700;letter-spacing:.06em;padding:3px 6px;border-radius:5px;background:#E9F2EC;color:var(--pos)">PRIMARY</div>' +
+      '</div>' +
+      '<div style="padding:14px;display:flex;align-items:center;gap:12px">' +
+        '<div style="width:36px;height:36px;border-radius:10px;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--green)">CIMB</div>' +
+        '<div style="flex:1">' +
+          '<div style="font-size:13.5px;font-weight:600">CIMB Islamic</div>' +
+          '<div class="mono" style="font-size:11.5px;color:var(--muted);margin-top:1px">•••• 8830 · FPX</div>' +
+        '</div>' +
+      '</div>' +
+    '</div>' +
+    '<div class="lbl" style="margin:20px 20px 8px">Income received</div>' +
+    '<div class="card" style="margin:0 20px;padding:16px">' +
+      '<div style="display:flex;align-items:flex-end;gap:6px;height:74px">' +
+        INCOME_BARS.map(function(b){
+          return '<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;justify-content:flex-end;height:100%">' +
+            '<div style="width:100%;border-radius:4px 4px 0 0;background:' + b.color + ';height:' + b.h + '"></div>' +
+            '<div class="mono" style="font-size:9.5px;color:var(--faint)">' + esc(b.label) + '</div>' +
+          '</div>';
+        }).join('') +
+      '</div>' +
+      '<div style="display:flex;justify-content:space-between;margin-top:14px;padding-top:12px;border-top:1px solid var(--hair)">' +
+        '<div style="font-size:12px;color:var(--muted)">Total distributions 2026</div>' +
+        '<div class="mono" style="font-size:13px;font-weight:600">' + rm(book.distributions) + '</div>' +
+      '</div>' +
+    '</div>' +
+  '</div>';
+}
+
+/* ── Cash sheet (top up / withdraw) ───────────────────────────── */
+
+function cashSheet(){
+  var mode = state.cash.mode;
+  var isTop = mode === 'topup';
+  var amt = parseInt(state.cash.amount, 10) || 0;
+  var valid = isTop ? amt >= 10 : (amt >= 10 && amt <= book.wallet);
+  var hint = amt < 10 ? 'Minimum ' + rm(10)
+           : (!isTop && amt > book.wallet) ? 'You only have ' + rm(book.wallet)
+           : isTop ? 'From Maybank Islamic ••4412 · instant'
+                   : 'To Maybank Islamic ••4412 · 1 business day';
+
+  return '<div data-act="closeCash" style="position:absolute;inset:0;background:rgba(12,42,34,.35);animation:tkFade .2s ease"></div>' +
+  '<div style="position:absolute;left:0;right:0;bottom:0;background:var(--bg);border-radius:26px 26px 0 0;display:flex;flex-direction:column;animation:tkUp .3s cubic-bezier(.22,1,.36,1);overflow:hidden;padding-bottom:26px">' +
+    '<div style="padding:12px 20px;background:#fff;border-bottom:1px solid var(--line)">' +
+      '<div style="width:38px;height:4px;border-radius:2px;background:#DDD8CC;margin:0 auto 12px"></div>' +
+      '<div style="display:flex;align-items:center;gap:11px">' +
+        '<div style="flex:1">' +
+          '<div style="font-size:15px;font-weight:600">' + (isTop ? 'Top up balance' : 'Withdraw to bank') + '</div>' +
+          '<div style="font-size:11.5px;color:var(--muted)">Available: ' + rm(book.wallet) + '</div>' +
+        '</div>' +
+        '<div data-act="closeCash" style="width:30px;height:30px;border-radius:9px;background:var(--bg);display:flex;align-items:center;justify-content:center;cursor:pointer">' +
+          '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#71807A" stroke-width="2.2"><path d="M18 6L6 18M6 6l12 12"></path></svg>' +
+        '</div>' +
+      '</div>' +
+    '</div>' +
+    '<div style="padding:22px 20px 0;display:flex;flex-direction:column;align-items:center">' +
+      '<div class="lbl">' + (isTop ? 'Amount to add' : 'Amount to withdraw') + '</div>' +
+      '<div style="display:flex;align-items:baseline;gap:6px;margin-top:10px">' +
+        '<div class="mono" style="font-size:22px;color:var(--muted)">RM</div>' +
+        '<div class="mono" style="font-size:46px;font-weight:600;letter-spacing:-.03em">' + esc(amt.toLocaleString('en-MY')) + '</div>' +
+      '</div>' +
+      '<div style="font-size:12.5px;color:' + (valid ? 'var(--muted)' : 'var(--neg)') + ';margin-top:6px">' + esc(hint) + '</div>' +
+      '<div style="display:flex;gap:8px;margin-top:16px">' +
+        (isTop ? [100,500,1000] : [100,500,'all']).map(function(v){
+          var label = v === 'all' ? 'All' : 'RM ' + v;
+          return '<div data-act="cashQuick" data-arg="' + v + '" class="mono t96" style="padding:8px 15px;border-radius:100px;background:#fff;border:1px solid var(--line);font-size:13px;cursor:pointer">' + label + '</div>';
+        }).join('') +
+      '</div>' +
+    '</div>' +
+    '<div style="padding:18px 20px 0" class="keypad">' +
+      KEYPAD.map(function(k){
+        return '<div data-act="cashKey" data-arg="' + esc(k) + '" class="mono key tkey">' + esc(k) + '</div>';
+      }).join('') +
+    '</div>' +
+    '<div style="padding:14px 20px 0">' +
+      '<div data-act="confirmCash" class="t98" style="background:' + (valid ? 'var(--green)' : '#B9C2BE') + ';color:#fff;text-align:center;padding:16px;border-radius:14px;font-size:15px;font-weight:600;cursor:pointer">' +
+        (isTop ? 'Add ' : 'Withdraw ') + rm(amt) + '</div>' +
+    '</div>' +
+  '</div>';
+}
+
+/* ── Activity ─────────────────────────────────────────────────── */
+
+function activityScreen(){
+  return '<div class="screen">' +
+    '<div style="padding:0 20px"><div class="h1">Activity</div></div>' +
+    '<div style="display:flex;gap:7px;padding:14px 20px 6px">' +
+      '<div style="padding:7px 13px;border-radius:100px;font-size:12.5px;font-weight:500;background:var(--green);color:#fff">All</div>' +
+      '<div style="padding:7px 13px;border-radius:100px;font-size:12.5px;font-weight:500;background:#fff;border:1px solid var(--line);color:#4A5A54">Distributions</div>' +
+      '<div style="padding:7px 13px;border-radius:100px;font-size:12.5px;font-weight:500;background:#fff;border:1px solid var(--line);color:#4A5A54">Trades</div>' +
+    '</div>' +
+    '<div class="card" style="margin:8px 20px 0;overflow:hidden">' +
+      book.activity.map(function(t){
+        var bg = t.kind === 'in' ? '#E9F2EC' : t.kind === 'top' || t.kind === 'out' ? '#F4F2ED' : '#EEF3F0';
+        var fg = t.kind === 'in' ? '#157A56' : t.kind === 'top' || t.kind === 'out' ? '#71807A' : '#0E3D2F';
+        var amtColor = t.kind === 'in' ? 'var(--pos)' : 'var(--ink)';
+        var amtText = (t.amount >= 0 ? '+' : '−') + rm(Math.abs(t.amount));
+        return '<div class="row-b" style="padding:14px;display:flex;align-items:center;gap:12px">' +
+          '<div class="mono" style="width:34px;height:34px;border-radius:10px;background:' + bg + ';color:' + fg + ';display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:600">' + esc(t.glyph) + '</div>' +
+          '<div style="flex:1;min-width:0">' +
+            '<div style="font-size:13.5px;font-weight:600;line-height:1.3">' + esc(t.title) + '</div>' +
+            '<div style="font-size:11.5px;color:var(--muted);margin-top:2px">' + esc(t.sub) + '</div>' +
+          '</div>' +
+          '<div style="text-align:right">' +
+            '<div class="mono" style="font-size:13px;font-weight:500;color:' + amtColor + '">' + amtText + '</div>' +
+            '<div class="mono" style="font-size:10.5px;color:var(--faint);margin-top:2px">' + esc(t.date) + '</div>' +
+          '</div>' +
+        '</div>';
+      }).join('') +
+    '</div>' +
+  '</div>';
+}
+
+/* ── Profile ──────────────────────────────────────────────────── */
+
+function profileScreen(){
+  var settings = [
+    { label:'Investor profile', sub:'Retail · moderate risk', value:'Edit' },
+    { label:'Shariah-only mode', sub:'Hide conventional bonds from Market', value:state.shariahOnly ? 'On' : 'Off', act:'toggleShariah' },
+    { label:'Distribution payout', sub:'Where profit payments go', value:'Balance' },
+    { label:'Tax vouchers', sub:'Annual statements for LHDN', value:'2025' },
+    { label:'Security', sub:'Face ID, PIN, devices', value:'' },
+    { label:'Help & disputes', sub:'SC-registered dispute channel', value:'' },
+    { label:'Simulate next distribution', sub:'Demo only — skips ahead to your next payout date', value:'Run', act:'simulateNextPayout' },
+    { label:'Reset demo data', sub:'Restore the starting portfolio and balance', value:'Reset', act:'resetDemo' }
+  ];
+  return '<div class="screen">' +
+    '<div style="padding:0 20px;display:flex;align-items:center;gap:14px">' +
+      '<div style="width:56px;height:56px;border-radius:18px;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:600">NA</div>' +
+      '<div>' +
+        '<div style="font-size:19px;font-weight:600;letter-spacing:-.01em">Nur Aisyah Rahim</div>' +
+        '<div style="font-size:12px;color:var(--muted);margin-top:2px">Member since Mar 2025 · Kuala Lumpur</div>' +
+      '</div>' +
+    '</div>' +
+    '<div style="margin:16px 20px 0;background:#E9F2EC;border:1px solid #CFE4D8;border-radius:14px;padding:13px;display:flex;align-items:center;gap:10px">' +
+      '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#157A56" stroke-width="2"><path d="M20 6L9 17l-5-5"></path></svg>' +
+      '<div style="flex:1">' +
+        '<div style="font-size:13px;font-weight:600;color:var(--green)">eKYC verified</div>' +
+        '<div style="font-size:11.5px;color:#3E6B57;margin-top:1px">MyKad checked against JPN · 12 Mar 2025</div>' +
+      '</div>' +
+    '</div>' +
+    '<div class="lbl" style="margin:16px 20px 8px">Account</div>' +
+    '<div class="card" style="margin:0 20px;overflow:hidden">' +
+      settings.map(function(s){
+        return '<div class="row-b"' + (s.act ? ' data-act="' + s.act + '"' : '') + ' style="padding:14px;display:flex;align-items:center;gap:12px;cursor:pointer">' +
+          '<div style="flex:1">' +
+            '<div style="font-size:13.5px;font-weight:500">' + esc(s.label) + '</div>' +
+            '<div style="font-size:11.5px;color:var(--muted);margin-top:1px">' + esc(s.sub) + '</div>' +
+          '</div>' +
+          '<div class="mono" style="font-size:12px;color:var(--faint)">' + esc(s.value) + '</div>' +
+        '</div>';
+      }).join('') +
+    '</div>' +
+    '<div style="margin:16px 20px 0;font-size:11px;color:var(--faint);line-height:1.6">Tokenkan Capital Sdn Bhd is a Recognised Market Operator registered with the Securities Commission Malaysia. Investments are not protected by PIDM. Capital is at risk.</div>' +
+  '</div>';
+}
+
+/* ── Asset detail ─────────────────────────────────────────────── */
+
+function detailScreen(d){
+  var a = d.a;
+  var terms = [
+    ['Issuer', a.name], ['Instrument code', a.code], ['Denomination', 'RM 100'],
+    ['Minimum investment', 'RM 100'], ['Rating', a.rating], ['Tenure', a.tenure],
+    ['Maturity', a.maturity], ['Distribution basis', 'Actual / 365'],
+    ['Early redemption', 'None — buyback only']
+  ];
+  var perToken = round2(PAR * (a.rateNum / 100) / 2);
+  var schedule = [
+    { date:'15 Feb 2026', amt:rm(perToken), status:'Paid', dot:'#157A56' },
+    { date:'15 Aug 2026', amt:rm(perToken), status:'Paid', dot:'#157A56' },
+    { date:'15 Feb 2027', amt:rm(perToken), status:'Next', dot:'#B0872F' },
+    { date:'15 Aug 2027', amt:rm(perToken), status:'Scheduled', dot:'#DDD8CC' },
+    { date:'…', amt:'…', status:'', dot:'#DDD8CC' },
+    { date:a.maturity, amt:rm(round2(PAR + perToken)), status:'Maturity', dot:'#DDD8CC' }
+  ];
+  var risks = [
+    { t:'Credit risk', d:'If the obligor cannot pay, distributions stop and you may not recover your principal. Nothing here is guaranteed by the government or PIDM.' },
+    { t:'Liquidity risk', d:'There is no put option. Exit before maturity depends on Tokenkan quoting a buyback price, which can be below what you paid.' },
+    { t:a.hasKpi ? 'KPI adjustment' : 'Rate risk',
+      d:a.hasKpi ? 'Meeting the education targets reduces the nominal value repaid at maturity by up to 6.5%.'
+                 : 'If OPR rises, the buyback price of a fixed-rate holding falls. Holding to maturity avoids this.' }
+  ];
+
+  return '<div style="padding:62px 0 120px">' +
+    '<div style="padding:0 20px;display:flex;align-items:center;justify-content:space-between">' +
+      backButton() +
+      '<div class="mono" style="font-size:12px;color:var(--muted)">' + esc(a.code) + '</div>' +
+    '</div>' +
+    '<div style="padding:18px 20px 0">' +
+      '<div style="display:flex;gap:6px;flex-wrap:wrap">' +
+        '<div class="badge badge-lg" style="background:#EEF3F0;color:var(--green)">' + esc(a.kind) + '</div>' +
+        (a.shariah ? '<div class="badge badge-lg" style="background:#E9F2EC;color:var(--pos)">SHARIAH COMPLIANT</div>' : '') +
+      '</div>' +
+      '<div style="font-size:24px;font-weight:600;margin-top:11px;letter-spacing:-.02em;line-height:1.2;text-wrap:pretty">' + esc(a.name) + '</div>' +
+      '<div style="font-size:12.5px;color:var(--muted);margin-top:5px;line-height:1.5">' + esc(a.structure) + ' · Issued under the ' + esc(a.programme) + '</div>' +
+    '</div>' +
+
+    (d.owns
+      ? '<div class="card" style="margin:14px 20px 0;padding:14px;display:flex;justify-content:space-between;align-items:center">' +
+          '<div><div class="lbl-sm">You hold</div>' +
+          '<div class="mono" style="font-size:17px;margin-top:3px">' + tokensOf(a.id) + ' units</div></div>' +
+          '<div style="text-align:right"><div class="lbl-sm">Market value</div>' +
+          '<div class="mono" style="font-size:17px;margin-top:3px">' + rm(positionValue(a.id)) + '</div></div>' +
+        '</div>'
+      : '') +
+
+    '<div style="margin:18px 20px 0;background:var(--green);border-radius:18px;padding:18px;color:#fff;display:flex;align-items:flex-end;justify-content:space-between">' +
+      '<div>' +
+        '<div style="font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.6);font-weight:600">Periodic distribution</div>' +
+        '<div class="mono" style="font-size:36px;font-weight:600;letter-spacing:-.02em;line-height:1.1;margin-top:4px">' + esc(a.rate) + '</div>' +
+        '<div style="font-size:11.5px;color:rgba(255,255,255,.6)">per annum, paid ' + esc(a.freqLong) + '</div>' +
+      '</div>' +
+      '<div style="text-align:right">' +
+        '<div style="font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.6);font-weight:600">RM100 becomes</div>' +
+        '<div class="mono" style="font-size:20px;margin-top:4px">' + esc(a.growTo) + '</div>' +
+        '<div style="font-size:11px;color:rgba(255,255,255,.6)">by ' + esc(a.maturityShort) + '</div>' +
+      '</div>' +
+    '</div>' +
+
+    '<div data-act="openExplainer" class="t99" style="margin:10px 20px 0;background:#fff;border:1px solid #D8CEB4;border-radius:16px;padding:14px;display:flex;align-items:center;gap:12px;cursor:pointer">' +
+      '<div style="width:34px;height:34px;border-radius:11px;background:#F6F0E2;display:flex;align-items:center;justify-content:center">' +
+        '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#8A6A22" stroke-width="1.8"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"></path></svg>' +
+      '</div>' +
+      '<div style="flex:1">' +
+        '<div style="font-size:13.5px;font-weight:600">Explain this in plain English</div>' +
+        '<div style="font-size:11.5px;color:var(--muted);margin-top:1px">Ask anything about the prospectus</div>' +
+      '</div>' +
+      '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9AA5A0" stroke-width="2"><path d="M9 18l6-6-6-6"></path></svg>' +
+    '</div>' +
+
+    (a.id === GROUNDED_ASSET_ID
+      ? '<a href="/prospectus.txt" download="' + esc(a.short.replace(/\s+/g, '-')) + '-Prospectus-Excerpt.txt" style="text-decoration:none;color:inherit;display:block" class="t99">' +
+          '<div style="margin:10px 20px 0;background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;display:flex;align-items:center;gap:12px;cursor:pointer">' +
+            '<div style="width:34px;height:34px;border-radius:11px;background:var(--bg);display:flex;align-items:center;justify-content:center;flex:0 0 auto">' +
+              '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#0E3D2F" stroke-width="1.8"><path d="M12 3v13m0 0l-4-4m4 4l4-4"></path><path d="M5 18v2a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2"></path></svg>' +
+            '</div>' +
+            '<div style="flex:1">' +
+              '<div style="font-size:13.5px;font-weight:600">Download prospectus</div>' +
+              '<div style="font-size:11.5px;color:var(--muted);margin-top:1px">Text excerpt · pages 1–70 of 223</div>' +
+            '</div>' +
+            '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9AA5A0" stroke-width="2"><path d="M9 18l6-6-6-6"></path></svg>' +
+          '</div>' +
+        '</a>'
+      : '<div data-act="downloadTermSheet" class="t99" style="margin:10px 20px 0;background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;display:flex;align-items:center;gap:12px;cursor:pointer">' +
+          '<div style="width:34px;height:34px;border-radius:11px;background:var(--bg);display:flex;align-items:center;justify-content:center;flex:0 0 auto">' +
+            '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#0E3D2F" stroke-width="1.8"><path d="M12 3v13m0 0l-4-4m4 4l4-4"></path><path d="M5 18v2a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2"></path></svg>' +
+          '</div>' +
+          '<div style="flex:1">' +
+            '<div style="font-size:13.5px;font-weight:600">Download indicative term sheet</div>' +
+            '<div style="font-size:11.5px;color:var(--muted);margin-top:1px">No prospectus on file for this demo offering</div>' +
+          '</div>' +
+          '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9AA5A0" stroke-width="2"><path d="M9 18l6-6-6-6"></path></svg>' +
+        '</div>') +
+
+    '<div class="lbl sec">Key terms</div>' +
+    '<div class="card" style="margin:0 20px;overflow:hidden">' +
+      terms.map(function(t){
+        return '<div class="row-b" style="padding:12px 14px;display:flex;align-items:baseline;justify-content:space-between;gap:14px">' +
+          '<div style="font-size:12.5px;color:#4A5A54">' + esc(t[0]) + '</div>' +
+          '<div class="mono" style="font-size:12.5px;text-align:right;font-weight:500">' + esc(t[1]) + '</div>' +
+        '</div>';
+      }).join('') +
+    '</div>' +
+
+    (a.hasKpi
+      ? '<div style="margin:14px 20px 0;background:#FBF7EC;border:1px solid #E8DDBF;border-radius:16px;padding:15px">' +
+          '<div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-ink)">Read this before you buy</div>' +
+          '<div style="font-size:13px;line-height:1.55;margin-top:8px;color:#3D3421;text-wrap:pretty">If the school KPIs are met, the nominal value of your sukuk is reduced at maturity — up to 6.5% of principal is forgone as your contribution. You are choosing to give up part of your capital if the project succeeds.</div>' +
+        '</div>'
+      : '') +
+
+    '<div class="lbl sec">Distribution schedule</div>' +
+    '<div class="card" style="margin:0 20px;padding:16px">' +
+      schedule.map(function(p){
+        return '<div style="display:flex;align-items:center;gap:12px;padding:8px 0">' +
+          '<div style="width:8px;height:8px;border-radius:50%;background:' + p.dot + ';flex:0 0 auto"></div>' +
+          '<div class="mono" style="flex:1;font-size:12.5px;color:#4A5A54">' + esc(p.date) + '</div>' +
+          '<div class="mono" style="font-size:12.5px;font-weight:500">' + esc(p.amt) + '</div>' +
+          '<div style="font-size:11px;color:var(--faint);width:58px;text-align:right">' + esc(p.status) + '</div>' +
+        '</div>';
+      }).join('') +
+      '<div style="font-size:10.5px;color:var(--faint);margin-top:8px;padding-top:10px;border-top:1px solid var(--hair);line-height:1.5">Per RM100 unit.</div>' +
+    '</div>' +
+
+    '<div class="lbl sec">Risks</div>' +
+    '<div class="card" style="margin:0 20px;padding:16px;display:flex;flex-direction:column;gap:11px">' +
+      risks.map(function(r){
+        return '<div style="display:flex;gap:10px">' +
+          '<div style="width:5px;height:5px;border-radius:50%;background:var(--neg);margin-top:7px;flex:0 0 auto"></div>' +
+          '<div style="flex:1">' +
+            '<div style="font-size:13px;font-weight:600">' + esc(r.t) + '</div>' +
+            '<div style="font-size:12px;color:var(--muted);line-height:1.5;margin-top:2px;text-wrap:pretty">' + esc(r.d) + '</div>' +
+          '</div>' +
+        '</div>';
+      }).join('') +
+    '</div>' +
+  '</div>';
+}
+
+function detailBar(d){
+  return '<div class="barrier" style="padding:12px 20px 30px;display:flex;gap:10px;align-items:center">' +
+    '<div>' +
+      '<div class="lbl-sm">Minimum</div>' +
+      '<div class="mono" style="font-size:15px;font-weight:600">RM 100</div>' +
+    '</div>' +
+    (d.owns
+      ? '<div data-act="goSell" class="t98" style="padding:14px 16px;border-radius:13px;background:#fff;border:1px solid var(--line);font-size:14.5px;font-weight:600;cursor:pointer">Sell</div>'
+      : '') +
+    '<div data-act="goBuy" class="t98" style="flex:1;background:var(--green);color:#fff;text-align:center;padding:15px;border-radius:13px;font-size:15px;font-weight:600;cursor:pointer">Invest</div>' +
+  '</div>';
+}
+
+function backButton(){
+  return '<div data-act="back" class="iconbtn t95">' +
+    '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0C2A22" stroke-width="2"><path d="M15 18l-6-6 6-6"></path></svg>' +
+  '</div>';
+}
+
+// Plain-text indicative term sheet for the demo offerings with no real
+// prospectus behind them. Clearly labelled as such — never presented as a
+// substitute for a real prospectus.
+function termSheetText(a){
+  var perToken = round2(PAR * (a.rateNum / 100) / 2);
+  var lines = [
+    'INDICATIVE TERM SHEET — NOT A PROSPECTUS',
+    'This is a demonstration offering on the Tokenkan prototype. No legal prospectus exists for it. Nothing here is an offer, invitation, or investment advice.',
+    '',
+    a.name,
+    a.code,
+    '',
+    'Structure: ' + a.structure,
+    'Programme: ' + a.programme,
+    'Instrument type: ' + a.kind + (a.shariah ? ' (Shariah compliant)' : ''),
+    '',
+    'KEY TERMS',
+    'Denomination: RM 100 per unit',
+    'Minimum investment: RM 100',
+    'Periodic distribution: ' + a.rate + ' per annum, paid ' + a.freqLong + ' (' + rm(perToken) + ' per unit)',
+    'Tenure: ' + a.tenure,
+    'Maturity: ' + a.maturity,
+    'Credit rating: ' + a.rating,
+    'Distribution basis: Actual / 365',
+    'Early redemption: none — Tokenkan buyback only',
+    '',
+    'RISKS',
+    '- Credit risk: distributions stop and principal may not be recovered if the issuer cannot pay. No PIDM protection.',
+    '- Liquidity risk: no put option; exit before maturity depends on a Tokenkan buyback quote, which can be below cost.',
+    a.hasKpi
+      ? '- KPI adjustment: meeting the stated targets reduces the nominal value repaid at maturity by up to 6.5%.'
+      : '- Rate risk: if interest rates rise, the buyback price of this fixed-rate holding falls.',
+    '',
+    'Generated by Tokenkan on ' + longDate(today()) + '. Educational information only — not investment advice.'
+  ];
+  return lines.join('\n');
+}
+
+function downloadTextFile(filename, text){
+  var blob = new Blob([text], { type:'text/plain;charset=utf-8' });
+  var url = URL.createObjectURL(blob);
+  var link = document.createElement('a');
+  link.href = url;
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
+}
+
+/* ── Buy ──────────────────────────────────────────────────────── */
+
+function buyScreen(d){
+  var a = d.a;
+  var head = '<div style="padding:0 20px;display:flex;align-items:center;gap:12px">' +
+    backButton() +
+    '<div style="flex:1">' +
+      '<div style="font-size:15px;font-weight:600">Invest</div>' +
+      '<div style="font-size:11.5px;color:var(--muted)">' + esc(a.short) + '</div>' +
+    '</div>' +
+    '<div class="mono" style="font-size:11.5px;color:var(--muted)">Step ' + (state.buyStep === 'entry' ? 1 : 2) + ' of 2</div>' +
+  '</div>';
+
+  var inner = state.buyStep === 'entry' ? buyEntry(d) : buyReview(d);
+  return '<div style="padding:62px 0 0;height:100%;display:flex;flex-direction:column">' + head + inner + '</div>';
+}
+
+function buyEntry(d){
+  var amt = d.amt, valid = d.valid;
+  return '<div style="flex:1;display:flex;flex-direction:column;padding:0 20px">' +
+    '<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px 0">' +
+      '<div class="lbl">Amount to invest</div>' +
+      '<div style="display:flex;align-items:baseline;gap:6px;margin-top:10px">' +
+        '<div class="mono" style="font-size:22px;color:var(--muted)">RM</div>' +
+        '<div class="mono" style="font-size:52px;font-weight:600;letter-spacing:-.03em">' + esc(amt.toLocaleString('en-MY')) + '</div>' +
+      '</div>' +
+      '<div style="font-size:12.5px;color:' + (valid ? 'var(--muted)' : 'var(--neg)') + ';margin-top:6px">' + esc(d.buyHint) + '</div>' +
+      '<div style="display:flex;gap:8px;margin-top:20px">' +
+        [100,500,1000].map(function(v){
+          return '<div data-act="quickAmount" data-arg="' + v + '" class="mono t96" style="padding:8px 15px;border-radius:100px;background:#fff;border:1px solid var(--line);font-size:13px;cursor:pointer">RM ' + v + '</div>';
+        }).join('') +
+      '</div>' +
+      '<div class="card" style="margin-top:24px;border-radius:14px;padding:14px;width:100%">' +
+        buyRow('Units at RM100 each', valid ? (amt/100) + ' units' : '—', null) +
+        buyRow('Projected income to maturity', valid ? '+' + rm(d.income) : '—', 'var(--pos)') +
+        buyRow('Balance after purchase', valid ? rm(book.wallet - amt) : '—', null) +
+      '</div>' +
+    '</div>' +
+    '<div class="keypad" style="padding-bottom:10px">' +
+      KEYPAD.map(function(k){
+        return '<div data-act="tapKey" data-arg="' + esc(k) + '" class="mono key tkey">' + esc(k) + '</div>';
+      }).join('') +
+    '</div>' +
+    '<div data-act="toReview" class="t98" style="background:' + (valid ? 'var(--green)' : '#B9C2BE') + ';color:#fff;text-align:center;padding:16px;border-radius:14px;font-size:15px;font-weight:600;cursor:pointer;margin-bottom:30px">Review order</div>' +
+  '</div>';
+}
+
+function buyRow(k, v, color){
+  return '<div style="display:flex;justify-content:space-between;font-size:12.5px;padding:3px 0">' +
+    '<div style="color:var(--muted)">' + esc(k) + '</div>' +
+    '<div class="mono"' + (color ? ' style="color:' + color + '"' : '') + '>' + esc(v) + '</div>' +
+  '</div>';
+}
+
+function buyReview(d){
+  var a = d.a, amt = d.amt;
+  var settle = new Date(); settle.setDate(settle.getDate() + 1);
+  var rows = [
+    ['Units', (amt/100) + ' × RM 100'],
+    ['Subscription amount', rm(amt)],
+    ['Platform fee', 'RM 0.00'],
+    ['Settlement', 'T+1 · ' + longDate(settle)],
+    ['First distribution', payoutLabel(nextPayoutOf(a.id))]
+  ];
+  var ackBorder = state.ack ? '#0E3D2F' : '#E3DFD4';
+  return '<div style="flex:1;display:flex;flex-direction:column;padding:18px 20px 0;overflow-y:auto">' +
+    '<div class="card" style="border-radius:18px;padding:18px">' +
+      '<div class="lbl">You are buying</div>' +
+      '<div style="font-size:17px;font-weight:600;margin-top:7px;line-height:1.3">' + esc(a.name) + '</div>' +
+      '<div style="font-size:12px;color:var(--muted);margin-top:3px">' + esc(a.structure) + ' · ' + esc(a.rate) + ' p.a.</div>' +
+      '<div style="margin-top:16px;padding-top:14px;border-top:1px solid var(--hair);display:flex;flex-direction:column;gap:9px">' +
+        rows.map(function(o){
+          return '<div style="display:flex;justify-content:space-between;align-items:baseline">' +
+            '<div style="font-size:12.5px;color:#4A5A54">' + esc(o[0]) + '</div>' +
+            '<div class="mono" style="font-size:12.5px;font-weight:500">' + esc(o[1]) + '</div>' +
+          '</div>';
+        }).join('') +
+      '</div>' +
+      '<div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--hair);display:flex;justify-content:space-between;align-items:baseline">' +
+        '<div style="font-size:14px;font-weight:600">Total debited</div>' +
+        '<div class="mono" style="font-size:19px;font-weight:600">' + rm(amt) + '</div>' +
+      '</div>' +
+    '</div>' +
+    '<div data-act="toggleAck" style="margin-top:12px;background:#fff;border:1px solid ' + ackBorder + ';border-radius:14px;padding:14px;display:flex;gap:11px;cursor:pointer">' +
+      '<div style="width:20px;height:20px;border-radius:6px;border:1.5px solid ' + ackBorder + ';background:' + (state.ack ? '#0E3D2F' : 'transparent') + ';display:flex;align-items:center;justify-content:center;flex:0 0 auto;margin-top:1px">' +
+        '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M20 6L9 17l-5-5"></path></svg>' +
+      '</div>' +
+      '<div style="font-size:12px;line-height:1.5;color:#4A5A54;text-wrap:pretty">I understand capital is at risk, returns are not guaranteed, and this investment is not protected by PIDM.</div>' +
+    '</div>' +
+    '<div style="flex:1"></div>' +
+    '<div data-act="confirmBuy" class="t98" style="background:' + (state.ack ? 'var(--green)' : '#B9C2BE') + ';color:#fff;text-align:center;padding:16px;border-radius:14px;font-size:15px;font-weight:600;cursor:pointer;margin:14px 0 30px">Confirm and pay ' + rm(amt) + '</div>' +
+  '</div>';
+}
+
+/* ── Sell ─────────────────────────────────────────────────────── */
+
+function sellScreen(d){
+  var a = d.a;
+  var held = tokensOf(a.id);
+  var qty = Math.min(state.sellQty, held) || (held ? held : 1);
+  var q = sellQuote(a.id, qty);
+  var depth = bidDepth(a);
+  var income = assetIncomeReceived(a.id);
+  var maturityDays = daysToMaturity(a);
+
+  return '<div style="padding:62px 0 0;height:100%;display:flex;flex-direction:column">' +
+    '<div style="padding:0 20px;display:flex;align-items:center;gap:12px">' +
+      backButton() +
+      '<div style="font-size:15px;font-weight:600">Sell your fraction</div>' +
+    '</div>' +
+    '<div style="padding:18px 20px 0;flex:1;overflow-y:auto">' +
+
+      // What you own
+      '<div class="card" style="border-radius:18px;padding:18px">' +
+        '<div style="font-size:16px;font-weight:600;line-height:1.3">' + esc(a.name) + '</div>' +
+        '<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px;padding-top:14px;border-top:1px solid var(--hair)">' +
+          miniStat('Units held', held + ' units') +
+          miniStat('Amount invested', rm(positionCost(a.id))) +
+          miniStat('Coupon income received', rm(income)) +
+          miniStat('Days to maturity', maturityDays + ' days') +
+        '</div>' +
+      '</div>' +
+
+      // Quantity
+      '<div class="card" style="margin-top:14px;border-radius:18px;padding:18px">' +
+        '<div style="display:flex;justify-content:space-between;align-items:baseline">' +
+          '<div style="font-size:13px;font-weight:600">Units to sell</div>' +
+          '<div style="display:flex;align-items:center;gap:10px">' +
+            '<div id="sellQty" class="mono" style="font-size:19px;font-weight:600">' + qty + '</div>' +
+            '<div data-act="sellAll" class="mono t96" style="padding:5px 11px;border-radius:100px;background:var(--bg);border:1px solid var(--line);font-size:11.5px;cursor:pointer">Sell all</div>' +
+          '</div>' +
+        '</div>' +
+        '<input id="sellRange" type="range" min="1" max="' + held + '" value="' + qty + '">' +
+        '<div class="mono" style="display:flex;justify-content:space-between;font-size:10.5px;color:var(--faint)">' +
+          '<div>1</div><div>' + held + ' (all)</div>' +
+        '</div>' +
+      '</div>' +
+
+      // Indicative price
+      '<div class="card" style="margin-top:14px;border-radius:18px;padding:18px">' +
+        '<div style="display:flex;align-items:center;justify-content:space-between">' +
+          '<div class="lbl">Indicative price</div>' +
+          '<div style="font-size:9.5px;font-weight:700;letter-spacing:.06em;padding:3px 7px;border-radius:5px;background:#F6F0E2;color:var(--gold-ink)">INDICATIVE</div>' +
+        '</div>' +
+        '<div style="display:flex;justify-content:space-between;align-items:baseline;margin-top:10px">' +
+          '<div style="font-size:12.5px;color:#4A5A54">Current best bid</div>' +
+          '<div class="mono" style="font-size:12.5px;font-weight:500">' + rm(q.price) + ' / unit</div>' +
+        '</div>' +
+        '<div style="display:flex;justify-content:space-between;align-items:baseline;margin-top:9px;padding-top:11px;border-top:1px solid var(--hair)">' +
+          '<div style="font-size:14px;font-weight:600">Indicative sale value</div>' +
+          '<div id="sellNet" class="mono" style="font-size:19px;font-weight:600">' + rm(q.net) + '</div>' +
+        '</div>' +
+        '<div style="font-size:11px;color:var(--muted);margin-top:8px;line-height:1.5">The price can sit slightly above or below what you paid, depending on where market yields are now. Indicative — final price confirmed at matching.</div>' +
+        '<div style="display:flex;flex-direction:column;gap:8px;margin-top:14px;padding-top:13px;border-top:1px solid var(--hair)">' +
+          sellRow('Gross proceeds', rm(q.gross), 'var(--ink)', 'sellGross') +
+          sellRow('Accrued coupon income', '+' + rm(q.accrued), 'var(--pos)', 'sellAccrued') +
+          sellRow('Buyback fee (0.35%)', '−' + rm(q.fee), 'var(--neg)', 'sellFee') +
+        '</div>' +
+      '</div>' +
+
+      // Depth
+      '<div class="card" style="margin-top:14px;border-radius:18px;padding:18px">' +
+        '<div class="lbl">Live bids</div>' +
+        '<div style="display:flex;flex-direction:column;gap:1px;margin-top:10px;border-radius:10px;overflow:hidden">' +
+          depth.map(function(bid, i){
+            return '<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:' + (i === 0 ? '#EEF3F0' : 'transparent') + '">' +
+              '<div class="mono" style="font-size:12.5px;font-weight:' + (i === 0 ? '600' : '500') + ';color:' + (i === 0 ? 'var(--green)' : 'var(--ink)') + '">' + rm(bid.price) + '</div>' +
+              '<div class="mono" style="font-size:11.5px;color:var(--muted)">' + bid.qty + ' units</div>' +
+            '</div>';
+          }).join('') +
+        '</div>' +
+        '<div style="font-size:10.5px;color:var(--faint);margin-top:10px;line-height:1.5">Live demand from other Tokenkan investors. Your sale matches against the best available bid first.</div>' +
+      '</div>' +
+    '</div>' +
+    '<div style="padding:12px 20px 30px">' +
+      '<div style="font-size:11.5px;color:var(--muted);text-align:center;line-height:1.5;margin-bottom:10px">Selling early is optional — holding to maturity returns the full nominal value of RM100 per unit.</div>' +
+      '<div id="sellCta" data-act="confirmSell" class="cta t98">Sell ' + qty + ' units for ' + rm(q.net) + '</div>' +
+    '</div>' +
+  '</div>';
+}
+
+function sellRow(k, v, color, id){
+  return '<div style="display:flex;justify-content:space-between;align-items:baseline">' +
+    '<div style="font-size:12.5px;color:#4A5A54">' + esc(k) + '</div>' +
+    '<div' + (id ? ' id="' + id + '"' : '') + ' class="mono" style="font-size:12.5px;font-weight:500;color:' + color + '">' + esc(v) + '</div>' +
+  '</div>';
+}
+
+/* ── Withdraw coupon income ───────────────────────────────────── */
+
+function incomeScreen(){
+  var withdrawable = withdrawableIncome();
+  var invested = portfolio().cost;
+  var typed = parseInt(state.income.amount, 10) || 0;
+  var amt = effectiveWithdrawAmount(typed, withdrawable);
+  var valid = amt >= 1 && amt <= withdrawable;
+  var isMaybank = state.income.dest !== 'duitnow';
+
+  return '<div style="padding:62px 0 0;height:100%;display:flex;flex-direction:column">' +
+    '<div style="padding:0 20px;display:flex;align-items:center;gap:12px">' +
+      backButton() +
+      '<div style="font-size:15px;font-weight:600">Withdraw coupon income</div>' +
+    '</div>' +
+    '<div style="padding:18px 20px 0;flex:1;overflow-y:auto">' +
+
+      // Withdrawable vs locked capital — the split the spec calls out as the
+      // thing first-time investors get wrong.
+      '<div class="card" style="border-radius:18px;padding:18px">' +
+        '<div class="lbl-sm" style="color:var(--pos)">Coupon income received</div>' +
+        '<div class="mono" style="font-size:28px;font-weight:600;margin-top:5px;color:var(--pos)">' + rm(withdrawable) + '</div>' +
+        '<div style="font-size:11px;color:var(--muted);margin-top:3px">Withdrawable now</div>' +
+        '<div style="margin-top:16px;padding-top:14px;border-top:1px dashed var(--line);display:flex;align-items:center;gap:11px">' +
+          '<div style="width:32px;height:32px;border-radius:10px;background:var(--bg);display:flex;align-items:center;justify-content:center;flex:0 0 auto">' +
+            '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9AA5A0" stroke-width="2"><rect x="4" y="10" width="16" height="10" rx="2"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path></svg>' +
+          '</div>' +
+          '<div style="flex:1">' +
+            '<div style="font-size:12.5px;font-weight:600;color:#4A5A54">Capital still invested</div>' +
+            '<div class="mono" style="font-size:14px;color:var(--faint);margin-top:1px">' + rm(invested) + '</div>' +
+          '</div>' +
+          '<div style="font-size:9.5px;font-weight:700;letter-spacing:.05em;padding:3px 6px;border-radius:5px;background:#F0EDE5;color:#9AA5A0;flex:0 0 auto">NOT WITHDRAWABLE</div>' +
+        '</div>' +
+        '<div style="font-size:11.5px;color:var(--muted);margin-top:12px;line-height:1.5">Only coupon income can be withdrawn. Your invested capital stays in the offerings you hold until you sell part of it or it matures.</div>' +
+      '</div>' +
+
+      // Amount
+      '<div class="card" style="margin-top:14px;border-radius:18px;padding:18px;text-align:center">' +
+        '<div class="lbl">Amount to withdraw</div>' +
+        '<div style="display:flex;align-items:baseline;gap:6px;margin-top:10px;justify-content:center">' +
+          '<div class="mono" style="font-size:20px;color:var(--muted)">RM</div>' +
+          '<div class="mono" style="font-size:42px;font-weight:600;letter-spacing:-.03em">' + esc(typed.toLocaleString('en-MY')) + '</div>' +
+        '</div>' +
+        '<div style="font-size:12.5px;color:' + (valid ? 'var(--muted)' : 'var(--neg)') + ';margin-top:6px">' +
+          (typed > withdrawable ? 'Exceeds withdrawable balance of ' + rm(withdrawable)
+            : amt !== typed ? 'Your full balance — withdrawing ' + rm(amt)
+            : 'Withdrawable: ' + rm(withdrawable)) +
+        '</div>' +
+        '<div data-act="incomeQuick" class="mono t96" style="display:inline-block;margin-top:14px;padding:8px 15px;border-radius:100px;background:#fff;border:1px solid var(--line);font-size:13px;cursor:pointer">Withdraw all</div>' +
+        '<div class="keypad" style="margin-top:16px">' +
+          KEYPAD.map(function(k){
+            return '<div data-act="incomeKey" data-arg="' + esc(k) + '" class="mono key tkey">' + esc(k) + '</div>';
+          }).join('') +
+        '</div>' +
+      '</div>' +
+
+      // Destination
+      '<div class="lbl" style="margin:18px 0 8px">Send to</div>' +
+      '<div class="card" style="overflow:hidden">' +
+        destRow('maybank', 'Maybank Islamic', '•••• 4412 · DuitNow linked', isMaybank, false) +
+        destRow('duitnow', 'DuitNow', 'Instant transfer, any bank', !isMaybank, true) +
+      '</div>' +
+    '</div>' +
+    '<div style="padding:12px 20px 30px">' +
+      '<div id="incomeCta" data-act="confirmIncome" class="cta t98"' + (valid ? '' : ' style="background:#B9C2BE"') + '>Withdraw ' + rm(valid ? amt : typed) + '</div>' +
+    '</div>' +
+  '</div>';
+}
+
+function destRow(id, title, sub, selected, isLast){
+  return '<div data-act="pickDest" data-arg="' + id + '"' + (isLast ? '' : ' class="row-b"') + ' style="padding:14px;display:flex;align-items:center;gap:12px;cursor:pointer;background:' + (selected ? '#F6F9F7' : '#fff') + '">' +
+    '<div style="width:36px;height:36px;border-radius:10px;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--green)">' + (id === 'maybank' ? 'MBB' : 'DN') + '</div>' +
+    '<div style="flex:1">' +
+      '<div style="font-size:13.5px;font-weight:600">' + esc(title) + '</div>' +
+      '<div class="mono" style="font-size:11.5px;color:var(--muted);margin-top:1px">' + esc(sub) + '</div>' +
+    '</div>' +
+    '<div style="width:20px;height:20px;border-radius:50%;border:1.5px solid ' + (selected ? 'var(--green)' : 'var(--line)') + ';display:flex;align-items:center;justify-content:center;flex:0 0 auto">' +
+      (selected ? '<div style="width:10px;height:10px;border-radius:50%;background:var(--green)"></div>' : '') +
+    '</div>' +
+  '</div>';
+}
+
+/* ── Done ─────────────────────────────────────────────────────── */
+
+function doneScreen(){
+  var k = state.doneKind;
+  var meta = state.doneMeta || {};
+  var title = k === 'sell' ? 'Sold'
+            : k === 'topup' ? 'Top-up complete'
+            : k === 'withdraw' ? 'Withdrawal sent'
+            : k === 'income' ? 'Sent'
+            : 'Order confirmed';
+  var bodyText = k === 'sell' ? rm(meta.net) + ' is on its way to your Tokenkan balance.'
+            : k === 'topup' ? 'Your balance has been credited. You can invest straight away.'
+            : k === 'withdraw' ? 'On its way to Maybank Islamic ••4412. It settles in one business day.'
+            : k === 'income' ? rm(meta.amount) + ' sent to ' + meta.destLabel + '. Arrives within minutes.'
+            : 'Your units are allotted and will appear in your portfolio once settlement completes tomorrow.';
+
+  return '<div style="height:100%;display:flex;flex-direction:column;padding:80px 24px 30px;animation:tkFade .3s ease">' +
+    '<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center">' +
+      '<div style="width:66px;height:66px;border-radius:22px;background:var(--green);display:flex;align-items:center;justify-content:center">' +
+        '<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4"><path d="M20 6L9 17l-5-5"></path></svg>' +
+      '</div>' +
+      '<div style="font-size:23px;font-weight:600;margin-top:20px;letter-spacing:-.015em">' + esc(title) + '</div>' +
+      '<div style="font-size:13.5px;color:var(--muted);margin-top:8px;line-height:1.55;max-width:270px;text-wrap:pretty">' + esc(bodyText) + '</div>' +
+      '<div class="card" style="margin-top:22px;padding:16px;width:100%;display:flex;flex-direction:column;gap:9px">' +
+        (state.doneRows || []).map(function(r){
+          return '<div style="display:flex;justify-content:space-between;align-items:baseline">' +
+            '<div style="font-size:12.5px;color:var(--muted)">' + esc(r[0]) + '</div>' +
+            '<div class="mono" style="font-size:12.5px;font-weight:500">' + esc(r[1]) + '</div>' +
+          '</div>';
+        }).join('') +
+        '<div style="display:flex;justify-content:space-between;align-items:baseline;padding-top:9px;border-top:1px solid var(--hair)">' +
+          '<div style="font-size:12.5px;color:var(--muted)">Balance</div>' +
+          '<div class="mono" style="font-size:12.5px;font-weight:500">' + rm(book.wallet) + '</div>' +
+        '</div>' +
+      '</div>' +
+    '</div>' +
+    '<div data-act="goHome" class="cta t98">Back to portfolio</div>' +
+    (k === 'income'
+      ? '<div data-act="reinvestIncome" class="t98" style="margin-top:10px;text-align:center;padding:14px;border-radius:14px;font-size:14px;font-weight:600;cursor:pointer;color:var(--green);background:transparent;border:1px solid var(--line)">Reinvest instead</div>'
+      : '') +
+  '</div>';
+}
+
+/* ── Notifications ────────────────────────────────────────────── */
+
+function notificationsScreen(){
+  return '<div class="screen">' +
+    '<div style="padding:0 20px;display:flex;align-items:center;gap:12px">' +
+      backButton() +
+      '<div style="font-size:20px;font-weight:600;letter-spacing:-.01em">Notifications</div>' +
+    '</div>' +
+    '<div style="display:flex;flex-direction:column;gap:8px;padding:16px 20px 0">' +
+      NOTIFICATIONS.map(function(n){
+        return '<div style="background:' + n.bg + ';border:1px solid ' + n.bd + ';border-radius:16px;padding:14px">' +
+          '<div style="display:flex;align-items:center;gap:8px">' +
+            '<div style="width:6px;height:6px;border-radius:50%;background:' + n.dot + '"></div>' +
+            '<div style="font-size:10.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:' + n.tagFg + '">' + esc(n.tag) + '</div>' +
+            '<div style="flex:1"></div>' +
+            '<div class="mono" style="font-size:10.5px;color:var(--faint)">' + esc(n.when) + '</div>' +
+          '</div>' +
+          '<div style="font-size:13.5px;font-weight:600;margin-top:8px">' + esc(n.title) + '</div>' +
+          '<div style="font-size:12px;color:#5A6A64;margin-top:3px;line-height:1.5;text-wrap:pretty">' + esc(n.body) + '</div>' +
+        '</div>';
+      }).join('') +
+    '</div>' +
+  '</div>';
+}
+
+/* ── Tab bar ──────────────────────────────────────────────────── */
+
+function tabBar(){
+  return '<div class="barrier" style="padding:9px 8px 26px;display:flex">' +
+    TABS.map(function(t){
+      var id = t[0], label = t[1];
+      var on = state.tab === id;
+      return '<div data-act="pickTab" data-arg="' + id + '" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:4px 0;cursor:pointer;color:' + (on ? '#0E3D2F' : '#9AA5A0') + '">' +
+        '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="' + (on ? 2.1 : 1.7) + '" stroke-linecap="round" stroke-linejoin="round"><path d="' + TAB_ICONS[id] + '"></path></svg>' +
+        '<div style="font-size:10px;font-weight:' + (on ? 600 : 500) + ';letter-spacing:.01em">' + esc(label) + '</div>' +
+      '</div>';
+    }).join('') +
+  '</div>';
+}
+
+/* ── Prospectus explainer sheet ───────────────────────────────── */
+
+function factSection(title, pairs, first){
+  return (first ? '' : '<div style="margin-top:14px;padding-top:13px;border-top:1px solid var(--hair)">') +
+    '<div class="lbl-xs">' + esc(title) + '</div>' +
+    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:9px 10px;margin-top:8px">' +
+      pairs.map(function(kv){
+        return '<div><div style="font-size:10px;color:var(--muted)">' + esc(kv[0]) + '</div>' +
+          '<div class="mono" style="font-size:12.5px;margin-top:1px;line-height:1.3">' + esc(kv[1]) + '</div></div>';
+      }).join('') +
+    '</div>' +
+    (first ? '' : '</div>');
+}
+
+function explainerSheet(d){
+  var a = d.a;
+  var facts = explainerFacts(a);
+  var points = [
+    { t:'The good part', d:'Fixed, contracted income at ' + a.rate + ' — well above a 12-month fixed deposit, with no price swings if you hold to maturity.', dot:'#157A56', fg:'#157A56' },
+    { t:'The catch', d:a.hasKpi ? 'If the education KPIs are met, up to 6.5% of your principal is forgone at maturity as your contribution.'
+                                : 'There is no put option. Exiting early means selling back to Tokenkan at a quoted price that can be below what you paid.', dot:'#B0872F', fg:'#8A6A22' },
+    { t:'The risk', d:'No capital guarantee and no PIDM protection. If ' + a.short + ' cannot pay, distributions stop and principal is at risk.', dot:'#C0392B', fg:'#C0392B' }
+  ];
+
+  var busy = state.thinking || state.streaming.length > 0;
+
+  return '<div data-act="closeExplainer" style="position:absolute;inset:0;background:rgba(12,42,34,.35);animation:tkFade .2s ease"></div>' +
+  '<div style="position:absolute;left:0;right:0;bottom:0;height:84%;background:var(--bg);border-radius:26px 26px 0 0;display:flex;flex-direction:column;animation:tkUp .32s cubic-bezier(.22,1,.36,1);overflow:hidden">' +
+    '<div style="padding:12px 20px;border-bottom:1px solid var(--line);background:#fff">' +
+      '<div style="width:38px;height:4px;border-radius:2px;background:#DDD8CC;margin:0 auto 12px"></div>' +
+      '<div style="display:flex;align-items:center;gap:11px">' +
+        '<div style="width:32px;height:32px;border-radius:10px;background:#F6F0E2;display:flex;align-items:center;justify-content:center">' +
+          '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8A6A22" stroke-width="1.8"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"></path></svg>' +
+        '</div>' +
+        '<div style="flex:1">' +
+          '<div style="font-size:14px;font-weight:600">Bond Explainer</div>' +
+          '<div style="font-size:11px;color:var(--muted)">' + (a.id === GROUNDED_ASSET_ID ? 'Grounded in the ' + esc(a.short) + ' prospectus' : 'Term sheet · no prospectus on file') + '</div>' +
+        '</div>' +
+        '<div data-act="closeExplainer" style="width:30px;height:30px;border-radius:9px;background:var(--bg);display:flex;align-items:center;justify-content:center;cursor:pointer">' +
+          '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#71807A" stroke-width="2.2"><path d="M18 6L6 18M6 6l12 12"></path></svg>' +
+        '</div>' +
+      '</div>' +
+    '</div>' +
+
+    '<div id="msgs" style="flex:1;overflow-y:auto;padding:16px 18px;display:flex;flex-direction:column;gap:12px">' +
+      '<div class="card" style="padding:16px">' +
+        '<div style="font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-ink)">Bond fact sheet</div>' +
+        '<div style="font-size:16px;font-weight:600;margin-top:9px;line-height:1.3">' + esc(a.name) + '</div>' +
+        '<div class="mono" style="font-size:11.5px;color:var(--muted);margin-top:2px">' + esc(a.code) + '</div>' +
+
+        factSection('Identity', facts.identity, true) +
+        factSection('Core terms', facts.coreTerms) +
+        factSection('Pricing & return', facts.pricing) +
+        factSection('Risk indicators', facts.risk) +
+        factSection('Context', facts.context) +
+
+        '<div style="margin-top:14px;padding:13px;border-radius:12px;background:#F6F0E2;border:1px solid #E8DDBF">' +
+          '<div class="lbl-xs" style="color:var(--gold-ink)">In plain English</div>' +
+          '<div style="font-size:13px;line-height:1.55;margin-top:6px;color:#3D3421;text-wrap:pretty">' + esc(facts.summary) + '</div>' +
+        '</div>' +
+
+        '<div style="margin-top:14px;padding-top:13px;border-top:1px solid var(--hair);display:flex;flex-direction:column;gap:9px">' +
+          points.map(function(p){
+            return '<div style="display:flex;gap:9px">' +
+              '<div style="width:5px;height:5px;border-radius:50%;background:' + p.dot + ';margin-top:7px;flex:0 0 auto"></div>' +
+              '<div style="flex:1">' +
+                '<div style="font-size:12.5px;font-weight:600;color:' + p.fg + '">' + esc(p.t) + '</div>' +
+                '<div style="font-size:12px;color:var(--muted);line-height:1.5;margin-top:1px;text-wrap:pretty">' + esc(p.d) + '</div>' +
+              '</div>' +
+            '</div>';
+          }).join('') +
+        '</div>' +
+
+        '<div style="margin-top:13px;padding-top:11px;border-top:1px solid var(--hair);font-size:10px;color:var(--faint);line-height:1.5">' + esc(facts.footer) + '</div>' +
+      '</div>' +
+
+      state.messages.map(function(m){ return bubble(m.role === 'user', m.text, m.cite); }).join('') +
+
+      (state.streaming ? '<div id="streamWrap">' + bubble(false, state.streaming, null, true) + '</div>' : '') +
+
+      (state.thinking && !state.streaming
+        ? '<div style="display:flex"><div style="background:#fff;border:1px solid var(--line);border-radius:16px 16px 16px 4px;padding:12px 14px;font-size:13px;color:var(--faint)">Reading the prospectus…</div></div>'
+        : '') +
+
+      (state.chatError
+        ? '<div style="background:#FDF1EF;border:1px solid #F0D2CC;border-radius:14px;padding:12px 14px;font-size:12px;color:#8B2F22;line-height:1.5">' + esc(state.chatError) + '</div>'
+        : '') +
+    '</div>' +
+
+    '<div style="border-top:1px solid var(--line);background:#fff;padding:12px 14px 26px">' +
+      '<div style="display:flex;gap:7px;overflow-x:auto;padding-bottom:11px">' +
+        QA.map(function(item, i){
+          return '<div data-act="ask" data-arg="' + i + '" class="t96" style="flex:0 0 auto;padding:8px 13px;border-radius:100px;background:var(--bg);border:1px solid var(--line);font-size:12.5px;font-weight:500;cursor:pointer;opacity:' + (busy ? '.5' : '1') + '">' + esc(item.q) + '</div>';
+        }).join('') +
+      '</div>' +
+      '<div style="display:flex;align-items:center;gap:9px;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:11px 13px">' +
+        '<input id="chatInput" type="text" placeholder="Ask anything about this sukuk"' + (busy ? ' disabled' : '') + '>' +
+        '<div data-act="send" style="width:26px;height:26px;border-radius:8px;background:' + (busy ? '#B9C2BE' : 'var(--green)') + ';display:flex;align-items:center;justify-content:center;cursor:pointer;flex:0 0 auto">' +
+          '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4"><path d="M12 19V5M5 12l7-7 7 7"></path></svg>' +
+        '</div>' +
+      '</div>' +
+    '</div>' +
+  '</div>';
+}
+
+function bubble(isUser, text, cite, live){
+  return '<div style="display:flex;justify-content:' + (isUser ? 'flex-end' : 'flex-start') + ';animation:tkIn .25s ease">' +
+    '<div style="max-width:84%;background:' + (isUser ? '#0E3D2F' : '#FFFFFF') + ';color:' + (isUser ? '#FFFFFF' : '#0C2A22') + ';border:1px solid ' + (isUser ? '#0E3D2F' : '#E3DFD4') + ';border-radius:' + (isUser ? '16px 16px 4px 16px' : '16px 16px 16px 4px') + ';padding:12px 14px">' +
+      '<div' + (live ? ' id="streamText" class="dot-typing"' : '') + ' style="font-size:13px;line-height:1.6;white-space:pre-wrap;text-wrap:pretty">' + esc(text) + '</div>' +
+      (cite ? '<div class="mono" style="margin-top:10px;padding-top:9px;border-top:1px solid #EDE8DC;font-size:10.5px;color:var(--gold-ink);line-height:1.5">' + esc(cite) + '</div>' : '') +
+    '</div>' +
+  '</div>';
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Chat — talks to /api/ask, falls back to canned answers offline
+   ═══════════════════════════════════════════════════════════════ */
+
+function splitCite(text){
+  // The model is asked to end with a line starting "SOURCE:".
+  var m = text.match(/\n\s*SOURCE:\s*([\s\S]*)$/i);
+  if (!m) return { body: text.trim(), cite: null };
+  return { body: text.slice(0, m.index).trim(), cite: 'Sources: ' + m[1].trim() };
+}
+
+function apiMessages(){
+  // The API requires the first message to be from the user, so drop the
+  // opening assistant greeting.
+  var out = [];
+  state.messages.forEach(function(m){
+    if (out.length === 0 && m.role !== 'user') return;
+    out.push({ role: m.role === 'user' ? 'user' : 'assistant', text: m.text });
+  });
+  return out;
+}
+
+function cannedFor(question){
+  for (var i = 0; i < QA.length; i++) {
+    if (QA[i].q.toLowerCase() === question.trim().toLowerCase()) return QA[i];
+  }
+  return null;
+}
+
+function ask(question){
+  var q = (question || '').trim();
+  if (!q || state.thinking || state.streaming) return;
+
+  state.messages = state.messages.concat([{ role:'user', text:q, cite:null }]);
+  state.thinking = true;
+  state.streaming = '';
+  state.chatError = null;
+  pendingMsgScroll = true;
+  render();
+
+  var a = asset();
+  var payload = {
+    // Minimal identity the server needs for its own logic (grounding check,
+    // KPI callout). Everything else the model should know is in `facts` —
+    // the same data already rendered on screen, so answers stay consistent
+    // with what the person is looking at.
+    asset: { id:a.id, name:a.name, short:a.short, hasKpi:a.hasKpi },
+    facts: explainerFacts(a),
+    messages: apiMessages()
+  };
+
+  chatAbort = new AbortController();
+
+  fetch('/api/ask', {
+    method:'POST',
+    headers:{ 'content-type':'application/json' },
+    body: JSON.stringify(payload),
+    signal: chatAbort.signal
+  }).then(function(res){
+    if (!res.ok || !res.body) throw new Error('server returned ' + res.status);
+    return readStream(res.body.getReader(), q);
+  }).catch(function(err){
+    if (err && err.name === 'AbortError') return;
+    finishWithFallback(q, err);
+  });
+}
+
+function readStream(reader, question){
+  var decoder = new TextDecoder();
+  var buffer = '';
+
+  function pump(){
+    return reader.read().then(function(r){
+      if (r.done) { finishStream(question); return; }
+      buffer += decoder.decode(r.value, { stream:true });
+
+      var parts = buffer.split('\n\n');
+      buffer = parts.pop();
+
+      parts.forEach(function(part){
+        var line = part.split('\n').find(function(l){ return l.indexOf('data: ') === 0; });
+        if (!line) return;
+        var ev;
+        try { ev = JSON.parse(line.slice(6)); } catch (e) { return; }
+
+        if (ev.type === 'delta') {
+          if (state.thinking) { state.thinking = false; state.streaming = ev.text; render(); }
+          else { state.streaming += ev.text; patchStream(); }
+        } else if (ev.type === 'error') {
+          state.chatError = ev.message;
+        }
+      });
+
+      return pump();
+    });
+  }
+  return pump();
+}
+
+// Update the live bubble in place — a full re-render per token would thrash.
+function patchStream(){
+  var el = document.getElementById('streamText');
+  if (el) {
+    el.textContent = state.streaming;
+    var msgs = document.getElementById('msgs');
+    if (msgs) msgs.scrollTop = msgs.scrollHeight;
+  } else {
+    render();
+  }
+}
+
+function finishStream(question){
+  var text = state.streaming;
+  state.thinking = false;
+  state.streaming = '';
+  chatAbort = null;
+
+  if (text) {
+    var split = splitCite(text);
+    state.messages = state.messages.concat([{ role:'ai', text:split.body, cite:split.cite }]);
+    state.chatError = null;
+  } else {
+    // Live answer didn't come through. Fall back to a saved answer with no
+    // technical explanation — the person asking doesn't need to know why.
+    var canned = cannedFor(question);
+    if (canned) {
+      state.messages = state.messages.concat([{ role:'ai', text:canned.a, cite:canned.c }]);
+      state.chatError = null;
+    } else {
+      state.chatError = "I don't have a saved answer for that one — try one of the suggested questions below, or ask about the rate, maturity, KPI terms, or risks.";
+    }
+  }
+  pendingMsgScroll = true;
+  render();
+}
+
+// Server unreachable (e.g. index.html opened straight from disk): use the
+// canned answer if we have one, otherwise a plain, non-technical nudge.
+function finishWithFallback(question, err){
+  state.thinking = false;
+  state.streaming = '';
+  chatAbort = null;
+
+  var canned = cannedFor(question);
+  if (canned) {
+    state.messages = state.messages.concat([{ role:'ai', text:canned.a, cite:canned.c }]);
+    state.chatError = null;
+  } else {
+    state.chatError = "I don't have a saved answer for that one — try one of the suggested questions below, or ask about the rate, maturity, KPI terms, or risks.";
+  }
+  pendingMsgScroll = true;
+  render();
+}
+
+function sendFromInput(){
+  var el = document.getElementById('chatInput');
+  if (!el) return;
+  var v = el.value;
+  el.value = '';
+  ask(v);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Actions
+   ═══════════════════════════════════════════════════════════════ */
+
+function keyEdit(current, k, maxLen){
+  var a = current;
+  if (k === '⌫') a = a.length > 1 ? a.slice(0, -1) : '0';
+  else if (k === '00') a = a === '0' ? '0' : a + '00';
+  else a = a === '0' ? k : a + k;
+  if (a.length > maxLen) a = a.slice(0, maxLen);
+  return a;
+}
+
+var actions = {
+  back: back,
+  pickTab: function(id){ goTab(id); },
+  goProfile:  function(){ goTab('profile'); },
+  goMarket:   function(){ goTab('market'); },
+  goWallet:   function(){ goTab('wallet'); },
+  goActivity: function(){ goTab('activity'); },
+  goHome:     function(){ setState({ tab:'home', screen:null, stack:[], buyStep:'entry', ack:false, explainer:false, doneRows:null, doneMeta:null }); },
+  goNotifications: function(){ push('notifications'); },
+  openAsset:  function(id){ openAsset(id); },
+  openFeatured: function(){ openAsset('aie'); },
+  goBuy:  function(){ push('buy', { buyStep:'entry' }); },
+  downloadTermSheet: function(){
+    var a = asset();
+    downloadTextFile(a.short.replace(/\s+/g, '-') + '-Indicative-Term-Sheet.txt', termSheetText(a));
+  },
+  goSell: function(){ push('sell', { sellQty: tokensOf(asset().id) || 1 }); },   // defaults to selling the full holding
+  sellAll: function(){ setState({ sellQty: tokensOf(asset().id) || 1 }); },
+
+  toggleHide: function(){ setState({ hide: !state.hide }); },
+  cycleHero:  function(){
+    var i = HERO_METRICS.indexOf(state.heroMetric);
+    setState({ heroMetric: HERO_METRICS[(i + 1) % HERO_METRICS.length] });
+  },
+  toggleShariah: function(){ setState({ shariahOnly: !state.shariahOnly }); },
+  resetDemo: function(){
+    resetBook();
+    setState({ tab:'home', screen:null, stack:[], filter:'All', amount:'500', sellQty:12, hide:false, doneMeta:null, cash:null, income:null, toast:null });
+  },
+  dismissToast: function(){
+    if (toastTimer) { clearTimeout(toastTimer); toastTimer = null; }
+    setState({ toast:null });
+  },
+  // Demo-only: fast-forwards the virtual clock to the soonest upcoming payout
+  // across your holdings and lets checkAndCreditDistributions() do the actual
+  // crediting — there is no "claim" step, this only skips the calendar wait.
+  simulateNextPayout: function(){
+    var ids = heldIds();
+    if (!ids.length) { showToast('No holdings', 'You need an active position to receive a distribution.'); return; }
+    var soonest = null;
+    ids.forEach(function(id){ var iso = nextPayoutOf(id); if (!soonest || iso < soonest) soonest = iso; });
+    var targetMs = new Date(soonest + 'T00:00:00').getTime() - Date.now();
+    book.clockOffsetMs = Math.max(book.clockOffsetMs, targetMs);
+    var credited = checkAndCreditDistributions();
+    saveBook();
+    if (credited.length) {
+      var total = round2(credited.reduce(function(s, c){ return s + c.amount; }, 0));
+      var names = credited.map(function(c){ return c.name; }).join(', ');
+      showToast('Distribution received', rm(total) + ' from ' + names + ' has landed in your balance.');
+    } else {
+      render();
+    }
+  },
+  pickFilter: function(label){ setState({ filter: label }); },
+
+  /* buy */
+  tapKey: function(k){ setState({ amount: keyEdit(state.amount, k, 6) }); },
+  quickAmount: function(v){ setState({ amount: String(v) }); },
+  toReview: function(){ if (derive().valid) setState({ buyStep:'review' }); },
+  toggleAck: function(){ setState({ ack: !state.ack }); },
+  confirmBuy: function(){
+    if (!state.ack) return;
+    var d = derive();
+    if (!d.valid) return;
+    buyTokens(d.a.id, d.amt);
+    setState({
+      screen:'done', doneKind:'buy', stack:[], explainer:false,
+      doneRows:[['Instrument', d.a.code], ['Tokens', String(d.amt/100)], ['Debited', rm(d.amt)], ['Reference','TKN-8820-BY']]
+    });
+  },
+
+  /* sell */
+  confirmSell: function(){
+    var a = asset();
+    var qty = Math.min(state.sellQty, tokensOf(a.id));
+    if (qty < 1) return;
+    var q = sellTokens(a.id, qty);
+    var settle = new Date(); settle.setDate(settle.getDate() + 1);
+    setState({
+      screen:'done', doneKind:'sell', stack:[], explainer:false,
+      doneMeta:{ net:q.net },
+      doneRows:[['Units sold', String(qty)], ['Proceeds', rm(q.net)], ['Settlement', 'T+1 · ' + longDate(settle)], ['Reference','TKN-4471-SD']]
+    });
+  },
+
+  /* withdraw coupon income */
+  openIncome: function(){
+    var w = withdrawableIncome();
+    push('income', { income:{ amount: String(Math.floor(w)), dest:'maybank' } });
+  },
+  incomeKey: function(k){ setState({ income:{ amount: keyEdit(state.income.amount, k, 6), dest:state.income.dest } }); },
+  incomeQuick: function(){
+    setState({ income:{ amount: String(Math.floor(withdrawableIncome())), dest:state.income.dest } });
+  },
+  pickDest: function(id){ setState({ income:{ amount:state.income.amount, dest:id } }); },
+  confirmIncome: function(){
+    var cap = withdrawableIncome();
+    var amt = effectiveWithdrawAmount(parseInt(state.income.amount, 10) || 0, cap);
+    if (amt < 1 || amt > cap) return;
+    var destLabel = state.income.dest === 'duitnow' ? 'DuitNow · your linked account' : 'Maybank Islamic ••4412';
+    book.wallet = round2(book.wallet - amt);
+    book.incomeAvailable = round2(book.incomeAvailable - amt);
+    logActivity({ glyph:'−', kind:'out', title:'Coupon income withdrawn', sub:destLabel, amount:-amt });
+    saveBook();
+    setState({
+      income:null, screen:'done', doneKind:'income', stack:[], explainer:false,
+      doneMeta:{ amount:amt, destLabel:destLabel },
+      doneRows:[['Withdrawn', rm(amt)], ['Destination', destLabel], ['Reference','TKN-5510-IW']]
+    });
+  },
+  reinvestIncome: function(){
+    var amt = state.doneMeta ? state.doneMeta.amount : 0;
+    if (amt > 0) {
+      book.wallet = round2(book.wallet + amt);
+      logActivity({ glyph:'+', kind:'top', title:'Reinvested coupon income', sub:'Routed to Market', amount:amt });
+      saveBook();
+    }
+    goTab('market');
+  },
+
+  /* cash */
+  openTopUp:    function(){ setState({ cash:{ mode:'topup', amount:'0' } }); },
+  openWithdraw: function(){ setState({ cash:{ mode:'withdraw', amount:'0' } }); },
+  closeCash:    function(){ setState({ cash:null }); },
+  cashKey:      function(k){ setState({ cash:{ mode:state.cash.mode, amount: keyEdit(state.cash.amount, k, 6) } }); },
+  cashQuick:    function(v){
+    var amount = v === 'all' ? String(Math.floor(book.wallet)) : String(v);
+    setState({ cash:{ mode:state.cash.mode, amount: amount } });
+  },
+  confirmCash: function(){
+    var mode = state.cash.mode;
+    var amt = parseInt(state.cash.amount, 10) || 0;
+    if (amt < 10) return;
+    if (mode === 'withdraw' && amt > book.wallet) return;
+    if (mode === 'topup') topUp(amt); else withdraw(amt);
+    setState({
+      cash:null, screen:'done', doneKind:mode, stack:[], explainer:false,
+      doneRows:[[mode === 'topup' ? 'Added' : 'Withdrawn', rm(amt)],
+                ['Account','Maybank Islamic ••4412'],
+                ['Reference', mode === 'topup' ? 'TKN-2210-TU' : 'TKN-3390-WD']]
+    });
+  },
+
+  /* explainer */
+  openExplainer:  function(){ setState({ explainer:true, chatError:null }); },
+  closeExplainer: function(){
+    if (chatAbort) { chatAbort.abort(); chatAbort = null; }
+    setState({ explainer:false, thinking:false, streaming:'' });
+  },
+  ask: function(i){ var item = QA[parseInt(i,10)]; if (item) ask(item.q); },
+  send: function(){ sendFromInput(); }
+};
+
+/* ═══════════════════════════════════════════════════════════════
+   Render
+   ═══════════════════════════════════════════════════════════════ */
+
+var appEl = document.getElementById('app');
+var lastKey = '';
+
+function render(){
+  var oldScroll = document.getElementById('scroll');
+  var prevTop = oldScroll ? oldScroll.scrollTop : 0;
+  var key = state.tab + '|' + state.screen + '|' + state.buyStep;
+
+  var input = document.getElementById('chatInput');
+  var caretValue = input ? input.value : null;
+  var hadFocus = input && document.activeElement === input;
+
+  appEl.innerHTML = view();
+
+  var sc = document.getElementById('scroll');
+  if (sc) sc.scrollTop = (key === lastKey) ? prevTop : 0;
+  lastKey = key;
+
+  var msgs = document.getElementById('msgs');
+  if (msgs && pendingMsgScroll){ msgs.scrollTop = msgs.scrollHeight; pendingMsgScroll = false; }
+
+  var range = document.getElementById('sellRange');
+  if (range) range.addEventListener('input', onSellInput);
+
+  var newInput = document.getElementById('chatInput');
+  if (newInput){
+    if (caretValue) newInput.value = caretValue;
+    if (hadFocus && !newInput.disabled) newInput.focus();
+    newInput.addEventListener('keydown', function(e){
+      if (e.key === 'Enter'){ e.preventDefault(); sendFromInput(); }
+    });
+  }
+}
+
+/* Slider patches in place so a mouse drag is never interrupted by a re-render. */
+function onSellInput(e){
+  state.sellQty = parseInt(e.target.value, 10);
+  var q = sellQuote(asset().id, state.sellQty);
+  setText('sellQty', String(state.sellQty));
+  setText('sellGross', rm(q.gross));
+  setText('sellAccrued', '+' + rm(q.accrued));
+  setText('sellFee', '−' + rm(q.fee));
+  setText('sellNet', rm(q.net));
+  setText('sellCta', 'Sell ' + state.sellQty + ' units for ' + rm(q.net));
+}
+function setText(id, v){ var el = document.getElementById(id); if (el) el.textContent = v; }
+
+appEl.addEventListener('click', function(e){
+  var el = e.target.closest ? e.target.closest('[data-act]') : null;
+  if (!el || !appEl.contains(el)) return;
+  var fn = actions[el.getAttribute('data-act')];
+  if (fn) fn(el.getAttribute('data-arg'));
+});
+
+// Whatever real time actually passed since the last visit may have carried a
+// payout date — credit it automatically, same as the demo fast-forward does.
+(function(){
+  var credited = checkAndCreditDistributions();
+  if (credited.length) {
+    var total = round2(credited.reduce(function(s, c){ return s + c.amount; }, 0));
+    var names = credited.map(function(c){ return c.name; }).join(', ');
+    showToast('Distribution received', rm(total) + ' from ' + names + ' has landed in your balance.');
+  } else {
+    render();
+  }
+})();
+</script>
+</body>
+</html>
