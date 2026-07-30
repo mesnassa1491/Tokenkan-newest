@@ -1,0 +1,21 @@
+# Render blueprint. Render runs server.mjs as a real long-lived Node process,
+# so the app works exactly as it does on localhost — including /api/ask.
+#
+# The provider credential is deliberately NOT in this file. `sync: false` makes
+# Render prompt for it in the dashboard, so the key stays out of the repo.
+services:
+  - type: web
+    name: tokenkan
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: node server.mjs
+    envVars:
+      # DeepSeek through the Anthropic-compatible gateway.
+      - key: ANTHROPIC_BASE_URL
+        value: https://api.deepseek.com/anthropic
+      - key: ANTHROPIC_MODEL
+        value: deepseek-reasoner
+      # Set this in the Render dashboard — never commit it.
+      - key: ANTHROPIC_AUTH_TOKEN
+        sync: false
