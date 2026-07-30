@@ -116,87 +116,179 @@
 
 var PAR = 100;                 // denomination, RM per token
 var ACCRUAL_DAYS = 146;        // days accrued since last distribution
-var BUYBACK_FEE = 0.0035;      // 0.35%
-var GROUNDED_ASSET_ID = 'aie'; // the only offering with a real prospectus behind it
-var TAX_NOTE = 'In Malaysia, profit/interest income from sukuk and corporate bonds is generally taxed at your personal income tax rate unless a specific exemption applies. General information only — confirm your position with LHDN or a tax adviser.';
+// Investor transaction fee, charged each way (buy and sell). Every offering
+// document quotes the same 1.0 per cent.
+var TRADE_FEE = 0.01;
+var TRADE_FEE_LABEL = '1%';
+// Every offering now has its own prospectus on file (see ASSETS[].prospectus),
+// so grounding is per-asset rather than a single special case.
 
+// Every entry below is taken from the offering document of the same name in
+// /prospectus, with two deliberate exceptions:
+//
+//   * `filled` is a platform-side figure (live subscription progress), not a
+//     document fact.
+//   * Credit ratings have been overridden for the demo and no longer match the
+//     documents in three places. The AI explainer reads the real prospectus, so
+//     it will contradict the fact sheet if asked about any of these:
+//
+//       sw  Sajian Warisan — UNRATED in its prospectus; BBB- (RAM) here.
+//       mq  MediQ Peranti  — UNRATED in its prospectus; BBB- (RAM) here.
+//       st  Suria Teknik   — rated BBB+ by MARC in its prospectus; shown as
+//                            RAM here because all agencies were unified.
+//
+//     To make everything agree again: set sw and mq back to rating:'Unrated'
+//     with rated:false, and restore st's agency to Malaysian Rating
+//     Corporation Berhad.
 var ASSETS = [
   {
-    id:'aie', code:'AIEB 4.30% 08/33', short:'Amanah Ihsan Education',
-    name:'Amanah Ihsan Education Bhd', kind:'SUKUK', shariah:true, green:true,
-    structure:'Sukuk Wakalah Bi Al-Istithmar (SRI)', programme:'RM1.0b SRI Sukuk Programme',
-    rate:'4.30%', rateNum:4.30, rating:'AAA (RAM)', tenure:'7 yrs', freq:'2× yr',
-    freqLong:'semi-annually', filled:'92%', maturity:'15 Aug 2033', maturityShort:'Aug 2033',
-    growTo:'RM 130.10', hasKpi:true, years:7, price:102.45, nextPayout:'2027-02-15',
-    isin:'MYAIE3200011', currency:'MYR (Ringgit Malaysia)', couponType:'Fixed', issueDate:'15 Aug 2026',
-    boardLot:'Fractional — no minimum board lot beyond RM100', issuerType:'Sukuk — quasi-sovereign (education trust)',
-    sector:'Education / social infrastructure', country:'Malaysia', issueSize:'RM 50.0 million (this tranche)',
-    liquidity:'Actively traded', seniority:'Senior, unsecured — ranks pari passu with other sukukholders',
+    id:'sw', code:'SWB 7.40% 09/29', short:'Sajian Warisan',
+    name:'Sajian Warisan Bhd', kind:'SUKUK', shariah:true, green:false,
+    structure:'Sukuk Murabahah (Tawarruq)', programme:'RM20.0m Sukuk Programme',
+    rate:'7.40%', rateNum:7.40, rating:'BBB- (RAM)', ratingAgency:'RAM Rating Services Berhad · stable outlook',
+    rated:true, tenure:'3 yrs', freq:'2× yr',
+    freqLong:'semi-annually', filled:'46%', maturity:'15 Sep 2029', maturityShort:'Sep 2029',
+    growTo:'RM 122.20', hasKpi:false, years:3, price:100.00, nextPayout:'2027-03-15',
+    isin:'Not assigned — scripless, prescribed under RENTAS', currency:'MYR (Ringgit Malaysia)',
+    couponType:'Fixed', issueDate:'15 Sep 2026', paymentDates:'15 March and 15 September',
+    firstPayment:'15 Mar 2027', dayCount:'Actual/365 (Fixed)',
+    boardLot:'Fractional from RM100 · maximum RM10,000 per investor',
+    issuerType:'Sukuk — corporate (ACE Market listed)',
+    sector:'Food service — halal casual dining', country:'Malaysia',
+    issueSize:'RM 4.0 million (this issue, of a RM20.0m programme)',
+    anchor:'RM2,600,000 (65.0%) — Meridian Credit Opportunities Fund I',
+    retailTranche:'RM1,400,000 (35.0%)',
+    liquidity:'Anchor Investor standing bid only (1.50% discount, RM70,000/month cap) — the Platform is not an exchange',
+    seniority:'Senior secured; ranks ahead of unsecured creditors to the extent of the security, and pari passu among holders',
+    security:'First-ranking charge over the central kitchen premises and a debenture over the assets of the Issuer',
+    shariahPrinciple:'Murabahah, effected through a Tawarruq arrangement in Shariah-compliant commodities',
+    shariahAdviser:'Ibnu Hakim Shariah Advisory Sdn Bhd',
+    prospectus:'prospectus/tk1_sajian_warisan_sukuk_murabahah.pdf',
     callable:false, investmentGrade:true
   },
   {
-    id:'smd', code:'SMDB 4.85% 03/31', short:'Seri Mutiara Development',
-    name:'Seri Mutiara Development Bhd', kind:'SUKUK', shariah:true, green:false,
-    structure:'Sukuk Murabahah (Tawarruq)', programme:'RM800m Sukuk Programme',
-    rate:'4.85%', rateNum:4.85, rating:'AA2 (RAM)', tenure:'5 yrs', freq:'2× yr',
-    freqLong:'semi-annually', filled:'68%', maturity:'20 Mar 2031', maturityShort:'Mar 2031',
-    growTo:'RM 124.25', hasKpi:false, years:5, price:102.70, nextPayout:'2026-08-15',
-    isin:'MYSMD3100027', currency:'MYR (Ringgit Malaysia)', couponType:'Fixed', issueDate:'20 Mar 2026',
-    boardLot:'Fractional — no minimum board lot beyond RM100', issuerType:'Sukuk — corporate',
-    sector:'Property development', country:'Malaysia', issueSize:'RM 35.0 million (this tranche)',
-    liquidity:'Actively traded', seniority:'Senior unsecured Sukuk Murabahah',
+    id:'li', code:'LIDB 6.20% 10/30', short:'Lembah Impian',
+    name:'Lembah Impian Development Bhd', kind:'SUKUK', shariah:true, green:false,
+    structure:'Sukuk Murabahah (Tawarruq)', programme:'RM60.0m Sukuk Programme',
+    rate:'6.20%', rateNum:6.20, rating:'A3 (RAM)', ratingAgency:'RAM Rating Services Berhad · stable outlook',
+    rated:true, tenure:'4 yrs', freq:'2× yr',
+    freqLong:'semi-annually', filled:'72%', maturity:'20 Oct 2030', maturityShort:'Oct 2030',
+    growTo:'RM 124.80', hasKpi:false, years:4, price:100.00, nextPayout:'2027-04-20',
+    isin:'Not assigned — scripless, prescribed under RENTAS', currency:'MYR (Ringgit Malaysia)',
+    couponType:'Fixed', issueDate:'20 Oct 2026', paymentDates:'20 April and 20 October',
+    firstPayment:'20 Apr 2027', dayCount:'Actual/365 (Fixed)',
+    boardLot:'Fractional from RM100 · maximum RM25,000 per investor',
+    issuerType:'Sukuk — corporate (Main Market listed)',
+    sector:'Residential property development', country:'Malaysia',
+    issueSize:'RM 12.0 million (this issue, of a RM60.0m programme)',
+    anchor:'RM8,400,000 (70.0%) — Meridian Credit Opportunities Fund I',
+    retailTranche:'RM3,600,000 (30.0%)',
+    liquidity:'Anchor Investor standing bid only (1.25% discount, RM180,000/month cap) — the Platform is not an exchange',
+    seniority:'Senior unsecured; ranks pari passu with all other present and future unsecured and unsubordinated obligations',
+    security:'Unsecured — supported by a negative pledge, an unencumbered asset covenant and a project account undertaking',
+    shariahPrinciple:'Murabahah, effected through a Tawarruq arrangement in Shariah-compliant commodities',
+    shariahAdviser:'Ibnu Hakim Shariah Advisory Sdn Bhd',
+    prospectus:'prospectus/tk2_lembah_impian_sukuk_murabahah.pdf',
     callable:false, investmentGrade:true
   },
   {
-    id:'tsn', code:'TSNB 5.10% 06/36', short:'Tenaga Suria Nusantara',
-    name:'Tenaga Suria Nusantara Bhd', kind:'SUKUK', shariah:true, green:true,
-    structure:'Green SRI Sukuk Wakalah · 220MW solar', programme:'RM1.5b Green Sukuk Programme',
-    rate:'5.10%', rateNum:5.10, rating:'AA3 (MARC)', tenure:'10 yrs', freq:'2× yr',
-    freqLong:'semi-annually', filled:'41%', maturity:'30 Jun 2036', maturityShort:'Jun 2036',
-    growTo:'RM 151.00', hasKpi:false, years:10, price:101.20, nextPayout:'2026-12-30',
-    isin:'MYTSN3600014', currency:'MYR (Ringgit Malaysia)', couponType:'Fixed', issueDate:'30 Jun 2026',
-    boardLot:'Fractional — no minimum board lot beyond RM100', issuerType:'Sukuk — corporate',
-    sector:'Renewable energy (solar)', country:'Malaysia', issueSize:'RM 80.0 million (this tranche)',
-    liquidity:'Moderate — matched via Tokenkan order book', seniority:'Senior unsecured Sukuk Wakalah',
+    id:'st', code:'STB 6.80% 08/31', short:'Suria Teknik',
+    name:'Suria Teknik Bhd', kind:'SUKUK', shariah:true, green:true,
+    structure:'Green SRI Sukuk Murabahah · C&I rooftop solar', programme:'RM40.0m Sukuk Programme',
+    rate:'6.80%', rateNum:6.80, rating:'BBB+ (RAM)', ratingAgency:'RAM Rating Services Berhad · stable outlook',
+    rated:true, tenure:'5 yrs', freq:'2× yr',
+    freqLong:'semi-annually', filled:'58%', maturity:'12 Aug 2031', maturityShort:'Aug 2031',
+    growTo:'RM 134.00', hasKpi:false, years:5, price:100.00, nextPayout:'2027-02-12',
+    isin:'Not assigned — scripless, prescribed under RENTAS', currency:'MYR (Ringgit Malaysia)',
+    couponType:'Fixed', issueDate:'12 Aug 2026', paymentDates:'12 February and 12 August',
+    firstPayment:'12 Feb 2027', dayCount:'Actual/365 (Fixed)',
+    boardLot:'Fractional from RM100 · maximum RM15,000 per investor',
+    issuerType:'Sukuk — corporate (ACE Market listed)',
+    sector:'Renewable energy — solar EPC and rooftop generation', country:'Malaysia',
+    issueSize:'RM 8.0 million (this issue, of a RM40.0m programme)',
+    anchor:'RM5,200,000 (65.0%) — Nusantara Sustainable Credit Fund',
+    retailTranche:'RM2,800,000 (35.0%)',
+    liquidity:'Anchor Investor standing bid only (1.50% discount, RM140,000/month cap) — the Platform is not an exchange',
+    seniority:'Senior unsecured; ranks pari passu with all other present and future unsecured and unsubordinated obligations',
+    security:'Unsecured at Issuer level — negative pledge, debt service reserve and an assignment of corporate PPA receivables',
+    shariahPrinciple:'Murabahah, effected through a Tawarruq arrangement in Shariah-compliant commodities',
+    shariahAdviser:'Ibnu Hakim Shariah Advisory Sdn Bhd · green credentials assessed by Verdant Assurance Partners Sdn Bhd',
+    prospectus:'prospectus/tk3_suria_teknik_green_sri_sukuk.pdf',
     callable:false, investmentGrade:true
   },
   {
-    id:'klr', code:'KLRC 5.45% 11/30', short:'KL Ritel Capital',
-    name:'KL Ritel Capital Bhd', kind:'BOND', shariah:false, green:false,
-    structure:'Senior unsecured MTN · retail malls', programme:'RM600m MTN Programme',
-    rate:'5.45%', rateNum:5.45, rating:'A1 (RAM)', tenure:'4 yrs', freq:'2× yr',
-    freqLong:'semi-annually', filled:'77%', maturity:'12 Nov 2030', maturityShort:'Nov 2030',
-    growTo:'RM 121.80', hasKpi:false, years:4, price:103.10, nextPayout:'2026-11-12',
-    isin:'MYKLR3000032', currency:'MYR (Ringgit Malaysia)', couponType:'Fixed', issueDate:'12 Nov 2026',
-    boardLot:'Fractional — no minimum board lot beyond RM100', issuerType:'Bond — corporate',
-    sector:'Retail / real estate', country:'Malaysia', issueSize:'RM 25.0 million (this tranche)',
-    liquidity:'Thin — matched via Tokenkan order book, not continuously quoted', seniority:'Senior unsecured MTN',
+    id:'pr', code:'PRAB 6.50% 11/30', short:'Pekan Retail Assets',
+    name:'Pekan Retail Assets Bhd', kind:'BOND', shariah:false, green:false,
+    structure:'Senior Unsecured Medium Term Notes · neighbourhood malls', programme:'RM30.0m MTN Programme',
+    rate:'6.50%', rateNum:6.50, rating:'A3 (RAM)', ratingAgency:'RAM Rating Services Berhad · stable outlook',
+    rated:true, tenure:'4 yrs', freq:'2× yr',
+    freqLong:'semi-annually', filled:'63%', maturity:'05 Nov 2030', maturityShort:'Nov 2030',
+    growTo:'RM 126.00', hasKpi:false, years:4, price:100.00, nextPayout:'2027-05-05',
+    isin:'Not assigned — scripless, prescribed under RENTAS', currency:'MYR (Ringgit Malaysia)',
+    couponType:'Fixed', issueDate:'05 Nov 2026', paymentDates:'5 May and 5 November',
+    firstPayment:'05 May 2027', dayCount:'Actual/365 (Fixed)',
+    boardLot:'Fractional from RM100 · maximum RM20,000 per investor',
+    issuerType:'Bond — corporate (Main Market listed)',
+    sector:'Retail real estate — neighbourhood shopping centres', country:'Malaysia',
+    issueSize:'RM 6.0 million (this issue, of a RM30.0m programme)',
+    anchor:'RM3,900,000 (65.0%) — Meridian Credit Opportunities Fund I',
+    retailTranche:'RM2,100,000 (35.0%)',
+    liquidity:'Anchor Investor standing bid only (1.25% discount, RM105,000/month cap) — the Platform is not an exchange',
+    seniority:'Senior unsecured; ranks pari passu with all other present and future unsecured and unsubordinated obligations',
+    security:'Unsecured — supported by a negative pledge, an unencumbered asset covenant and a biennial valuation requirement',
+    shariahPrinciple:'Not applicable — conventional interest-bearing instrument',
+    shariahAdviser:'None appointed. No Shariah pronouncement has been obtained for this issue.',
+    prospectus:'prospectus/tk4_pekan_retail_medium_term_notes.pdf',
     callable:false, investmentGrade:true
   },
   {
-    id:'bwi', code:'BWIB 4.15% 05/29', short:'Bank Wawasan Islam',
-    name:'Bank Wawasan Islam Bhd', kind:'SUKUK', shariah:true, green:false,
-    structure:'Senior Sukuk Murabahah', programme:'RM2.0b Sukuk Programme',
-    rate:'4.15%', rateNum:4.15, rating:'AA1 (MARC)', tenure:'3 yrs', freq:'2× yr',
-    freqLong:'semi-annually', filled:'85%', maturity:'05 May 2029', maturityShort:'May 2029',
-    growTo:'RM 112.45', hasKpi:false, years:3, price:101.625, nextPayout:'2026-08-15',
-    isin:'MYBWI2900019', currency:'MYR (Ringgit Malaysia)', couponType:'Fixed', issueDate:'05 May 2026',
-    boardLot:'Fractional — no minimum board lot beyond RM100', issuerType:'Sukuk — corporate (Islamic bank)',
-    sector:'Financial services (Islamic banking)', country:'Malaysia', issueSize:'RM 40.0 million (this tranche)',
-    liquidity:'Actively traded', seniority:'Senior unsecured Sukuk Murabahah',
+    id:'mq', code:'MQPB 7.50% 11/29', short:'MediQ Peranti',
+    name:'MediQ Peranti Bhd', kind:'SUKUK', shariah:true, green:false,
+    structure:'Secured Sukuk Murabahah (Tawarruq)', programme:'RM15.0m Sukuk Programme',
+    rate:'7.50%', rateNum:7.50, rating:'BBB- (RAM)', ratingAgency:'RAM Rating Services Berhad · stable outlook',
+    rated:true, tenure:'3 yrs', freq:'2× yr',
+    freqLong:'semi-annually', filled:'39%', maturity:'18 Nov 2029', maturityShort:'Nov 2029',
+    growTo:'RM 122.50', hasKpi:false, years:3, price:100.00, nextPayout:'2027-05-18',
+    isin:'Not assigned — scripless, prescribed under RENTAS', currency:'MYR (Ringgit Malaysia)',
+    couponType:'Fixed', issueDate:'18 Nov 2026', paymentDates:'18 May and 18 November',
+    firstPayment:'18 May 2027', dayCount:'Actual/365 (Fixed)',
+    boardLot:'Fractional from RM100 · maximum RM8,000 per investor',
+    issuerType:'Sukuk — corporate (ACE Market listed)',
+    sector:'Medical device manufacturing', country:'Malaysia',
+    issueSize:'RM 3.5 million (this issue, of a RM15.0m programme)',
+    anchor:'RM2,300,000 (65.7%) — Nusantara Sustainable Credit Fund',
+    retailTranche:'RM1,200,000 (34.3%)',
+    liquidity:'Anchor Investor standing bid only (1.75% discount, RM60,000/month cap) — the Platform is not an exchange',
+    seniority:'Senior secured; ranks behind the existing first charge on the factory premises, ahead of unsecured creditors to the extent of the security, and pari passu among holders',
+    security:'Second-ranking charge over the Kulim factory premises and a debenture over the assets of the Issuer',
+    shariahPrinciple:'Murabahah, effected through a Tawarruq arrangement in Shariah-compliant commodities',
+    shariahAdviser:'Ibnu Hakim Shariah Advisory Sdn Bhd',
+    prospectus:'prospectus/tk5_mediq_peranti_sukuk_murabahah.pdf',
     callable:false, investmentGrade:true
   },
   {
-    id:'mpi', code:'MPIB 4.05% 09/29', short:'Malaysian Prime Infrastructure',
-    name:'Malaysian Prime Infrastructure Bhd', kind:'BOND', shariah:false, green:false,
-    structure:'Government-guaranteed senior bond', programme:'RM3.0b Bond Programme',
-    rate:'4.05%', rateNum:4.05, rating:'AAA (MARC)', tenure:'3 yrs', freq:'2× yr',
-    freqLong:'semi-annually', filled:'58%', maturity:'18 Sep 2029', maturityShort:'Sep 2029',
-    growTo:'RM 112.15', hasKpi:false, years:3, price:100.80, nextPayout:'2026-09-18',
-    isin:'MYMPI2900045', currency:'MYR (Ringgit Malaysia)', couponType:'Fixed', issueDate:'18 Sep 2026',
-    boardLot:'Fractional — no minimum board lot beyond RM100', issuerType:'Bond — government-guaranteed',
-    sector:'Infrastructure', country:'Malaysia', issueSize:'RM 60.0 million (this tranche)',
-    liquidity:'Actively traded', seniority:'Senior, government-guaranteed',
+    id:'gl', code:'GLB 5.90% 06/31', short:'Gerak Logistik',
+    name:'Gerak Logistik Bhd', kind:'SUKUK', shariah:true, green:false,
+    structure:'Sukuk Murabahah (Tawarruq)', programme:'RM80.0m Sukuk Programme',
+    rate:'5.90%', rateNum:5.90, rating:'A2 (RAM)', ratingAgency:'RAM Rating Services Berhad · stable outlook',
+    rated:true, tenure:'5 yrs', freq:'2× yr',
+    freqLong:'semi-annually', filled:'81%', maturity:'25 Jun 2031', maturityShort:'Jun 2031',
+    growTo:'RM 129.50', hasKpi:false, years:5, price:100.00, nextPayout:'2026-12-25',
+    isin:'Not assigned — scripless, prescribed under RENTAS', currency:'MYR (Ringgit Malaysia)',
+    couponType:'Fixed', issueDate:'25 Jun 2026', paymentDates:'25 June and 25 December',
+    firstPayment:'25 Dec 2026', dayCount:'Actual/365 (Fixed)',
+    boardLot:'Fractional from RM100 · maximum RM30,000 per investor',
+    issuerType:'Sukuk — corporate (Main Market listed)',
+    sector:'Temperature-controlled logistics', country:'Malaysia',
+    issueSize:'RM 15.0 million (this issue, of a RM80.0m programme)',
+    anchor:'RM10,500,000 (70.0%) — Meridian Credit Opportunities Fund I',
+    retailTranche:'RM4,500,000 (30.0%)',
+    liquidity:'Anchor Investor standing bid only (1.00% discount, RM225,000/month cap) — the Platform is not an exchange',
+    seniority:'Senior unsecured; ranks pari passu with all other present and future unsecured and unsubordinated obligations',
+    security:'Unsecured — supported by a negative pledge, an unencumbered asset covenant and a debt service reserve',
+    shariahPrinciple:'Murabahah, effected through a Tawarruq arrangement in Shariah-compliant commodities',
+    shariahAdviser:'Ibnu Hakim Shariah Advisory Sdn Bhd',
+    prospectus:'prospectus/tk6_gerak_logistik_sukuk_murabahah.pdf',
     callable:false, investmentGrade:true
   }
 ];
@@ -204,26 +296,23 @@ var ASSETS = [
 /* Canned answers — used only when the server is unreachable. */
 var QA = [
   { q:'What am I actually buying?',
-    a:'Not a loan. Your RM goes into a pool that buys Shariah-compliant tangible assets plus a commodity murabahah investment, and you own an undivided beneficial interest in that pool through the sukuk.\n\nThe issuer acts as your investment agent (wakeel) and passes the returns back to you. Every holder ranks equally — nobody gets paid ahead of you.',
-    c:'Section 4 — Wakalah Bi Al-Istithmar; "Sukuk Investments" = Tangible Assets + Commodity Murabahah Investment' },
+    a:'For the sukuk offerings: not a loan. Through the Trustee you buy Shariah-compliant commodities and sell them to the issuer at a deferred price made up of the nominal value plus an agreed profit. That deferred price is what the issuer owes you.\n\nThe Pekan Retail notes are different — they are a conventional interest-bearing instrument, not Shariah compliant.\n\nEvery holder in an issue ranks equally with the others, including the anchor investor.',
+    c:'Section 4.1 — Shariah principle: Murabahah, effected through a Tawarruq arrangement' },
   { q:'How do I get paid?',
-    a:'Twice a year. The returns generated by the pool are distributed as Periodic Distributions — 4.30% a year on the face amount of your sukuk.\n\nThe amount is worked out on days actually elapsed over a 365-day year, so a payment landing 181 days after the last one pays 181/365 of the annual rate.',
-    c:'Definitions — Periodic Distribution Amount, calculated actual/365' },
-  { q:"What's the KPI step-down?",
-    a:"This is the unusual part, so read it twice.\n\nIf the schools hit their key performance targets, the nominal value of your sukuk is reduced at maturity — up to 6.5% of your principal is forgone and becomes your donation to the project.\n\nSo the better the project performs, the less capital you get back. You are trading return for impact on purpose. If the KPIs are missed, you are repaid in full.",
-    c:'Dissolution Distribution Amount — less any adjustment to nominal value in the event the KPIs are met' },
+    a:'Twice a year, in arrears, on the two payment dates fixed for that issue. The rate is fixed for the full tenure and does not move.\n\nThe amount is worked out on days actually elapsed over a 365-day year, so a payment landing 181 days after the last one pays 181/365 of the annual rate.',
+    c:'Section 4.1 — Profit payment frequency and dates; day count Actual/365 (Fixed)' },
+  { q:'Is my capital protected?',
+    a:'No. There is no capital guarantee and no PIDM protection. Two of the six offerings are unrated, meaning no rating agency has assessed the issuer at all.\n\nSome issues are secured over property, but security is not the same as safety: on Sajian Warisan the charge ranks behind RM7.2 million of prior financing, leaving thin cover before any forced-sale discount.',
+    c:'Cover page risk statement; Section 4.6 — Security' },
   { q:'What happens at maturity?',
-    a:'On the scheduled dissolution date you receive the nominal value of your sukuk, plus any distribution accrued but not yet paid, minus the KPI adjustment if the targets were met.\n\nThat total is the Dissolution Distribution Amount. It is paid in cash to your Tokenkan balance.',
-    c:'Section 4 — Dissolution Distribution Amount on the Scheduled Dissolution Date' },
+    a:'These are bullet instruments. Nothing is repaid along the way except profit — then the entire nominal value falls due in one payment on the maturity date, together with the final profit payment.\n\nIf the issuer cannot fund that single payment, you are exposed to the full amount at once.',
+    c:'Section 4.1 — Maturity structure: bullet repayment of the full nominal value' },
   { q:'Can I lose money?',
-    a:'Yes. Three honest ways:\n\n1. The obligor fails to pay. There is no capital guarantee and no PIDM protection.\n2. You sell before maturity and the buyback price is below what you paid.\n3. The KPI step-down reduces your principal at maturity by up to 6.5%.\n\nHolding to maturity with a solvent issuer is the only path where you get the headline return.',
-    c:'Section 5.3 — Risks relating to the Retail Sukuk' },
+    a:'Yes. Three honest ways:\n\n1. The issuer fails to pay. These are small companies and two issues are unrated.\n2. You exit early through the anchor standing bid, which is priced at a discount of 1.00% to 1.75% depending on the issue.\n3. The standing bid is capped monthly and may be suspended, so you may not be able to exit when you want to.\n\nHolding to maturity with a solvent issuer is the only path where you get the headline return.',
+    c:'Section 7 — Risk Factors; Section 9.5 — Anchor Investor standing bid' },
   { q:'Is it really Shariah compliant?',
-    a:"It is structured as Wakalah Bi Al-Istithmar with a commodity murabahah leg, approved by the Shariah adviser and lodged under the SC's SRI Sukuk framework.\n\nThere is no interest: your return comes from profit on real assets and a deferred sale price on commodities, not from lending money at a rate.",
-    c:'Section 4 — Islamic principle of Wakalah Bi Al-Istithmar; SC Sustainable and Responsible Investment Sukuk framework' },
-  { q:'Can I get out early?',
-    a:'Not from the issuer. There is no put option on this tranche — the issuer only repays at maturity.\n\nWhat you can do is sell your units back to Tokenkan at a quoted buyback price, usually within a percent or so of fair value, with a 0.35% fee. That price moves with rates, so early exit can cost you.',
-    c:"Section 4 — no certificate holders' optional dissolution on this tranche" }
+    a:'Five of the six are. They are structured as Murabahah through a Tawarruq arrangement and reviewed and approved by Ibnu Hakim Shariah Advisory Sdn Bhd. Your return is profit on a deferred commodity sale, not interest on a loan.\n\nThe Pekan Retail Assets notes are conventional. No Shariah adviser was appointed and no pronouncement was obtained for that issue.',
+    c:'Section 8 — Is this issuance Shariah compliant?; Section 4.1 — Shariah adviser' }
 ];
 
 var INCOME_BARS = [
@@ -234,17 +323,17 @@ var INCOME_BARS = [
 
 var NOTIFICATIONS = [
   { tag:'Payout', tagFg:'#157A56', dot:'#157A56', bg:'#FFFFFF', bd:'#E3DFD4', when:'2h',
-    title:'RM 144.00 distribution scheduled',
-    body:'Seri Mutiara and Bank Wawasan Islam pay on 15 Aug 2026. Funds land in your balance by 5pm.' },
+    title:'RM 171.10 distribution scheduled',
+    body:'Gerak Logistik pays on 25 Dec 2026. Funds land in your balance by 5pm.' },
   { tag:'Closing soon', tagFg:'#8A6A22', dot:'#B0872F', bg:'#FBF7EC', bd:'#E8DDBF', when:'1d',
-    title:'Amanah Ihsan is 92% filled',
-    body:'Subscription closes 14 Aug 2026 or earlier if fully allocated. Balloting follows on 16 Aug.' },
+    title:'Gerak Logistik is 81% filled',
+    body:'RM4.5 million retail tranche, maximum RM30,000 per investor. Allocation closes once fully subscribed.' },
   { tag:'Disclosure', tagFg:'#0E3D2F', dot:'#0E3D2F', bg:'#FFFFFF', bd:'#E3DFD4', when:'3d',
-    title:'KPI evaluation report published',
-    body:'The independent auditor confirmed 18 of 20 trust schools met their targets. Nominal value adjustment applies at maturity.' },
+    title:'Suria Teknik green assessment published',
+    body:'Verdant Assurance Partners confirmed the use of proceeds against the issuer SRI framework. BBB+ (MARC), stable.' },
   { tag:'Market', tagFg:'#0E3D2F', dot:'#9AA5A0', bg:'#FFFFFF', bd:'#E3DFD4', when:'5d',
-    title:'New offering: Tenaga Suria Nusantara',
-    body:'5.10% p.a. green SRI sukuk funding a 220MW solar plant in Kedah. 10-year tenure, AA3.' }
+    title:'New offering: MediQ Peranti',
+    body:'7.50% p.a. secured Sukuk Murabahah, 3-year tenure. Unrated — the highest rate and the highest credit risk on the Platform.' }
 ];
 
 var TAB_ICONS = {
@@ -255,7 +344,7 @@ var TAB_ICONS = {
   profile:'M4 20a8 8 0 0 1 16 0M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8'
 };
 var TABS = [['home','Portfolio'],['market','Market'],['wallet','Balance'],['activity','Activity'],['profile','Profile']];
-var FILTERS = ['All','Shariah','Sukuk','Bonds','SRI / Green','AAA only'];
+var FILTERS = ['All','Shariah','Sukuk','Bonds','SRI / Green','Rated only'];
 var HERO_METRICS = ['Total value','Projected income','Next payout'];
 var KEYPAD = ['1','2','3','4','5','6','7','8','9','00','0','⌫'];
 var MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
@@ -269,17 +358,19 @@ var SAVE_KEY = 'tokenkan.v1';
 function seedBook(){
   return {
     wallet: 1240,
-    holdings: { smd:32, aie:58, bwi:32 },
-    distributions: 480.50,          // cash income received to date
+    // Demo seed only. Coupon amounts below are the real semi-annual figures for
+    // these instruments (PAR × rate ÷ 2): Gerak 5.90% → RM2.95/unit, Lembah
+    // 6.20% → RM3.10, Suria 6.80% → RM3.40.
+    holdings: { gl:58, li:32, st:32 },
+    distributions: 379.10,          // cash income received to date
     activity: [
-      { glyph:'↓', kind:'in',  title:'Distribution received', sub:'Seri Mutiara Development Bhd', amount:77.60,   date:'15 Feb' },
-      { glyph:'↓', kind:'in',  title:'Distribution received', sub:'Bank Wawasan Islam Bhd',       amount:66.40,   date:'15 Feb' },
-      { glyph:'↑', kind:'buy', title:'Bought 18 units',       sub:'Amanah Ihsan Education Bhd',   amount:-1800,   date:'04 Feb' },
+      { glyph:'↓', kind:'in',  title:'Distribution received', sub:'Gerak Logistik Bhd',            amount:171.10,  date:'25 Dec' },
+      { glyph:'↓', kind:'in',  title:'Distribution received', sub:'Suria Teknik Bhd',              amount:108.80,  date:'12 Feb' },
+      { glyph:'↑', kind:'buy', title:'Bought 18 units',       sub:'Suria Teknik Bhd',              amount:-1800,   date:'04 Feb' },
       { glyph:'+', kind:'top', title:'Balance top-up',        sub:'DuitNow · Maybank Islamic ••4412', amount:2000, date:'03 Feb' },
-      { glyph:'↓', kind:'in',  title:'Distribution received', sub:'Amanah Ihsan Education Bhd',   amount:124.70,  date:'15 Jan' },
-      { glyph:'↑', kind:'buy', title:'Sold 6 units',          sub:'KL Ritel Capital Bhd',         amount:618.20,  date:'22 Dec' }
+      { glyph:'↓', kind:'in',  title:'Distribution received', sub:'Lembah Impian Development Bhd', amount:99.20,   date:'20 Apr' },
+      { glyph:'↑', kind:'buy', title:'Sold 6 units',          sub:'Pekan Retail Assets Bhd',       amount:600.00,  date:'22 Dec' }
     ],
-    incomeAvailable: 480.50,  // withdrawable coupon income; separate from `distributions` (lifetime total, used for performance stats)
     clockOffsetMs: 0,         // demo-only "advance time" control — see today()
     payoutDates: {}           // per-asset next-payout override once a coupon has been credited; falls back to ASSETS[].nextPayout
   };
@@ -287,9 +378,19 @@ function seedBook(){
 
 var book = loadBook();
 // Migrate saves written before these fields existed.
-if (typeof book.incomeAvailable !== 'number') book.incomeAvailable = book.distributions;
 if (typeof book.clockOffsetMs !== 'number') book.clockOffsetMs = 0;
 if (!book.payoutDates || typeof book.payoutDates !== 'object') book.payoutDates = {};
+
+// Saves written before the offerings were rebuilt from the prospectuses hold
+// positions under asset ids that no longer exist. Left in place they resolve
+// to null and take the whole render down, so a stale save is discarded for a
+// fresh demo book rather than leaving the app in a broken half-state.
+(function dropStaleHoldings(){
+  var stale = Object.keys(book.holdings || {}).filter(function(id){ return !assetById(id); });
+  if (!stale.length) return;
+  book = seedBook();
+  saveBook();
+})();
 
 function loadBook(){
   try {
@@ -314,12 +415,11 @@ function resetBook(){
    ═══════════════════════════════════════════════════════════════ */
 
 var state = {
-  tab:'home', screen:null, stack:[], assetId:'aie', hide:false,
+  tab:'home', screen:null, stack:[], assetId:'gl', hide:false,
   filter:'All', buyStep:'entry', amount:'500', ack:false,
   sellQty:12, doneKind:null, doneRows:null, doneMeta:null,
   explainer:false, thinking:false, streaming:'', chatError:null,
   cash:null,                       // { mode:'topup'|'withdraw', amount:'0' }
-  income:null,                     // { amount:'0', dest:'maybank'|'duitnow' }
   heroMetric:'Total value', shariahOnly:false,
   toast:null,                       // { title, body } — auto-dismisses, see showToast()
   messages:[{ role:'ai', text:'That is the whole offering in plain English. Ask me anything below and I will quote the section I got it from.', cite:null }]
@@ -358,6 +458,34 @@ function daysUntil(iso){
   var target = new Date(iso + 'T00:00:00');
   return Math.max(0, Math.ceil((target - today()) / 86400000));
 }
+
+// The real distribution schedule for an offering, built from its first payment
+// date (ASSETS[].nextPayout) stepped semi-annually to maturity. Every offering
+// is a bullet: years × 2 payments, the last one landing on the maturity date
+// together with the nominal value. Row counts match the schedules printed in
+// the prospectuses.
+function payoutSchedule(a, perToken){
+  var first = new Date(a.nextPayout + 'T00:00:00');
+  var n = a.years * 2;
+  var now = today();
+  var rows = [];
+  for (var i = 0; i < n; i++) {
+    var d = new Date(first.getFullYear(), first.getMonth() + i * 6, first.getDate());
+    var last = (i === n - 1);
+    var status, dot;
+    if (last)          { status = 'Maturity'; dot = '#DDD8CC'; }
+    else if (d < now)  { status = 'Paid';     dot = '#157A56'; }
+    else if (!rows.some(function(r){ return r.status === 'Next'; })) { status = 'Next'; dot = '#B0872F'; }
+    else               { status = 'Scheduled'; dot = '#DDD8CC'; }
+    rows.push({
+      date: longDate(d),
+      amt: rm(last ? round2(PAR + perToken) : perToken),
+      status: status,
+      dot: dot
+    });
+  }
+  return rows;
+}
 function payoutLabel(iso){
   var d = new Date(iso + 'T00:00:00');
   return longDate(d);
@@ -367,8 +495,12 @@ function payoutLabel(iso){
    Portfolio maths — everything below is derived from `book`
    ═══════════════════════════════════════════════════════════════ */
 
+// Only ids that still map to a live offering — a holding under an unknown id
+// would otherwise resolve to null downstream and throw mid-render.
 function heldIds(){
-  return Object.keys(book.holdings).filter(function(id){ return book.holdings[id] > 0; });
+  return Object.keys(book.holdings).filter(function(id){
+    return book.holdings[id] > 0 && assetById(id);
+  });
 }
 function tokensOf(id){ return book.holdings[id] || 0; }
 function positionValue(id){ var a = assetById(id); return a ? tokensOf(id) * a.price : 0; }
@@ -415,20 +547,6 @@ function bidDepth(a){
   return rows;
 }
 
-// Coupon income currently available to withdraw. Capped at wallet cash so it
-// can never show more than actually sits in the balance.
-function withdrawableIncome(){
-  return round2(Math.max(0, Math.min(book.incomeAvailable, book.wallet)));
-}
-
-// The amount keypad only enters whole ringgit, but coupon income accrues in
-// cents. If what was typed is the whole-ringgit floor of the full balance,
-// treat it as "withdraw everything" rather than stranding the odd cents.
-function effectiveWithdrawAmount(rawAmt, cap){
-  var floorCap = Math.floor(cap);
-  return (rawAmt === floorCap && cap > floorCap) ? cap : rawAmt;
-}
-
 // The next payout date for a holding. ASSETS[].nextPayout is the static seed
 // value; once a coupon has actually been credited, book.payoutDates overrides
 // it with the following period so the countdown keeps moving.
@@ -459,7 +577,6 @@ function checkAndCreditDistributions(){
       var amt = semiAnnualPayout(id);
       if (amt > 0) {
         book.wallet = round2(book.wallet + amt);
-        book.incomeAvailable = round2(book.incomeAvailable + amt);
         book.distributions = round2(book.distributions + amt);
         logActivity({ glyph:'↓', kind:'in', title:'Distribution received', sub:a.name, amount:amt });
         credited.push({ name:a.short, amount:amt });
@@ -524,7 +641,6 @@ function explainerFacts(a){
       ['Bond name', a.name],
       ['Issuer', a.name],
       ['Issuer type', a.issuerType],
-      ['ISIN / bond code', a.isin],
       ['Currency', a.currency]
     ],
     coreTerms: [
@@ -534,8 +650,7 @@ function explainerFacts(a){
       ['Coupon frequency', 'Semi-annual'],
       ['Issue date', a.issueDate],
       ['Maturity date', a.maturity],
-      ['Time to maturity', daysToYearsMonths(daysToMaturity(a))],
-      ['Minimum investment', 'RM100 · ' + a.boardLot]
+      ['Time to maturity', daysToYearsMonths(daysToMaturity(a))]
     ],
     pricing: [
       ['Current market price', a.price.toFixed(2) + '% of par'],
@@ -549,7 +664,6 @@ function explainerFacts(a){
     ],
     risk: [
       ['Credit rating', a.rating],
-      ['Grade', a.investmentGrade ? 'Investment grade' : 'Speculative grade'],
       ['Duration (approx.)', m.duration + ' years'],
       ['Est. price move per 1% rate change', '≈ ' + rm(m.priceChangePer1pct) + ' / unit (approx.)'],
       ['Callable', a.callable ? 'Yes' : 'No'],
@@ -558,9 +672,7 @@ function explainerFacts(a){
     context: [
       ['Sector', a.sector],
       ['Country', a.country],
-      ['Issue size', a.issueSize],
-      ['Liquidity', a.liquidity],
-      ['Tax treatment', TAX_NOTE]
+      ['Issue size', a.issueSize]
     ],
     summary: plainLanguageSummary(a, m),
     footer: 'Data as at ' + longDate(today()) + ' · issuer disclosures and rating agency data. Educational information only — not investment advice.'
@@ -627,10 +739,12 @@ function logActivity(entry){
 
 function buyTokens(id, amount){
   var tokens = amount / PAR;
-  book.wallet = round2(book.wallet - amount);
+  var fee = round2(amount * TRADE_FEE);
+  var total = round2(amount + fee);
+  book.wallet = round2(book.wallet - total);
   book.holdings[id] = tokensOf(id) + tokens;
   logActivity({ glyph:'↑', kind:'buy', title:'Bought ' + tokens + ' unit' + (tokens===1?'':'s'),
-                sub: assetById(id).name, amount: -amount });
+                sub: assetById(id).name + ' · incl. ' + rm(fee) + ' fee', amount: -total });
   saveBook();
 }
 
@@ -648,7 +762,7 @@ function sellTokens(id, qty){
 function sellQuote(id, qty){
   var a = assetById(id);
   var gross = round2(qty * a.price);
-  var fee = round2(gross * BUYBACK_FEE);
+  var fee = round2(gross * TRADE_FEE);
   var accrued = round2(qty * accruedPerToken(id));
   return { price:a.price, gross:gross, fee:fee, accrued:accrued, net: round2(gross - fee + accrued) };
 }
@@ -695,7 +809,11 @@ function derive(){
   var a = asset();
   var p = portfolio();
   var amt = parseInt(state.amount, 10) || 0;
-  var valid = amt >= 100 && amt % 100 === 0 && amt <= book.wallet;
+  // The 1% fee is charged on top of the subscription, so the balance has to
+  // cover both — not just the units.
+  var fee = round2(amt * TRADE_FEE);
+  var total = round2(amt + fee);
+  var valid = amt >= 100 && amt % 100 === 0 && total <= book.wallet;
 
   var list = ASSETS.slice();
   if (state.shariahOnly) list = list.filter(function(x){ return x.shariah; });
@@ -703,18 +821,18 @@ function derive(){
   if (state.filter === 'Sukuk')       list = list.filter(function(x){ return x.kind === 'SUKUK'; });
   if (state.filter === 'Bonds')       list = list.filter(function(x){ return x.kind === 'BOND'; });
   if (state.filter === 'SRI / Green') list = list.filter(function(x){ return x.green; });
-  if (state.filter === 'AAA only')    list = list.filter(function(x){ return x.rating.indexOf('AAA') === 0; });
+  if (state.filter === 'Rated only')  list = list.filter(function(x){ return x.rated; });
   list = list.sort(function(x,y){ return y.rateNum - x.rateNum; });
 
   return {
-    a:a, p:p, amt:amt, valid:valid,
+    a:a, p:p, amt:amt, fee:fee, total:total, valid:valid,
     income: round2(amt * a.rateNum / 100 * a.years),
     list:list,
     owns: tokensOf(a.id) > 0,
     buyHint: amt < 100 ? 'Minimum investment is RM100'
            : amt % 100 !== 0 ? 'Invested in RM100 units'
-           : amt > book.wallet ? 'Exceeds available balance of ' + rm(book.wallet)
-           : 'Available: ' + rm(book.wallet)
+           : total > book.wallet ? 'With the ' + TRADE_FEE_LABEL + ' fee that is ' + rm(total) + ' — exceeds your ' + rm(book.wallet)
+           : 'Available: ' + rm(book.wallet) + ' · ' + TRADE_FEE_LABEL + ' fee ' + rm(fee)
   };
 }
 
@@ -762,7 +880,6 @@ function view(){
   else if (state.screen === 'detail')        body = detailScreen(d);
   else if (state.screen === 'buy')           body = buyScreen(d);
   else if (state.screen === 'sell')          body = sellScreen(d);
-  else if (state.screen === 'income')        body = incomeScreen();
   else if (state.screen === 'done')          body = doneScreen(d);
   else if (state.screen === 'notifications') body = notificationsScreen();
 
@@ -833,14 +950,6 @@ function homeScreen(d){
       quickAction('goActivity', 'Payouts', 'schedule') +
     '</div>' +
 
-    '<div data-act="openIncome" class="card t99" style="margin:14px 20px 0;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;cursor:pointer">' +
-      '<div>' +
-        '<div class="lbl-sm">Total coupon income</div>' +
-        '<div class="mono" style="font-size:17px;font-weight:600;margin-top:3px">' + (state.hide ? 'RM ••••' : rm(withdrawableIncome())) + '</div>' +
-      '</div>' +
-      '<div data-act="openIncome" class="t97" style="padding:9px 14px;border-radius:100px;background:var(--green);color:#fff;font-size:12.5px;font-weight:600;cursor:pointer">Withdraw</div>' +
-    '</div>' +
-
     '<div style="display:flex;align-items:baseline;justify-content:space-between;margin:26px 20px 10px">' +
       '<div style="font-size:15px;font-weight:600">Your holdings</div>' +
       '<div class="mono" style="font-size:12px;color:var(--muted)">' + p.positions + ' position' + (p.positions===1?'':'s') + '</div>' +
@@ -857,13 +966,13 @@ function homeScreen(d){
         '<div style="width:6px;height:6px;border-radius:50%;background:var(--gold)"></div>' +
         '<div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-ink)">Closing soon</div>' +
       '</div>' +
-      '<div style="font-size:15px;font-weight:600;margin-top:9px">Amanah Ihsan Education Bhd</div>' +
-      '<div style="font-size:12px;color:var(--muted);margin-top:3px;line-height:1.5">SRI sukuk funding 20 trust schools. 4.30% p.a., 7 years, AAA. Subscription closes 14 Aug 2026.</div>' +
+      '<div style="font-size:15px;font-weight:600;margin-top:9px">Gerak Logistik Bhd</div>' +
+      '<div style="font-size:12px;color:var(--muted);margin-top:3px;line-height:1.5">Sukuk Murabahah funding cold-store expansion. 5.90% p.a., 5 years, A2 (RAM) — the highest rating on the Platform.</div>' +
       '<div style="height:5px;background:var(--hair);border-radius:3px;margin-top:13px;overflow:hidden">' +
-        '<div style="width:92%;height:100%;background:var(--green);border-radius:3px"></div>' +
+        '<div style="width:81%;height:100%;background:var(--green);border-radius:3px"></div>' +
       '</div>' +
       '<div class="mono" style="display:flex;justify-content:space-between;margin-top:7px;font-size:11px;color:var(--muted)">' +
-        '<div>RM 46.0m of RM 50.0m</div><div>92% filled</div>' +
+        '<div>RM 3.6m of RM 4.5m retail tranche</div><div>81% filled</div>' +
       '</div>' +
       '<div data-act="openFeatured" class="t98" style="margin-top:14px;background:var(--green);color:#fff;text-align:center;padding:12px;border-radius:12px;font-size:14px;font-weight:600;cursor:pointer">View offering</div>' +
     '</div>' +
@@ -1157,23 +1266,18 @@ function profileScreen(){
 function detailScreen(d){
   var a = d.a;
   var terms = [
-    ['Issuer', a.name], ['Instrument code', a.code], ['Denomination', 'RM 100'],
-    ['Minimum investment', 'RM 100'], ['Rating', a.rating], ['Tenure', a.tenure],
-    ['Maturity', a.maturity], ['Distribution basis', 'Actual / 365'],
-    ['Early redemption', 'None — buyback only']
+    ['Issuer', a.name], ['Instrument', a.structure], ['Instrument code', a.code],
+    ['Issue size', a.issueSize],
+    ['Rating', a.rating], ['Rating agency', a.ratingAgency],
+    ['Tenure', a.tenure], ['Issue date', a.issueDate], ['Maturity', a.maturity],
+    ['Payment dates', a.paymentDates], ['Distribution basis', a.dayCount],
+    ['Shariah adviser', a.shariahAdviser]
   ];
   var perToken = round2(PAR * (a.rateNum / 100) / 2);
-  var schedule = [
-    { date:'15 Feb 2026', amt:rm(perToken), status:'Paid', dot:'#157A56' },
-    { date:'15 Aug 2026', amt:rm(perToken), status:'Paid', dot:'#157A56' },
-    { date:'15 Feb 2027', amt:rm(perToken), status:'Next', dot:'#B0872F' },
-    { date:'15 Aug 2027', amt:rm(perToken), status:'Scheduled', dot:'#DDD8CC' },
-    { date:'…', amt:'…', status:'', dot:'#DDD8CC' },
-    { date:a.maturity, amt:rm(round2(PAR + perToken)), status:'Maturity', dot:'#DDD8CC' }
-  ];
+  var schedule = payoutSchedule(a, perToken);
   var risks = [
     { t:'Credit risk', d:'If the obligor cannot pay, distributions stop and you may not recover your principal. Nothing here is guaranteed by the government or PIDM.' },
-    { t:'Liquidity risk', d:'There is no put option. Exit before maturity depends on Tokenkan quoting a buyback price, which can be below what you paid.' },
+    { t:'Liquidity risk', d:'There is no put option and the Platform is not an exchange. Exit before maturity depends on the anchor investor standing bid, which is priced at a discount to nominal, capped each month and may be suspended.' },
     { t:a.hasKpi ? 'KPI adjustment' : 'Rate risk',
       d:a.hasKpi ? 'Meeting the education targets reduces the nominal value repaid at maturity by up to 6.5%.'
                  : 'If OPR rises, the buyback price of a fixed-rate holding falls. Holding to maturity avoids this.' }
@@ -1226,29 +1330,18 @@ function detailScreen(d){
       '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9AA5A0" stroke-width="2"><path d="M9 18l6-6-6-6"></path></svg>' +
     '</div>' +
 
-    (a.id === GROUNDED_ASSET_ID
-      ? '<a href="/prospectus.txt" download="' + esc(a.short.replace(/\s+/g, '-')) + '-Prospectus-Excerpt.txt" style="text-decoration:none;color:inherit;display:block" class="t99">' +
-          '<div style="margin:10px 20px 0;background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;display:flex;align-items:center;gap:12px;cursor:pointer">' +
-            '<div style="width:34px;height:34px;border-radius:11px;background:var(--bg);display:flex;align-items:center;justify-content:center;flex:0 0 auto">' +
-              '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#0E3D2F" stroke-width="1.8"><path d="M12 3v13m0 0l-4-4m4 4l4-4"></path><path d="M5 18v2a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2"></path></svg>' +
-            '</div>' +
-            '<div style="flex:1">' +
-              '<div style="font-size:13.5px;font-weight:600">Download prospectus</div>' +
-              '<div style="font-size:11.5px;color:var(--muted);margin-top:1px">Text excerpt · pages 1–70 of 223</div>' +
-            '</div>' +
-            '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9AA5A0" stroke-width="2"><path d="M9 18l6-6-6-6"></path></svg>' +
-          '</div>' +
-        '</a>'
-      : '<div data-act="downloadTermSheet" class="t99" style="margin:10px 20px 0;background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;display:flex;align-items:center;gap:12px;cursor:pointer">' +
-          '<div style="width:34px;height:34px;border-radius:11px;background:var(--bg);display:flex;align-items:center;justify-content:center;flex:0 0 auto">' +
-            '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#0E3D2F" stroke-width="1.8"><path d="M12 3v13m0 0l-4-4m4 4l4-4"></path><path d="M5 18v2a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2"></path></svg>' +
-          '</div>' +
-          '<div style="flex:1">' +
-            '<div style="font-size:13.5px;font-weight:600">Download indicative term sheet</div>' +
-            '<div style="font-size:11.5px;color:var(--muted);margin-top:1px">No prospectus on file for this demo offering</div>' +
-          '</div>' +
-          '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9AA5A0" stroke-width="2"><path d="M9 18l6-6-6-6"></path></svg>' +
-        '</div>') +
+    '<a href="/' + esc(a.prospectus) + '" download="' + esc(a.short.replace(/\s+/g, '-')) + '-Prospectus.pdf" style="text-decoration:none;color:inherit;display:block" class="t99">' +
+      '<div style="margin:10px 20px 0;background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;display:flex;align-items:center;gap:12px;cursor:pointer">' +
+        '<div style="width:34px;height:34px;border-radius:11px;background:var(--bg);display:flex;align-items:center;justify-content:center;flex:0 0 auto">' +
+          '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#0E3D2F" stroke-width="1.8"><path d="M12 3v13m0 0l-4-4m4 4l4-4"></path><path d="M5 18v2a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2"></path></svg>' +
+        '</div>' +
+        '<div style="flex:1">' +
+          '<div style="font-size:13.5px;font-weight:600">Download prospectus</div>' +
+          '<div style="font-size:11.5px;color:var(--muted);margin-top:1px">Full offering document · PDF</div>' +
+        '</div>' +
+        '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9AA5A0" stroke-width="2"><path d="M9 18l6-6-6-6"></path></svg>' +
+      '</div>' +
+    '</a>' +
 
     '<div class="lbl sec">Key terms</div>' +
     '<div class="card" style="margin:0 20px;overflow:hidden">' +
@@ -1424,7 +1517,8 @@ function buyReview(d){
   var rows = [
     ['Units', (amt/100) + ' × RM 100'],
     ['Subscription amount', rm(amt)],
-    ['Platform fee', 'RM 0.00'],
+    ['Transaction fee (' + TRADE_FEE_LABEL + ')', rm(d.fee)],
+    ['Total debited', rm(d.total)],
     ['Settlement', 'T+1 · ' + longDate(settle)],
     ['First distribution', payoutLabel(nextPayoutOf(a.id))]
   ];
@@ -1520,7 +1614,7 @@ function sellScreen(d){
         '<div style="display:flex;flex-direction:column;gap:8px;margin-top:14px;padding-top:13px;border-top:1px solid var(--hair)">' +
           sellRow('Gross proceeds', rm(q.gross), 'var(--ink)', 'sellGross') +
           sellRow('Accrued coupon income', '+' + rm(q.accrued), 'var(--pos)', 'sellAccrued') +
-          sellRow('Buyback fee (0.35%)', '−' + rm(q.fee), 'var(--neg)', 'sellFee') +
+          sellRow('Transaction fee (' + TRADE_FEE_LABEL + ')', '−' + rm(q.fee), 'var(--neg)', 'sellFee') +
         '</div>' +
       '</div>' +
 
@@ -1552,88 +1646,6 @@ function sellRow(k, v, color, id){
   '</div>';
 }
 
-/* ── Withdraw coupon income ───────────────────────────────────── */
-
-function incomeScreen(){
-  var withdrawable = withdrawableIncome();
-  var invested = portfolio().cost;
-  var typed = parseInt(state.income.amount, 10) || 0;
-  var amt = effectiveWithdrawAmount(typed, withdrawable);
-  var valid = amt >= 1 && amt <= withdrawable;
-  var isMaybank = state.income.dest !== 'duitnow';
-
-  return '<div style="padding:62px 0 0;height:100%;display:flex;flex-direction:column">' +
-    '<div style="padding:0 20px;display:flex;align-items:center;gap:12px">' +
-      backButton() +
-      '<div style="font-size:15px;font-weight:600">Withdraw coupon income</div>' +
-    '</div>' +
-    '<div style="padding:18px 20px 0;flex:1;overflow-y:auto">' +
-
-      // Withdrawable vs locked capital — the split the spec calls out as the
-      // thing first-time investors get wrong.
-      '<div class="card" style="border-radius:18px;padding:18px">' +
-        '<div class="lbl-sm" style="color:var(--pos)">Coupon income received</div>' +
-        '<div class="mono" style="font-size:28px;font-weight:600;margin-top:5px;color:var(--pos)">' + rm(withdrawable) + '</div>' +
-        '<div style="font-size:11px;color:var(--muted);margin-top:3px">Withdrawable now</div>' +
-        '<div style="margin-top:16px;padding-top:14px;border-top:1px dashed var(--line);display:flex;align-items:center;gap:11px">' +
-          '<div style="width:32px;height:32px;border-radius:10px;background:var(--bg);display:flex;align-items:center;justify-content:center;flex:0 0 auto">' +
-            '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9AA5A0" stroke-width="2"><rect x="4" y="10" width="16" height="10" rx="2"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path></svg>' +
-          '</div>' +
-          '<div style="flex:1">' +
-            '<div style="font-size:12.5px;font-weight:600;color:#4A5A54">Capital still invested</div>' +
-            '<div class="mono" style="font-size:14px;color:var(--faint);margin-top:1px">' + rm(invested) + '</div>' +
-          '</div>' +
-          '<div style="font-size:9.5px;font-weight:700;letter-spacing:.05em;padding:3px 6px;border-radius:5px;background:#F0EDE5;color:#9AA5A0;flex:0 0 auto">NOT WITHDRAWABLE</div>' +
-        '</div>' +
-        '<div style="font-size:11.5px;color:var(--muted);margin-top:12px;line-height:1.5">Only coupon income can be withdrawn. Your invested capital stays in the offerings you hold until you sell part of it or it matures.</div>' +
-      '</div>' +
-
-      // Amount
-      '<div class="card" style="margin-top:14px;border-radius:18px;padding:18px;text-align:center">' +
-        '<div class="lbl">Amount to withdraw</div>' +
-        '<div style="display:flex;align-items:baseline;gap:6px;margin-top:10px;justify-content:center">' +
-          '<div class="mono" style="font-size:20px;color:var(--muted)">RM</div>' +
-          '<div class="mono" style="font-size:42px;font-weight:600;letter-spacing:-.03em">' + esc(typed.toLocaleString('en-MY')) + '</div>' +
-        '</div>' +
-        '<div style="font-size:12.5px;color:' + (valid ? 'var(--muted)' : 'var(--neg)') + ';margin-top:6px">' +
-          (typed > withdrawable ? 'Exceeds withdrawable balance of ' + rm(withdrawable)
-            : amt !== typed ? 'Your full balance — withdrawing ' + rm(amt)
-            : 'Withdrawable: ' + rm(withdrawable)) +
-        '</div>' +
-        '<div data-act="incomeQuick" class="mono t96" style="display:inline-block;margin-top:14px;padding:8px 15px;border-radius:100px;background:#fff;border:1px solid var(--line);font-size:13px;cursor:pointer">Withdraw all</div>' +
-        '<div class="keypad" style="margin-top:16px">' +
-          KEYPAD.map(function(k){
-            return '<div data-act="incomeKey" data-arg="' + esc(k) + '" class="mono key tkey">' + esc(k) + '</div>';
-          }).join('') +
-        '</div>' +
-      '</div>' +
-
-      // Destination
-      '<div class="lbl" style="margin:18px 0 8px">Send to</div>' +
-      '<div class="card" style="overflow:hidden">' +
-        destRow('maybank', 'Maybank Islamic', '•••• 4412 · DuitNow linked', isMaybank, false) +
-        destRow('duitnow', 'DuitNow', 'Instant transfer, any bank', !isMaybank, true) +
-      '</div>' +
-    '</div>' +
-    '<div style="padding:12px 20px 30px">' +
-      '<div id="incomeCta" data-act="confirmIncome" class="cta t98"' + (valid ? '' : ' style="background:#B9C2BE"') + '>Withdraw ' + rm(valid ? amt : typed) + '</div>' +
-    '</div>' +
-  '</div>';
-}
-
-function destRow(id, title, sub, selected, isLast){
-  return '<div data-act="pickDest" data-arg="' + id + '"' + (isLast ? '' : ' class="row-b"') + ' style="padding:14px;display:flex;align-items:center;gap:12px;cursor:pointer;background:' + (selected ? '#F6F9F7' : '#fff') + '">' +
-    '<div style="width:36px;height:36px;border-radius:10px;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--green)">' + (id === 'maybank' ? 'MBB' : 'DN') + '</div>' +
-    '<div style="flex:1">' +
-      '<div style="font-size:13.5px;font-weight:600">' + esc(title) + '</div>' +
-      '<div class="mono" style="font-size:11.5px;color:var(--muted);margin-top:1px">' + esc(sub) + '</div>' +
-    '</div>' +
-    '<div style="width:20px;height:20px;border-radius:50%;border:1.5px solid ' + (selected ? 'var(--green)' : 'var(--line)') + ';display:flex;align-items:center;justify-content:center;flex:0 0 auto">' +
-      (selected ? '<div style="width:10px;height:10px;border-radius:50%;background:var(--green)"></div>' : '') +
-    '</div>' +
-  '</div>';
-}
-
 /* ── Done ─────────────────────────────────────────────────────── */
 
 function doneScreen(){
@@ -1642,12 +1654,10 @@ function doneScreen(){
   var title = k === 'sell' ? 'Sold'
             : k === 'topup' ? 'Top-up complete'
             : k === 'withdraw' ? 'Withdrawal sent'
-            : k === 'income' ? 'Sent'
             : 'Order confirmed';
   var bodyText = k === 'sell' ? rm(meta.net) + ' is on its way to your Tokenkan balance.'
             : k === 'topup' ? 'Your balance has been credited. You can invest straight away.'
             : k === 'withdraw' ? 'On its way to Maybank Islamic ••4412. It settles in one business day.'
-            : k === 'income' ? rm(meta.amount) + ' sent to ' + meta.destLabel + '. Arrives within minutes.'
             : 'Your units are allotted and will appear in your portfolio once settlement completes tomorrow.';
 
   return '<div style="height:100%;display:flex;flex-direction:column;padding:80px 24px 30px;animation:tkFade .3s ease">' +
@@ -1671,9 +1681,6 @@ function doneScreen(){
       '</div>' +
     '</div>' +
     '<div data-act="goHome" class="cta t98">Back to portfolio</div>' +
-    (k === 'income'
-      ? '<div data-act="reinvestIncome" class="t98" style="margin-top:10px;text-align:center;padding:14px;border-radius:14px;font-size:14px;font-weight:600;cursor:pointer;color:var(--green);background:transparent;border:1px solid var(--line)">Reinvest instead</div>'
-      : '') +
   '</div>';
 }
 
@@ -1753,7 +1760,7 @@ function explainerSheet(d){
         '</div>' +
         '<div style="flex:1">' +
           '<div style="font-size:14px;font-weight:600">Bond Explainer</div>' +
-          '<div style="font-size:11px;color:var(--muted)">' + (a.id === GROUNDED_ASSET_ID ? 'Grounded in the ' + esc(a.short) + ' prospectus' : 'Term sheet · no prospectus on file') + '</div>' +
+          '<div style="font-size:11px;color:var(--muted)">Grounded in the ' + esc(a.short) + ' prospectus</div>' +
         '</div>' +
         '<div data-act="closeExplainer" style="width:30px;height:30px;border-radius:9px;background:var(--bg);display:flex;align-items:center;justify-content:center;cursor:pointer">' +
           '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#71807A" stroke-width="2.2"><path d="M18 6L6 18M6 6l12 12"></path></svg>' +
@@ -1960,7 +1967,7 @@ function finishStream(question){
       state.messages = state.messages.concat([{ role:'ai', text:canned.a, cite:canned.c }]);
       state.chatError = null;
     } else {
-      state.chatError = "I don't have a saved answer for that one — try one of the suggested questions below, or ask about the rate, maturity, KPI terms, or risks.";
+      state.chatError = "I don't have a saved answer for that one — try one of the suggested questions below, or ask about the rate, maturity, security, or risks.";
     }
   }
   pendingMsgScroll = true;
@@ -1979,7 +1986,7 @@ function finishWithFallback(question, err){
     state.messages = state.messages.concat([{ role:'ai', text:canned.a, cite:canned.c }]);
     state.chatError = null;
   } else {
-    state.chatError = "I don't have a saved answer for that one — try one of the suggested questions below, or ask about the rate, maturity, KPI terms, or risks.";
+    state.chatError = "I don't have a saved answer for that one — try one of the suggested questions below, or ask about the rate, maturity, security, or risks.";
   }
   pendingMsgScroll = true;
   render();
@@ -2016,12 +2023,8 @@ var actions = {
   goHome:     function(){ setState({ tab:'home', screen:null, stack:[], buyStep:'entry', ack:false, explainer:false, doneRows:null, doneMeta:null }); },
   goNotifications: function(){ push('notifications'); },
   openAsset:  function(id){ openAsset(id); },
-  openFeatured: function(){ openAsset('aie'); },
+  openFeatured: function(){ openAsset('gl'); },
   goBuy:  function(){ push('buy', { buyStep:'entry' }); },
-  downloadTermSheet: function(){
-    var a = asset();
-    downloadTextFile(a.short.replace(/\s+/g, '-') + '-Indicative-Term-Sheet.txt', termSheetText(a));
-  },
   goSell: function(){ push('sell', { sellQty: tokensOf(asset().id) || 1 }); },   // defaults to selling the full holding
   sellAll: function(){ setState({ sellQty: tokensOf(asset().id) || 1 }); },
 
@@ -2033,7 +2036,7 @@ var actions = {
   toggleShariah: function(){ setState({ shariahOnly: !state.shariahOnly }); },
   resetDemo: function(){
     resetBook();
-    setState({ tab:'home', screen:null, stack:[], filter:'All', amount:'500', sellQty:12, hide:false, doneMeta:null, cash:null, income:null, toast:null });
+    setState({ tab:'home', screen:null, stack:[], filter:'All', amount:'500', sellQty:12, hide:false, doneMeta:null, cash:null, toast:null });
   },
   dismissToast: function(){
     if (toastTimer) { clearTimeout(toastTimer); toastTimer = null; }
@@ -2073,7 +2076,7 @@ var actions = {
     buyTokens(d.a.id, d.amt);
     setState({
       screen:'done', doneKind:'buy', stack:[], explainer:false,
-      doneRows:[['Instrument', d.a.code], ['Tokens', String(d.amt/100)], ['Debited', rm(d.amt)], ['Reference','TKN-8820-BY']]
+      doneRows:[['Instrument', d.a.code], ['Units', String(d.amt/100)], ['Fee (' + TRADE_FEE_LABEL + ')', rm(d.fee)], ['Debited', rm(d.total)], ['Reference','TKN-8820-BY']]
     });
   },
 
@@ -2089,41 +2092,6 @@ var actions = {
       doneMeta:{ net:q.net },
       doneRows:[['Units sold', String(qty)], ['Proceeds', rm(q.net)], ['Settlement', 'T+1 · ' + longDate(settle)], ['Reference','TKN-4471-SD']]
     });
-  },
-
-  /* withdraw coupon income */
-  openIncome: function(){
-    var w = withdrawableIncome();
-    push('income', { income:{ amount: String(Math.floor(w)), dest:'maybank' } });
-  },
-  incomeKey: function(k){ setState({ income:{ amount: keyEdit(state.income.amount, k, 6), dest:state.income.dest } }); },
-  incomeQuick: function(){
-    setState({ income:{ amount: String(Math.floor(withdrawableIncome())), dest:state.income.dest } });
-  },
-  pickDest: function(id){ setState({ income:{ amount:state.income.amount, dest:id } }); },
-  confirmIncome: function(){
-    var cap = withdrawableIncome();
-    var amt = effectiveWithdrawAmount(parseInt(state.income.amount, 10) || 0, cap);
-    if (amt < 1 || amt > cap) return;
-    var destLabel = state.income.dest === 'duitnow' ? 'DuitNow · your linked account' : 'Maybank Islamic ••4412';
-    book.wallet = round2(book.wallet - amt);
-    book.incomeAvailable = round2(book.incomeAvailable - amt);
-    logActivity({ glyph:'−', kind:'out', title:'Coupon income withdrawn', sub:destLabel, amount:-amt });
-    saveBook();
-    setState({
-      income:null, screen:'done', doneKind:'income', stack:[], explainer:false,
-      doneMeta:{ amount:amt, destLabel:destLabel },
-      doneRows:[['Withdrawn', rm(amt)], ['Destination', destLabel], ['Reference','TKN-5510-IW']]
-    });
-  },
-  reinvestIncome: function(){
-    var amt = state.doneMeta ? state.doneMeta.amount : 0;
-    if (amt > 0) {
-      book.wallet = round2(book.wallet + amt);
-      logActivity({ glyph:'+', kind:'top', title:'Reinvested coupon income', sub:'Routed to Market', amount:amt });
-      saveBook();
-    }
-    goTab('market');
   },
 
   /* cash */

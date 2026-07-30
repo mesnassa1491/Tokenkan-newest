@@ -1,0 +1,1409 @@
+Lembah Impian Development Bhd
+
+                                    Registration No. 200401022518 (654187-P)
+                                                 (Incorporated in Malaysia)
+
+                               SUKUK MURABAHAH (TAWARRUQ)
+
+                               RM12,000,000 in nominal value
+
+Rated A3 (stable) by RAM Rating Services Berhad  Shariah compliant -- Murabahah via Tawarruq
+
+Main Market issuer -- RM12.0 million issue  70% taken by a professional credit fund as Anchor Investor
+
+                               Retail tranche RM3.6 million -- fractional from RM100
+
+Instrument                                  Sukuk Murabahah (Tawarruq)
+Programme size                              RM60,000,000 in nominal value
+Nominal value of this issue                 RM12,000,000
+Anchor Investor allocation                  RM8,400,000 (70.0%)
+Retail tranche                              RM3,600,000 (30.0%)
+Minimum investment                          RM100 (fractional)
+Maximum single-issuer holding               RM25,000 per investor
+Tenure                                      4 years from the issue date
+Profit rate                                 6.20 per cent. per annum, fixed
+Profit payment frequency                    Semi-annually in arrears
+Credit rating                               A3 / stable outlook
+Issue date                                  20 October 2026
+Maturity date                               20 October 2030
+Exit before maturity                        Anchor Investor standing bid only -- see Section 9.5
+
+THIS OFFERING IS MADE TO RETAIL INVESTORS THROUGH THE TOKENKAN PLATFORM IN FRACTIONAL DENOMINATIONS FROM RM100. IT IS NOT A DEPOSIT. IT
+IS NOT PROTECTED BY PERBADANAN INSURANS DEPOSIT MALAYSIA. THE CAPITAL INVESTED IS AT RISK AND MAY NOT BE RETURNED IN FULL. RETURNS ARE
+NOT GUARANTEED AND DEPEND ON THE ISSUER CONTINUING TO MEET ITS OBLIGATIONS. THE ISSUER IS A SMALL COMPANY AND THIS IS A SMALL ISSUE;
+INVESTORS SHOULD EXPECT GREATER CREDIT RISK AND LESS LIQUIDITY THAN ON A LARGE INSTITUTIONAL ISSUANCE. EXIT BEFORE MATURITY IS AVAILABLE
+ONLY THROUGH THE ANCHOR INVESTOR STANDING BID DESCRIBED IN SECTION 9.5, WHICH IS SUBJECT TO LIMITS AND MAY BE SUSPENDED. THE TOKENKAN
+PLATFORM IS NOT AN EXCHANGE. NOTHING IN THIS DOCUMENT IS INVESTMENT ADVICE OR A RECOMMENDATION. PROSPECTIVE INVESTORS SHOULD READ
+THIS DOCUMENT IN FULL, AND IN PARTICULAR THE RISK FACTORS IN SECTION 7, AND SHOULD INVEST ONLY WHAT THEY CAN AFFORD TO LOSE. THE ISSUER
+IS A PROPERTY DEVELOPER. ITS EARNINGS ARE CYCLICAL AND FELL SHARPLY IN THE MIDDLE OF THE THREE YEARS PRESENTED IN THIS DOCUMENT, WHEN
+COVERAGE OF FINANCE COSTS FELL TO 2.1 TIMES AGAINST A COVENANT MINIMUM OF 2.00 TIMES. INVESTORS SHOULD READ SECTION 6.4 BEFORE
+INVESTING.
+TABLE OF CONTENTS
+
+1. Executive Summary
+2. Issuer Background
+3. Corporate Structure, Shareholding and Governance
+4. Terms of the Sukuk
+5. Use of Proceeds
+6. Financial Information
+7. Risk Factors
+8. Investor Frequently Asked Questions
+9. Origination, Allocation and the Platform
+10. Corporate Directory and Statutory Information
+
+Lembah Impian Development Bhd | Sukuk Murabahah | RM12,000,000 | A3 | Originated on Tokenkan  Page 2 of 25
+1. EXECUTIVE SUMMARY
+
+1.1 Overview of the Issuer
+
+Lembah Impian Development Bhd is a Malaysian residential property developer operating in Negeri Sembilan and southern Selangor,
+principally at Nilai and Seremban. It develops landed residential and shoplot products aimed at owner-occupier and first-time purchasers,
+and retains a small portfolio of shoplot investment properties at Sepang.
+
+The Issuer has delivered 2,140 units since 2004 and holds a land bank of 218 acres. It has been listed on the Main Market of Bursa
+Malaysia since October 2012 and had a market capitalisation of RM142.6 million as at 30 June 2026. It employed 142 persons as at 31
+December 2025.
+
+For the financial year ended 31 December 2025 the Issuer recorded revenue of RM126.8 million, EBITDA of RM24.8 million and profit for
+the financial year of RM10.3 million. Total assets stood at RM331.4 million and shareholders' funds at RM108.5 million.
+
+1.2 Purpose of the offering
+
+The Issuer is offering RM12,000,000 in nominal value of Sukuk Murabahah, the inaugural issue under its RM60.0 million Sukuk
+Programme. Of that, RM8,400,000 is allocated to the Anchor Investor and RM3,600,000 to retail investors through the Tokenkan platform
+in fractional denominations from RM100, subject to a maximum holding of RM25,000 per investor.
+
+Proceeds will fund infrastructure and earthworks for Lembah Impian phase 3, construction working capital, the refinancing of a bridging
+facility and working capital. Section 5 has the detail.
+
+1.3 The one thing investors should read before anything else
+
+The three financial years in this document do not show a growth trend, and it would be a mistake to read them as one. Revenue fell from
+RM118.4 million in FY2023 to RM104.2 million in FY2024 before recovering to RM126.8 million in FY2025. Profit fell from RM9.4 million
+to RM3.0 million before recovering to RM10.3 million.
+
+This is ordinary for a developer of this size. Earnings are recognised as construction progresses, so a trough appears whenever one
+development completes before the next reaches the stages producing material revenue. Investors should assume a comparable trough
+within the four-year tenure of this issue.
+
+What matters is what a trough does to the covenants. In FY2024, EBITDA cover of finance costs was 2.1 times against the 2.00 times
+minimum these Sukuk require, and financing to EBITDA was 9.2 times against the 8.00 times maximum. Had this issue been
+outstanding in FY2024, the Issuer would have breached its leverage covenant. On the enlarged post-issue debt, a repeat of that
+year would breach both tests. Section 6.4 sets this out in full.
+
+That is not a reason to avoid the offering, but it is the reason the rate is 6.20 per cent. rather than lower, and investors should size their
+holding accordingly.
+
+1.4 Why this issuance exists
+
+A conventional RM12.0 million bond issuance is not economic in Malaysia. Fixed costs of RM1.4 million to RM1.9 million, largely
+irrespective of size, would consume 12 to 16 per cent. of the proceeds. The total cost of this issuance is RM260,000, being 2.17 per cent. of
+nominal value, achieved by removing the underwriter and standardising the documentation and registry functions.
+
+1.5 Key investment highlights
+
+Rated, and secured against a real land bank
+A3 stable from RAM, and 218 acres of land bank in an established corridor providing a pipeline exceeding eight years at current
+absorption.
+
+Moderate balance sheet gearing
+Gross gearing of 1.39 times against a covenanted maximum of 2.00 times, and an unencumbered asset covenant at 130 per cent. of
+unsecured debt, currently 168 per cent.
+
+Owner-occupier product in an affordable price band
+The Issuer builds for first-time and owner-occupier purchasers rather than investors, a segment less exposed to speculative demand
+reversal.
+
+Fixed profit under the Murabahah structure
+Total profit is fixed at the outset and cannot vary with the performance of the Issuer.
+
+1.6 Key risks
+
+A summary only. Section 7 must be read in full.
+
+    Covenant fragility. A repeat of FY2024 on the post-issue debt would breach both the leverage and coverage covenants.
+    Cyclical, lumpy earnings. Profit fell by 68 per cent. in FY2024 on ordinary project timing.
+    Unsecured, behind RM116.6 million. 77.1 per cent. of financing is secured on the land and work in progress and ranks ahead.
+    StructuLermablashuImbpoiarndDinevaetloipomne.nDt Behvdel|oSpumkueknMtsurasbitahinahp|roRjMe1c2t,0s0u0b,0s0i0di|arAi3es| ;OtrhigeinIastesduoenrTroekceenkivanes only surplus after project finPaangcei3erosf 2a5re paid.
+    Ring-fenced purchaser monies. RM8.6 million of the cash balance belongs to purchasers by statute.
+Purchaser mortgage dependence. Booking-to-conversion averaged 64 per cent. and moves with central bank lending guidelines.
+Single sub-market. All active developments are at Nilai and Seremban.
+Contractor failure. A main contractor was replaced in 2024, delaying one block by five months.
+Inventory and land holding cost. RM194.2 million sits in development inventory generating no revenue until sold.
+Exit is limited. Only the Anchor Investor standing bid, at a 1.25 per cent. discount to formula, capped at RM180,000 monthly and
+suspended while a default continues.
+
+1.7 Summary financial information
+
+RM'000                                             FY2023                                                 FY2024                    FY2025
+Revenue                                          118,400                                                104,200                   126,800
+EBITDA
+Profit for the financial year                     22,200                                                 15,400                    24,800
+Total assets                                        9,400                                                  3,000                   10,300
+Total liabilities                                                                                                                 331,400
+Total equity                                     289,200                                                302,600                   222,900
+Total financing                                  194,000                                                204,400                   108,500
+Net cash from operating activities                                                                                                151,200
+Gross gearing (times)                             95,200                                                 98,200                    22,400
+EBITDA / finance costs (times)                   134,600                                                142,000
+Total financing / EBITDA (times)                                                                                                       1.39
+                                                  14,200                                                   8,600                         3.3
+                                                      1.41                                                   1.45                        6.1
+                                                        3.3                                                    2.1
+                                                        6.1                                                    9.2
+
+1.8 Operating statistics                                                                      FY2023    FY2024                    FY2025
+                                                                                                  212         86                      264
+ Units launched during the year                                                                   186                                 238
+ Units sold during the year                                                                       168       142                       124
+ Units delivered during the year                                                                    38      246                         62
+ Unsold completed inventory at year end (units)                                                     68                                  66
+ Booking to conversion rate (%)                                                                   232         24                      218
+ Land bank at year end (acres)                                                                    142         58                      186
+ Unbilled sales at year end (RM million)                                                                    226
+                                                                                                              98
+
+Lembah Impian Development Bhd | Sukuk Murabahah | RM12,000,000 | A3 | Originated on Tokenkan                        Page 4 of 25
+2. ISSUER BACKGROUND
+
+2.1 History and development
+
+The Issuer was incorporated in July 2004 by Cheah Boon Hock, a civil engineer, and began with a 96-unit terraced scheme at Nilai. It built
+steadily through the 2000s in the Nilai corridor, which it selected for its proximity to the North-South Expressway and to the industrial
+employment base of the area, and which remains its principal asset.
+
+The greater part of the present land bank was acquired between 2009 and 2017, largely from plantation owners and at prices well below
+current levels. Management regards this historic land cost as the reason it can compete on price against developers holding more recently
+assembled sites.
+
+The Issuer listed on the Main Market of Bursa Malaysia in October 2012, raising RM38.4 million. The Sepang shoplot investment
+properties were acquired in 2018 to introduce a recurring income stream. The Seremban scheme launched in 2021.
+
+This is the inaugural debt issuance of the Issuer, which has funded itself to date through equity, project financing and bank borrowing.
+
+2.2 Business model
+
+The Issuer acquires land, obtains planning and development approvals, appoints third-party main contractors under fixed-price contracts,
+sells units off-plan under statutory sale and purchase agreements, and recognises revenue as construction progresses.
+
+Three variables drive the economics. Land cost, which for the Issuer is largely historic and low. Sales rate, which determines how quickly
+capital is recovered and which depends on purchaser access to mortgage financing. And construction cost, transferred to contractors
+under fixed-price contracts for as long as those contractors remain solvent.
+
+The cash profile follows from this. Land and infrastructure are paid for at the outset, construction is funded progressively against
+purchaser progress payments and project financing, and surplus is released only as a development completes. A developer consumes cash
+when launching and generates it when completing, which is why the operating cash flow of the Issuer moved from RM14.2 million to
+RM8.6 million and then to RM22.4 million over three years.
+
+2.3 Revenue segments                                                          FY2023                 FY2024                    FY2025
+                                                                              84,600                 72,400                    89,200
+  Segment (RM'000)                                                            24,800                 23,600                    29,400
+ Landed residential development
+ Shoplot and commercial development                                             6,400                  6,800                     7,100
+ Investment property rental                                                     2,600                  1,400                     1,100
+ Project management services                                               118,400                104,200                   126,800
+ Total revenue
+
+Investment property rental of RM7.1 million is small but is the only genuinely recurring revenue the Issuer has, and it is the income least
+affected by the development cycle.
+
+2.4 Developments and land bank
+
+Development                          Location                   Status                            Remaining GDV (RM million)
+Lembah Impian phase 2                Nilai, Negeri Sembilan     Under construction                                                 168
+Lembah Impian phase 3                Nilai, Negeri Sembilan     Planning -- funded by this issue                                   224
+Impian Seremban                      Seremban, Negeri Sembilan  Under construction                                                   96
+Sepang shoplots                      Sepang, Selangor           Retained as investment property                                     n/a
+Undeveloped land bank (218 acres)    Negeri Sembilan            Not launched
+                                                                                                                 864 (estimated)
+
+All operations are in Malaysia and all revenue is in ringgit.
+
+2.5 Management and employees
+
+The Issuer employed 142 persons as at 31 December 2025, of whom 48 were in project delivery and site supervision, 42 in sales and
+marketing, 28 in property and land management and 24 in corporate functions. Construction labour is employed by contractors rather than
+by the Issuer.
+
+Investors should note the dependence of the Issuer on its founder, who has led it for 22 years and retains the principal landowner and
+financier relationships.
+
+2.6 Strategy
+
+The strategy has three elements: to develop the existing land bank in phases sized to the absorption rate of the corridor rather than to the
+
+capacity of the Issuer; to grow recurring investment property income as a partial offset to development cyclicality; and to keep gearing
+
+below 1.50 times so the Issuer retains capacity to acquire land in a downturn, which is when the best land becomes available. The Issuer
+Lembah Impian Development Bhd | Sukuk Murabahah | RM12,000,000 | A3 | Originated on Tokenkan                  Page 5 of 25
+does not intend to develop outside Negeri Sembilan and southern Selangor.
+3. CORPORATE STRUCTURE, SHAREHOLDING AND GOVERNANCE
+
+3.1 Group structure
+
+The Issuer undertakes each development through a separate project subsidiary which holds the land and borrows under the project
+financing for that development. Investors should read this together with Section 7.1 on structural subordination.
+
+Subsidiary / associate               Effective interest  Principal activity
+Impian Nilai Sdn Bhd                 100%                Development of the Lembah Impian phases 1 and 2 at Nilai
+Impian Lembah Tiga Sdn Bhd           100%                Holding of land and development of Lembah Impian phase 3
+Impian Seremban Sdn Bhd              100%                Development of the Seremban terraced housing scheme
+Impian Commercial Sdn Bhd            100%                Ownership of the Sepang shoplot investment properties
+Impian Land Sdn Bhd                  100%                Holding of undeveloped land bank in Negeri Sembilan
+
+3.2 Shareholding of the Issuer
+
+The issued share capital of the Issuer is RM60,000,000 comprising 240,000,000 ordinary shares of RM0.25 each. The shares are listed on
+the Main Market of Bursa Malaysia, with a market capitalisation of RM142.6 million as at 30 June 2026.
+
+Shareholder                                                                                             Ordinary shares held            %
+Impian Holdings Sdn Bhd                                                                                            62,400,000      26.0
+Cheah Boon Hock                                                                                                    26,400,000      11.0
+Selangor Development Capital Berhad                                                                                28,800,000      12.0
+Meridian Life Assurance Berhad                                                                                     19,200,000
+Public shareholders                                                                                                93,600,000        8.0
+Directors other than the above                                                                                       9,600,000     39.0
+Total
+                                                                                                                240,000,000          4.0
+                                                                                                                                 100.0
+
+3.3 Board of Directors
+
+The Board comprises seven members, of whom three are independent non-executive directors.
+
+Name                                 Age Designation                                                    Appointed
+Datuk Lim Cheng Poh                   65 Independent Non-Executive Chairman                             May 2012
+Cheah Boon Hock                       57 Group Managing Director                                        July 2004
+Cheah Su Lin                          34 Executive Director, Sales and Marketing                        June 2021
+Nurul Ain binti Zainal                46 Executive Director and Chief Financial Officer                 March 2020
+Ir. Krishnan Balakrishnan             59 Independent Non-Executive Director                             May 2012
+Wong Li Mei                           48 Independent Non-Executive Director                             September 2022
+Ahmad Faiz bin Othman                 52 Non-Independent Non-Executive Director                         January 2019
+
+3.4 Key management
+
+The senior management team combines development, construction and sales experience in the Nilai and Seremban corridor.
+
+Name             Position                   Relevant experience
+Cheah Boon Hock  Group Managing Director    Founder; 29 years in property development, previously a civil engineer.
+Nurul Ain binti  Chief Financial Officer    Chartered accountant with 20 years' experience, including seven in property development
+Zainal                                      finance.
+Cheah Su Lin     Director, Sales and        9 years in residential sales and channel management.
+                 Marketing
+Tan Boon Keat    Head of Projects           23 years in construction and project management on residential schemes.
+Rajesh Kumar     Head of Land and Planning  18 years in land acquisition, conversion and planning approvals.
+
+3.5 Corporate governance
+
+The Board of Directors of the Issuer is responsible for the overall stewardship of the Group, including the approval of strategy and annual
+
+budgets, the oversight of risk management and internal control, the approval of material capital commitments and financing arrangements,
+
+and the integrity of financial reporting. The Board meets at least quarterly and on such other occasions as the business of the Group
+requires. Lembah Impian Development Bhd | Sukuk Murabahah | RM12,000,000 | A3 | Originated on Tokenkan             Page 6 of 25
+The Board is supported by three standing committees. The Audit and Risk Committee, comprising a majority of independent directors and
+chaired by an independent director, reviews the financial statements before submission to the Board, oversees the internal audit function
+and the relationship with the external auditors, and monitors the principal risks of the Group and the adequacy of mitigating controls. The
+Nomination and Remuneration Committee reviews the composition and effectiveness of the Board and the remuneration framework for
+directors and senior management. The Board Investment Committee reviews material capital expenditure, acquisitions and financing
+proposals before they are submitted to the Board.
+
+The Group maintains an internal audit function which reports functionally to the Audit and Risk Committee and administratively to the
+chief executive. The internal audit plan is approved annually by the Audit and Risk Committee and is prepared on a risk-based methodology
+covering the principal operating and financial processes of the Group. The Group also maintains a whistleblowing policy under which
+employees and third parties may report suspected improprieties directly to the chairman of the Audit and Risk Committee.
+
+For so long as the Sukuk remain outstanding, the Issuer has undertaken to maintain a Board comprising not fewer than five directors, of
+whom at least two shall be independent, and to procure that the Audit and Risk Committee continues to be chaired by an independent
+director.
+
+The founding family holds 37 per cent. of the voting shares and two of the seven board seats. The Issuer has undertaken to the Trustee that
+land will not be acquired from or disposed of to a connected party without an independent valuation, in addition to the related party
+transaction requirements of the Main Market Listing Requirements.
+
+Lembah Impian Development Bhd | Sukuk Murabahah | RM12,000,000 | A3 | Originated on Tokenkan  Page 7 of 25
+4. TERMS OF THE SUKUK
+
+This section summarises the principal terms and conditions of the Sukuk. It is a summary only and is qualified in its entirety by the detailed
+provisions of the Trust Deed, the Programme Agreement and the Shariah pronouncement and the other Transaction Documents, copies of
+which are available for inspection at the registered office of the Issuer during normal business hours.
+
+4.1 Summary of principal terms      Lembah Impian Development Bhd
+                                    Sukuk Murabahah issued under the Sukuk Programme of the Issuer and distributed through the
+ Issuer                             Tokenkan platform
+ Instrument                         Murabahah, effected through a Tawarruq arrangement in Shariah-compliant commodities
+                                    RM60,000,000 in nominal value
+ Shariah principle                  RM12,000,000
+ Programme size                     100.00 per cent. of nominal value
+ Principal amount of this issuance  RM1,000 nominal value per unit, tradable in minimum blocks of RM250,000 nominal value
+ Issue price                        4 years from the issue date
+ Denomination                       20 October 2026
+ Tenure                             20 October 2030
+ Issue date                         6.20 per cent. per annum, fixed for the full tenure
+ Maturity date                      Semi-annually in arrears
+ Profit rate                        20 April and 20 October
+ Profit payment frequency           Actual/365 (Fixed)
+ Profit payment dates               Bullet repayment of the full nominal value on the maturity date
+ Day count fraction                 At 100 per cent. of the nominal value, together with accrued and unpaid profit up to but
+ Maturity structure                 excluding the maturity date
+ Redemption at maturity             Unsecured, supported by a negative pledge, an unencumbered asset covenant and a project
+                                    account undertaking
+ Security                           Senior unsecured; ranking pari passu with all other present and future unsecured and
+                                    unsubordinated obligations of the Issuer
+ Ranking                            A3 by RAM Rating Services Berhad, with a stable outlook
+                                    Scripless, prescribed under the Real Time Electronic Transfer of Funds and Securities System
+ Credit rating                      (RENTAS)
+ Form                               Not listed on any stock exchange; reported on the Electronic Trading Platform
+                                    Laws of Malaysia
+ Listing status                     Ibnu Hakim Shariah Advisory Sdn Bhd
+ Governing law
+ Shariah adviser
+
+4.2 Principal amount and denomination
+
+The Issuer proposes to issue RM12,000,000 in nominal value of Sukuk under the Sukuk Murabahah Programme. The Sukuk will be issued
+in denominations of RM1,000 nominal value per unit. Trading in the secondary market shall be in minimum blocks of RM250,000 nominal
+value or such other amount as may be prescribed by the operator of RENTAS from time to time.
+
+The Sukuk constitute direct obligations of the Issuer. They are offered through the Tokenkan platform in fractional interests, and are
+accordingly available to investors who have completed the suitability assessment operated by the platform, including individual investors.
+Prospective investors should note that eligibility to subscribe is determined by the platform operator in accordance with the requirements
+applicable to it, and that this document is a disclosure document rather than an invitation extended generally to the public.
+
+4.3 Profit rate and payment
+
+The Sukuk carry a profit rate of 6.20 per cent. per annum on the nominal value, fixed for the full tenure of four years. The semi-annual
+profit amount is RM372,000 on the full issue, equivalent to RM3.10 per RM100 of nominal value held. Under the Murabahah structure the
+aggregate profit is fixed at the outset as part of the deferred sale price and does not vary with the performance of the Issuer or of its
+developments.
+
+Profit payments shall be made in arrears on the profit payment dates specified above. Where a profit payment date falls on a day which is
+not a business day, payment shall be made on the immediately succeeding business day without any adjustment to the amount payable, in
+accordance with the Following Business Day Convention (unadjusted).
+
+The following table sets out the indicative profit payment schedule for the issuance, assuming the full nominal amount remains outstanding
+Lembah Impian Development Bhd | Sukuk Murabahah | RM12,000,000 | A3 | Originated on Tokenkan  Page 8 of 25
+throughout the tenure and no early redemption occurs.
+Period                   Profit payment date                                                            Indicative payment (RM'000)
+
+Period 1                 20 April 2027                                                                                372
+
+Period 2                 20 October 2027                                                                              372
+
+Period 3                 20 April 2028                                                                                372
+
+Period 4                 20 October 2028                                                                              372
+
+Period 5                 20 April 2029                                                                                372
+
+Period 6                 20 October 2029                                                                              372
+
+Period 7                 20 April 2030                                                                                372
+
+Period 8 (final)         20 October 2030                                                                12,372 (including nominal value of 12,000)
+
+The schedule above is indicative only. Actual amounts payable will be computed on an Actual/365 (Fixed) basis by reference to the number of days in each profit
+period.
+
+4.4 Maturity structure
+
+The Sukuk are structured as a single bullet maturity. The full nominal value of RM12,000,000 falls due on 20 October 2030 together with
+the final profit payment. The Issuer intends to meet this from the proceeds of the Lembah Impian phase 3 development which this issue
+part-funds, and from refinancing. Investors should note that development cash flow arrives in lumps tied to completion, and that the timing
+of phase 3 completion is not within the control of the Issuer.
+
+4.5 Early redemption
+
+The Sukuk incorporate the following early redemption provisions:
+
+Optional early redemption (call)
+The Issuer may, on any profit payment date falling on or after the second anniversary of the issue date, redeem all but not part only of the
+Sukuk on not less than thirty days' notice, at 101.00 per cent. of nominal value before the third anniversary and 100.50 per cent.
+thereafter, together with accrued and unpaid profit.
+
+Mandatory redemption on a substantial land disposal
+If the Issuer disposes of land held for development representing in aggregate more than twenty per cent. of consolidated total assets in any
+twelve-month period, otherwise than by way of sale of completed units in the ordinary course, the net proceeds in excess of that threshold
+shall be applied within sixty days to redemption at nominal value together with accrued profit, unless the Trustee is satisfied that the
+proceeds will be reinvested in development land within twelve months.
+
+Redemption following a change of control
+Upon a change of control, being an event whereby Impian Holdings Sdn Bhd and the Cheah family cease collectively to hold, directly or
+indirectly, more than thirty-five per cent. of the voting shares of the Issuer, each Sukukholder may require redemption at nominal value
+together with accrued profit within sixty days.
+
+Redemption for taxation or Shariah reasons
+The Issuer may redeem all but not part only of the Sukuk at nominal value together with accrued profit if a change in Malaysian tax law
+obliges it to pay additional amounts, or if the Shariah Adviser determines the structure has ceased to be Shariah compliant and the
+deficiency is not remedied within ninety days.
+
+No investor put
+Save on a change of control, investors have no right to require redemption before maturity. Exit before maturity is available only through
+the Anchor Investor standing bid described in Section 9.5.
+
+4.6 Security and collateral
+
+The Sukuk are unsecured obligations of the Issuer. Investors should understand why no security was granted and what stands in its place.
+
+A property developer finances each development by charging the land and work in progress of that development to a project financier. By
+the time an issue of this kind is contemplated, the assets capable of bearing security are already charged. As at 31 December 2025 secured
+Islamic financing amounted to RM116.6 million out of total financing of RM151.2 million, or 77.1 per cent. Granting security for these
+Sukuk would have required either a second-ranking charge of little value or the release of a project financier, neither of which was
+available.
+
+The protections are therefore contractual:
+
+a negative pledge preventing security over the present and future assets of the Issuer, save for permitted security. Investors should note
+that permitted security expressly includes project financing security over new development sites, so this covenant does not freeze the
+position and the Issuer will continue to charge new land ahead of Sukukholders;
+
+an unencumbered asset covenant requiring consolidated assets not subject to security to represent at all times not less than one
+
+hundred and thirty per cent. of aggregate unsecured financial indebtedness, tested semi-annually against the most recent valuation of
+
+the Independent Valuer;
+
+          Lembah Impian Development Bhd | Sukuk Murabahah | RM12,000,000 | A3 | Originated on Tokenkan  Page 9 of 25
+a project account undertaking under which surplus proceeds of each development, after discharge of project financing and Housing
+Development Account obligations, are paid into a designated account of the Issuer which may not be charged;
+
+a restriction preventing the Issuer from acquiring land from, or disposing of land to, a connected party without an independent
+valuation; and
+
+a distribution restriction preventing dividends where an event of default is continuing, where a covenant would be breached following
+payment, or where dividends in any financial year would exceed forty per cent. of consolidated profit.
+
+4.7 Ranking of investors
+
+The Sukuk constitute direct, unconditional, unsecured and unsubordinated obligations of the Issuer, ranking pari passu among themselves
+and with its other unsecured and unsubordinated obligations, save for obligations mandatorily preferred by law.
+
+The Sukuk rank behind secured Islamic financing of RM116.6 million to the extent of the assets securing it, being the development land
+and work in progress of the phase 1 and 2 developments, the shoplot investment properties, and the land securing the bridging facility.
+
+The Sukuk are structurally subordinated to the creditors of the project subsidiaries through which developments are undertaken. The
+Issuer depends on surplus distributions from those subsidiaries after their financiers have been discharged.
+
+Investors should note the effect of Malaysian housing development legislation. Purchaser deposits and progress payments are held in
+Housing Development Accounts applicable only to the development concerned, and purchasers hold statutory protections in respect of
+them. As at 31 December 2025, RM8.6 million of the RM22.8 million cash balance was so held and is not available to Sukukholders.
+
+Fractional interests rank equally with whole units and with the Anchor Investor allocation.
+
+4.8 Covenants
+
+The Trust Deed contains positive, negative and financial covenants customary for an issuance of this nature. The principal financial
+covenants, to be tested semi-annually by reference to the audited consolidated financial statements of the Issuer and, where applicable, its
+unaudited semi-annual management accounts, are as follows:
+
+Financial covenant                                       Required level                Position as at 31 December 2025
+Gross gearing ratio (total financing to total equity)    Not more than 2.00 times      1.39 times
+Total financing to EBITDA                                Not more than 8.00 times      6.1 times
+EBITDA to finance costs                                  Not less than 2.00 times      3.26 times
+Unencumbered assets to unsecured financial indebtedness  Not less than 130 per cent.   168 per cent.
+Consolidated shareholders' funds                         Not less than RM90.0 million  RM108.5 million
+
+The principal negative covenants restrict the Issuer from, among other things: (a) creating or permitting to subsist any security interest
+over its assets other than permitted security; (b) disposing of a material part of its assets otherwise than on arm's length terms in the
+ordinary course of business; (c) undertaking any substantial change to the general nature of its business; (d) entering into any
+amalgamation, demerger, merger or corporate reconstruction which would have a material adverse effect; and (e) declaring or paying any
+dividend or making any distribution where an event of default is continuing or would result from such payment.
+
+4.9 Events of default
+
+The occurrence of any of the following shall constitute an event of default, subject to the grace periods specified in the Trust Deed: non-
+payment of any amount due under the Sukuk within seven business days of the due date; breach of any financial covenant; breach of any
+other obligation which is not remedied within thirty days of notice; cross-default in respect of any other financial indebtedness of the Issuer
+or any material subsidiary exceeding RM25.0 million in aggregate; the commencement of insolvency, winding-up or receivership
+proceedings; the cessation or material change of business; the invalidity or unenforceability of any Transaction Document; and the
+occurrence of any event having a material adverse effect on the ability of the Issuer to perform its payment obligations.
+
+Upon the occurrence of an event of default which is continuing, the Trustee may, and shall if so directed by an extraordinary resolution of
+the Sukukholders, declare the Sukuk to be immediately due and payable at their nominal value together with accrued and unpaid profit.
+
+4.10 Roles and parties
+
+Originating Platform        Tokenkan Capital Sdn Bhd (Registration No. 202301009284 (1502773-D))
+
+Registrar and Paying Agent  Tokenkan Capital Sdn Bhd
+
+Digital Asset Custodian     Sentinel Digital Custody Sdn Bhd, registered with the Securities Commission Malaysia
+
+Trustee                     Amanah Wilayah Trustee Berhad
+
+Shariah Adviser             Ibnu Hakim Shariah Advisory Sdn Bhd
+
+Rating Agency               RAM Rating Services Berhad
+
+Auditor                     Sim Abdullah & Associates PLT
+
+Solicitors                  Krishnan Yeoh & Partners
+
+Independent Valuer          Chandra Nakamura Valuers Sdn Bhd
+
+Anchor InLveemstboarh Impian Development Bhd | Sukuk MurabaMhaehri|diRaMn1C2,r0e0d0,i0t0O0p|pAo3rtu| nOitriigeinsaFteudnodn IT,oakepnrkoafnessional credit fund managed byPaMgeer1i0doiaf n25Capital
+                                                                               Partners Sdn Bhd
+Lembah Impian Development Bhd | Sukuk Murabahah | RM12,000,000 | A3 | Originated on Tokenkan  Page 11 of 25
+5. USE OF PROCEEDS
+
+5.1 Summary of application
+
+The gross proceeds of RM12,000,000 are to be applied as set out below. The Issuer confirms that the proceeds will not be applied to any
+activity which is not Shariah compliant.
+
+Application                                             Amount (RM'000)                       Proportion  Expected timing
+Infrastructure and earthworks - Lembah Impian phase 3                  5,800                      48.3%   Q1 2027 to Q3 2028
+Construction working capital                                           3,200                      26.7%   Q2 2027 to Q4 2029
+Refinancing of the phase 3 bridging facility                           2,400                      20.0%   Within 30 days of issue
+General working capital                                                   340                       2.8%  As required
+Expenses of the offering (see 5.2)                                        260                       2.2%  On issue
+Total gross proceeds
+                                                                    12,000                      100.0%
+
+5.2 Expenses of the offering, including Platform fees
+
+This offering is originated on the Tokenkan platform rather than arranged by an investment bank, and the fee structure differs from that of
+a conventional issuance. It is set out in full below, because the economic case for this offering rests on that difference and investors are
+entitled to test it.
+
+The Platform charges the Issuer a tiered origination and listing fee, at 2.5 per cent. of nominal value for issues of RM1 million to RM5
+million, 1.5 per cent. from RM5 million to RM10 million and 1.0 per cent. above RM10 million, subject in each case to a minimum of
+RM25,000. This issue falls in the 1.0 per cent. tier, giving a fee of RM120,000.
+
+Payee                                                   Amount (RM'000)          Basis
+Tokenkan Capital Sdn Bhd - origination and listing fee                    120    1.0% of nominal value (above RM10m tier)
+RAM Rating Services Berhad - rating and surveillance                        58   Fixed
+Trustee - acceptance and annual fees (4 years)                              42   Fixed
+Solicitors                                                                  18   Fixed
+Shariah Adviser                                                             16   Fixed
+Independent Valuer and reporting accountants                                  6  Fixed
+Total charged against proceeds                                            260
+
+The total cost of this issuance is RM260,000, being 2.17 per cent. of nominal value. Investors should compare this against the fixed cost of
+a conventional issuance, which the Issuer estimates at RM1.4 million to RM1.9 million irrespective of size once rating, trustee, legal,
+Shariah advisory, registry, settlement and underwriting fees are aggregated. On an issue of RM12,000,000 a conventional cost base of that
+order would consume between 12 per cent. and 16 per cent. of the proceeds, which is the reason this issuance would not otherwise have
+taken place.
+
+Fees charged to investors
+
+Investors pay no fee on subscription. The Platform charges a transaction fee of 1.0 per cent. on every purchase and on every sale executed
+through it, including a sale into the standing bid described in Section 9.5. On a subscription of RM200 the fee is RM2.
+
+Investors should note the effect of this on a short holding period. An investor who subscribes and later sells into the standing bid pays 1.0
+per cent. on the way in and 1.0 per cent. on the way out, and bears the standing bid discount described in Section 9.5 in addition. Round-
+trip cost is therefore material relative to a single periodic distribution, and this instrument is not suited to short-term trading.
+
+5.3 Description of each application
+
+Lembah Impian phase 3
+
+RM5.8 million will fund the land premium payable on conversion of use, earthworks, drainage, retaining structures and the internal road
+network for phase 3 at Nilai. The land, 84 acres, is already owned by Impian Lembah Tiga Sdn Bhd and forms part of the land bank
+acquired in 2014.
+
+Phase 3 comprises 386 units of double-storey terraced and cluster housing with an estimated gross development value of RM224 million,
+targeted at purchasers in the RM480,000 to RM620,000 price band. Launch is planned for the fourth quarter of 2027 with completion in
+2030.
+
+Investors should note that revenue recognition will not begin until construction commences following launch, so no contribution to
+earnings is expected before FY2029, while profit payments on this issue begin in April 2027. Investors are funding a development whose
+earnings arrive in the final year of the tenure at the earliest.
+
+Construction working capital
+
+Lembah Impian Development Bhd | Sukuk Murabahah | RM12,000,000 | A3 | Originated on Tokenkan              Page 12 of 25
+RM3.2 million will fund the working capital requirement of the developments under construction, principally the timing difference between
+
+progress payments to contractors and progress billings collected from purchasers, together with retention sums held against contractors.
+Refinancing of the bridging facility
+RM2.4 million will repay a bridging facility drawn against the phase 3 land in 2025. The facility is short-dated, floating rate and secured on
+the land. Its repayment releases that security, which increases the pool of unencumbered assets supporting the covenant in Section 4.6,
+and extends the weighted average maturity of financing from 2.6 years to 3.2 years.
+
+General working capital
+RM340,000 will fund general corporate working capital.
+
+5.4 Management of proceeds
+
+Proceeds will be credited on the issue date to a Disbursement Account operated by the Issuer under the supervision of the Trustee.
+Withdrawals require a certificate of two authorised officers confirming the amount is required for an application in Section 5.1, supported
+by the certificate of the project quantity surveyor for infrastructure works and by the redemption statement of the financier for the
+refinancing.
+
+Pending application, balances may be invested only in Shariah-compliant liquid instruments issued or guaranteed by the Government of
+Malaysia or licensed Malaysian financial institutions, of a tenure not exceeding three months.
+
+The Issuer may reallocate up to ten per cent. of gross proceeds between applications on notice to the Trustee. Any greater reallocation
+requires approval by extraordinary resolution.
+
+The Issuer will report quarterly through the Platform on the application of proceeds, on sales and launch progress at phase 3, and on
+compliance with the covenants in Section 4.8.
+
+5.5 If the offering is not fully subscribed
+
+This offering is not underwritten. The Anchor Investor has committed to its allocation of RM8,400,000 but will not absorb any part of the
+retail tranche which is not taken up.
+
+The minimum level of subscription for the retail tranche is RM1,800,000, being half of it. If retail subscriptions fall below that level at the
+close of the offer period, the offering is withdrawn in its entirety, including the Anchor Investor allocation, and all subscription monies are
+returned in full within five business days without profit. Subscription monies are held in a segregated client account with a licensed
+Malaysian bank throughout the offer period and form no part of the assets of the Issuer or of the Platform.
+
+If retail subscriptions reach RM1,800,000 but fall short of RM3,600,000, the offering proceeds at the amount raised, applied in the order:
+expenses; refinancing of the bridging facility; construction working capital; then phase 3 infrastructure, which would be phased over a
+longer period. The profit rate does not change.
+
+5.6 Expected effect
+
+    commencement of infrastructure works on a 386-unit development with estimated gross development value of RM224 million;
+    release of security over the phase 3 land on repayment of the bridging facility, improving the unencumbered asset covenant position;
+    extension of the weighted average maturity of financing from 2.6 to 3.2 years;
+    an increase in the fixed rate proportion of financing from 38 to 51 per cent.;
+    gross gearing rising from 1.39 to 1.49 times and financing to EBITDA from 6.1 to 6.5 times, as set out in Section 6.5.
+
+Lembah Impian Development Bhd | Sukuk Murabahah | RM12,000,000 | A3 | Originated on Tokenkan  Page 13 of 25
+6. FINANCIAL INFORMATION
+
+The financial information set out in this section has been extracted from the audited consolidated financial statements of the Issuer for the
+three financial years ended 31 December 2023, 2024 and 2025, which were prepared in accordance with Malaysian Financial Reporting
+Standards and the requirements of the Companies Act. The auditors of the Issuer, Sim Abdullah & Associates PLT (AF 1382), issued
+unqualified audit opinions in respect of each of the three financial years presented.
+
+Investors should read the financial information below together with the accompanying commentary and the risk factors set out in Section
+7. Historical results are not necessarily indicative of results that may be expected for any future period.
+
+6.1 Consolidated statements of comprehensive income
+
+All amounts are stated in RM'000 unless otherwise indicated. Figures in parentheses denote negative amounts.
+
+Revenue                                                                                         FY2023          FY2024         FY2025
+Cost of sales                                                                                 118,400         104,200        126,800
+Gross profit
+Other operating income                                                                         84,600          76,800         89,400
+Administrative and other operating expenses                                                    33,800          27,400         37,400
+EBITDA
+Depreciation and amortisation                                                                    1,200           1,400          1,600
+Operating profit (EBIT)                                                                        12,800          13,400         14,200
+Finance costs                                                                                  22,200          15,400         24,800
+Profit before taxation
+Taxation                                                                                         3,600           3,800          4,100
+Profit for the financial year                                                                  18,600          11,600         20,700
+EBITDA margin (%)
+Net profit margin (%)                                                                            6,800           7,400          7,600
+                                                                                               11,800            4,200        13,100
+                                                                                                                 1,200
+                                                                                                 2,400           3,000          2,800
+                                                                                                 9,400                       10,300
+                                                                                                                   14.8
+                                                                                                   18.8              2.9          19.6
+                                                                                                     7.9                            8.1
+
+Revenue was RM118.4 million in FY2023, RM104.2 million in FY2024 and RM126.8 million in FY2025. The decline in the middle year arose
+from the completion of the Nilai phase 1 development in the first half of FY2024 and the timing of phase 2, which reached material revenue
+recognition only in FY2025.
+
+EBITDA followed the same shape at RM22.2 million, RM15.4 million and RM24.8 million, with the margin moving from 18.8 per cent. to
+14.8 per cent. and back to 19.6 per cent. Profit for the financial year was RM9.4 million, RM3.0 million and RM10.3 million.
+
+The FY2024 outturn is the more informative of the three years for a prospective Sukukholder. In that year EBITDA cover of finance costs
+fell to 2.1 times, marginally above the covenanted minimum of 2.00 times, and return on equity fell to 3.1 per cent.
+
+Finance costs were RM6.8 million, RM7.4 million and RM7.6 million. A substantial part of financing cost on development projects is
+capitalised into development costs rather than expensed, so this line understates the total cost of borrowing.
+
+6.2 Consolidated statements of financial position
+
+Lembah Impian Development Bhd | Sukuk Murabahah | RM12,000,000 | A3 | Originated on Tokenkan                  Page 14 of 25
+NON-CURRENT ASSETS                                                 FY2023      FY2024      FY2025
+Investment properties, land held for development and equipment
+Deferred tax assets and other non-current assets                   68,400      71,200      74,600
+Total non-current assets                                             4,200       4,600       5,100
+CURRENT ASSETS
+Trade receivables, accrued billings and other receivables          72,600      75,800      79,700
+Property development costs and completed inventories
+Prepayments, deposits and other current assets                     24,600      22,400      28,600
+Cash, bank balances and Housing Development Account balances     168,400     182,600     194,200
+Total current assets
+TOTAL ASSETS                                                         5,200       5,600       6,100
+EQUITY                                                             18,400      16,200      22,800
+Share capital                                                    216,600     226,800     251,700
+                                                                289,200     302,600     331,400
+
+                                                                   60,000      60,000      60,000
+
+Reserves and retained earnings                                     35,200      38,200      48,500
+Total equity                                                       95,200      98,200    108,500
+NON-CURRENT LIABILITIES
+Islamic financing - non-current                                    92,000      96,000    104,000
+Deferred tax, lease liabilities and long-term provisions           12,400      12,000      14,100
+Total non-current liabilities                                    104,400     108,000
+CURRENT LIABILITIES                                                                      118,100
+Islamic financing - current, including bridging facilities         42,600      46,000
+Trade payables, retention sums and accruals                        32,800      34,000      47,200
+Progress billings in advance, other payables and taxation          14,200      16,400      39,600
+Total current liabilities                                          89,600      96,400      18,000
+Total liabilities                                                194,000     204,400     104,800
+TOTAL EQUITY AND LIABILITIES                                    289,200     302,600      222,900
+                                                                                        331,400
+
+Total assets increased from RM289.2 million to RM331.4 million over the review period. Property development costs and completed
+inventories stood at RM194.2 million and investment properties, land held for development and equipment at RM74.6 million, together
+81.1 per cent. of total assets.
+
+A developer holds most of its value in inventory and land rather than in productive fixed assets, and that land is carried at historic cost less
+impairment, which may differ materially from realisable value in either direction.
+
+Total equity increased from RM95.2 million to RM108.5 million. Share capital was unchanged at RM60.0 million. Total financing was
+RM134.6 million, RM142.0 million and RM151.2 million, of which RM116.6 million was secured as at 31 December 2025.
+
+Gross gearing was 1.41, 1.45 and 1.39 times. The current ratio of 2.40 times is high but reflects the classification of development inventory
+as a current asset and should not be read as liquidity, since development inventory cannot be converted to cash quickly.
+
+Cash of RM22.8 million includes RM8.6 million held in Housing Development Accounts, applicable only to the developments concerned and
+unavailable to meet obligations under these Sukuk.
+
+6.3 Consolidated statements of cash flows (summary)              FY2023      FY2024       FY2025
+                                                                14,200        8,600       22,400
+ Net cash generated from operating activities                   (9,800)                 (11,600)
+ Net cash used in investing activities                          (2,800)     (8,200)      (4,200)
+ Net cash from/(used in) financing activities                               (2,600)
+ Net increase/(decrease) in cash and cash equivalents             1,600     (2,200)         6,600
+ Cash and cash equivalents at beginning of year                 16,800      18,400        16,200
+ Cash and cash equivalents at end of year                       18,400      16,200       22,800
+
+Net cash gLeemnebarhatImedpiafnroDmeveoloppemreanttiBnhgd a|cStiuvkiutkieMsurwabaashaRhM| 1R4M.122,m00i0ll,0io0n0 ,| RAM3 8| .O6rimginialltieodnonaTnodkeRnkMan22.4 million. For a developer,Poapgee r1a5toinf 2g5 cash flow
+reflects the balance between collections on sold units and expenditure on land and construction, and is therefore volatile; the FY2025
+figure benefited from collections on the completing phase while land expenditure was modest.
+
+Investors should not annualise FY2025. The commencement of phase 3, which this issue part-funds, will absorb cash for infrastructure and
+earthworks well before it generates any collections.
+
+Investing and financing flows comprised land expenditure, project financing drawdowns and repayments, and dividends. Cash moved from
+RM18.4 million to RM16.2 million and then to RM22.8 million.
+
+6.4 Selected financial ratios         FY2023                                                    FY2024                     FY2025
+                                         18.8                                                      14.8                       19.6
+  Ratio                                    9.9                                                       3.1                        9.5
+ EBITDA margin (times revenue, %)
+ Return on equity (%)               134,600                                                   142,000                    151,200
+ Total borrowings (RM'000)          116,200                                                   125,800                    128,400
+ Net debt (RM'000)
+ Gross gearing (times)                   1.41                                                      1.45                       1.39
+ Net gearing (times)                     1.22                                                      1.28                       1.18
+ Total borrowings / EBITDA (times)
+ EBITDA / finance costs (times)            6.1                                                       9.2                        6.1
+ Current ratio (times)                     3.3                                                       2.1                        3.3
+                                         2.42                                                      2.35                       2.40
+
+Gross gearing was 1.41, 1.45 and 1.39 times against a covenanted maximum of 2.00 times, and would be 1.49 times on a pro forma basis.
+
+Financing to EBITDA was 6.1, 9.2 and 6.1 times. The FY2024 figure of 9.2 times exceeded the 8.00 times covenant applicable to these
+Sukuk, and investors should register that plainly: had this issue existed in FY2024, the Issuer would have been in breach of its leverage
+covenant. On the pro forma financing of RM160.8 million, a repeat of the FY2024 EBITDA of RM15.4 million would give 10.4 times.
+
+EBITDA cover of finance costs was 3.3, 2.1 and 3.3 times against a covenanted minimum of 2.00 times. On the pro forma debt, a repeat of
+FY2024 would give approximately 1.9 times, also a breach.
+
+The conclusion investors should draw is not that the covenants are inadequate but that they are live. A single weak year of the kind this
+Issuer has already experienced within the last three would trigger them, and the consequences of a breach are set out in Section 4.9.
+
+Return on equity was 9.9, 3.1 and 9.3 per cent.
+
+6.5 Pro forma effect of the issuance
+
+The table below illustrates the effect of the issuance on the consolidated statement of financial position of the Issuer as at 31 December
+2025, on the assumption that the issuance had been completed on that date and that the proceeds were applied in the manner described in
+Section 5. The pro forma information is presented for illustrative purposes only and does not purport to represent the actual financial
+position of the Issuer following the issuance.
+
+Cash, bank balances and deposits    Audited as at 31 December 2025                                        Pro forma after issuance
+Total assets                                                           22,800                                                    32,140
+Total financing
+Total liabilities                                                    331,400                                                   340,740
+Total equity                                                         151,200                                                   160,800
+Gross gearing (times)                                                222,900                                                   232,500
+Total financing / EBITDA (times)                                     108,500                                                   108,240
+
+                                                                           1.39                                                      1.49
+                                                                             6.1                                                       6.5
+
+The pro forma assumes gross proceeds of RM12.0 million, application of RM2.4 million to prepayment of the bridging facility within thirty
+days of issue, and RM260,000 of offering expenses charged against equity.
+
+Gross gearing would rise from 1.39 to 1.49 times and financing to EBITDA from 6.1 to 6.5 times, both within covenant on FY2025 earnings.
+
+Investors should test the position against FY2024 rather than FY2025, as set out in Section 6.4. On the enlarged debt, a repeat of the
+FY2024 trough would breach both the leverage and the coverage covenants. That is the central credit consideration in this offering.
+
+The pro forma reflects no contribution from phase 3, which is not expected to contribute to revenue recognition before FY2029.
+
+6.6 Existing borrowings
+
+As at 31 December 2025, the total borrowings of the Group amounted to RM151.2 million, comprising the facilities summarised below. The
+Issuer confirms that it has not defaulted on any payment of principal or profit in respect of any of its borrowings during the three financial
+years under review.
+
+Lembah Impian Development Bhd | Sukuk Murabahah | RM12,000,000 | A3 | Originated on Tokenkan              Page 16 of 25
+Facility                                                                     Outstanding (RM'000)        Maturity profile
+Project financing - Nilai phases 1 and 2 (secured, at subsidiary level)                          68,000  Repaid from sales proceeds, to 2029
+Term financing - Sepang shoplot investment properties (secured)                                  24,000  Semi-annual instalments to 2033
+Revolving and working capital financing (unsecured)                                              12,000  Annual review
+Bridging facility - phase 3 land (secured) and current portion of financing                      47,200  Within 12 months
+Total financing
+                                                                                              151,200
+
+Lembah Impian Development Bhd | Sukuk Murabahah | RM12,000,000 | A3 | Originated on Tokenkan             Page 17 of 25
+7. RISK FACTORS
+
+Before making an investment decision, prospective investors should carefully consider all the information contained in this document,
+including in particular the risk factors set out below. The risks described are those which the Issuer currently considers material. They are
+not exhaustive, and additional risks not presently known to the Issuer, or which the Issuer currently considers immaterial, may also impair
+its business, financial condition and ability to meet its obligations under the Sukuk.
+
+If any of the following risks materialises, the business, financial condition, results of operations and prospects of the Issuer could be
+materially and adversely affected. In such circumstances, the Issuer may be unable to pay profit on, or repay the nominal value of, the
+Sukuk, and investors may lose part or all of their investment.
+
+7.1 Risks relating to the Issuer and the Sukuk
+
+Credit risk
+The Sukuk represent unsecured or, where applicable, secured obligations of the Issuer alone. Payment of profit and the repayment of the
+nominal value depend entirely upon the ability of the Issuer to generate sufficient cash flow from its operations, or to obtain sufficient
+funds from other sources, at the relevant times. Neither the Trustee, the Platform through which this offering was originated and
+distributed, nor any other party has guaranteed or assumed any obligation in respect of the payment obligations of the Issuer. In
+particular, investors should note that this offering was not underwritten and that no arranger stands behind it.
+
+A deterioration in the operating performance of the Issuer, an adverse change in its capital structure, the loss of one or more significant
+customers or contracts, or an unexpected increase in its cost base could impair its ability to service the Sukuk. As at 31 December 2025,
+the Group had total borrowings of RM151.2 million against total equity of RM108.5 million, representing a gross gearing ratio of 1.39
+times and total borrowings to EBITDA of 6.1 times.
+
+Refinancing risk
+The Sukuk are repayable in a single bullet payment at maturity, and the Issuer does not expect to accumulate a sinking fund sufficient to
+retire the full nominal amount from operating cash flow alone. The Issuer therefore expects to refinance all or a substantial part of the
+Sukuk at or before maturity. The ability of the Issuer to refinance will depend on conditions in the Malaysian debt capital and bank loan
+markets at the relevant time, on its credit standing and rating at that time, and on investor appetite for the sector in which it operates.
+There is no assurance that refinancing will be available on acceptable terms, or at all.
+
+Profit rate risk
+The Sukuk carry a fixed profit rate. The market value of fixed-rate debt securities generally moves inversely with prevailing market yields:
+if benchmark yields, including the yields on Malaysian Government Securities and Government Investment Issues, rise after the issue date,
+the market value of the Sukuk is likely to fall. Investors who sell the Sukuk before maturity may therefore realise less than the nominal
+value, and in adverse conditions materially less. Investors who hold the Sukuk to maturity are not exposed to this price risk, but bear the
+opportunity cost of being locked into a fixed profit rate for the tenure of the instrument.
+
+The Issuer is separately exposed to profit rate risk on its floating-rate bank borrowings, which are typically priced against the relevant cost
+of funds of the lending institutions. An increase in the Overnight Policy Rate set by the central bank would increase the finance costs of the
+Group and reduce the headroom available under its profit cover covenant.
+
+Liquidity risk of the Sukuk
+The Sukuk will not be listed or quoted on any stock exchange, and the Platform does not operate an order book. Operating a venue that
+matches buyers and sellers of capital market products would require registration as a Recognized Market Operator, which the Platform has
+not yet obtained. Exit before maturity is therefore available only through the standing bid maintained by the Anchor Investor at the
+published formula price described in Section 9.5. That bid is a contractual undertaking of a single counterparty, not a market. It is capped
+at RM180,000 of nominal value in aggregate in any calendar month, may be suspended in the circumstances set out in Section 9.5, and
+terminates if the Anchor Investor ceases to hold at least half of its original allocation. Peer-to-peer transfer between investors is intended
+to follow in phase two once Recognized Market Operator registration is obtained, but no date is committed and investors should not
+subscribe in reliance on it. An investor who may need the money before 20 October 2030 should treat this offering as unsuitable.
+
+Liquidity and working capital risk of the Issuer
+The Issuer requires liquidity to fund its operations, service its debt and meet its capital commitments. As at 31 December 2025, the Group
+held cash and bank balances of RM22.8 million and recorded a current ratio of 2.40 times. An unexpected lengthening of the collection
+cycle, the withdrawal of uncommitted banking lines, or a requirement to post additional performance security could strain the liquidity
+position of the Group.
+
+Rating risk
+The Sukuk have been assigned a rating of A3 with a stable outlook by RAM Rating Services Berhad. A credit rating is an opinion on relative
+creditworthiness at a point in time and is not a recommendation to buy, sell or hold any security. The rating may be reviewed, placed on
+negative watch, downgraded or withdrawn at any time. A downgrade would be likely to reduce the price obtainable on a sale before
+maturity.
+
+Subordination and structural risk
+The Issuer undertakes each development through a separate project subsidiary which holds the land, borrows under the project financing
+secured on it, and operates the Housing Development Account for that project. The Issuer is substantially a holding company dependent on
+surplus diLsetmribbauhtIimopniasnfDroevmelotphmoesnet Bshud b|sSiduikaurkiMesuraobnachaeh t|heRiMr12fi,n00a0n,0c0i0er|sAa3n|dOpriguirncathead soenrTookbenlikgaantions are satisfied. In an insoPalvgeen1c8yof o2f5 a project
+subsidiary, its financiers would be satisfied out of the project assets before any surplus reached the Issuer, and purchasers would hold
+statutory claims in respect of monies paid. The Issuer has guaranteed RM38.4 million of project financing as at 31 December 2025, which
+would rank as an unsecured claim alongside the Sukuk if called.
+
+Enforcement risk
+In the event of a default, the ability of the Trustee to enforce on behalf of Sukukholders may be constrained by the time and cost of legal
+proceedings in Malaysia, by the availability and realisable value of any security, by the rights of preferential and secured creditors ranking
+ahead of the Sukuk, and by the terms of any court-sanctioned scheme of arrangement or judicial management order to which the Issuer
+may become subject. Recoveries following enforcement may be substantially less than the nominal value of the Sukuk and may be received
+only after considerable delay.
+
+Modification and sukukholders decisions
+The Trust Deed provides for meetings of Sukukholders to consider matters affecting their interests generally. Resolutions passed by the
+requisite majority at a duly convened meeting bind all Sukukholders, including those who did not attend or vote and those who voted
+against the resolution. The Trustee is also empowered, without the consent of Sukukholders, to agree to modifications of a formal, minor or
+technical nature or which are made to correct a manifest error.
+
+7.2 Risks relating to the industry and operations of the Issuer
+
+Cyclicality and lumpy earnings
+Development revenue is recognised as construction progresses and therefore depends on both sales rate and construction stage. An issuer
+with a small number of concurrent projects cannot smooth those effects.
+
+The three years presented demonstrate this directly: revenue of RM118.4 million, RM104.2 million and RM126.8 million, and profit of
+RM9.4 million, RM3.0 million and RM10.3 million. Investors should read FY2024 as the informative year, not FY2025, and should assume a
+comparable trough within the tenure of this issue.
+
+In FY2024, EBITDA cover of finance costs fell to 2.1 times against the 2.00 times covenant applicable to these Sukuk, and financing to
+EBITDA reached 9.2 times against the 8.00 times covenant. A repeat on the enlarged post-issue debt would breach both.
+
+Sales rate and purchaser mortgage approval
+The Issuer sells to owner-occupier and first-time purchasers in Negeri Sembilan and southern Selangor, most of whom require mortgage
+financing. Sales conversion therefore depends on bank lending appetite, prevailing financing rates and household confidence rather than
+on the efforts of the Issuer.
+
+Booking-to-conversion averaged 64 per cent. over the review period, and the Issuer regards this as the most sensitive operating variable in
+its business. A tightening of lending guidelines translates into cancelled bookings within weeks.
+
+Unsold inventory and land holding cost
+Property development costs and completed inventories stood at RM194.2 million as at 31 December 2025, being 58.6 per cent. of total
+assets. Completed unsold units and undeveloped land generate no revenue while incurring financing cost, quit rent, assessment and
+maintenance.
+
+The Issuer holds a land bank of 218 acres in Negeri Sembilan with an estimated development period exceeding eight years at current
+absorption rates. A prolonged downturn would extend that period and could require the write-down of land carried at cost.
+
+Construction cost and contractor failure
+The Issuer engages third-party main contractors under fixed-price contracts, which transfer cost inflation risk only while the contractor
+remains solvent. Contractor failure mid-project causes delay, re-tendering at prevailing prices, and exposure to liquidated damages payable
+to purchasers.
+
+Cement, steel, aggregate and labour costs have risen materially in recent years and construction labour availability has been constrained
+by foreign worker policy. The Issuer replaced a main contractor on the phase 2 development in 2024, delaying delivery of one block by five
+months.
+
+Geographic and project concentration
+All active developments are located in Nilai and Seremban in Negeri Sembilan, together with one shoplot development in Sepang,
+Selangor. The Issuer has no geographic diversification and is fully exposed to a single sub-market, to the transport infrastructure decisions
+affecting it, and to competing supply in the same corridor.
+
+Phase 3, which this issue part-funds, will represent the majority of the development pipeline of the Issuer once launched.
+
+Project financing dependence
+Each development is funded by project financing secured on the land and work in progress, at 77.1 per cent. of total financing. The Issuer
+depends on continued bank appetite for property development lending, which has contracted periodically in Malaysia. A withdrawal of
+appetite would prevent the commencement of new phases regardless of demand for the units.
+
+Defect liability and reputation
+The Issuer bears defect liability for twenty-four months from delivery of vacant possession under statutory sale and purchase agreements.
+Significant defects generate rectification cost and claims, and damage sales at subsequent phases of the same development, where
+purchasers can inspect the earlier phase directly.
+
+7.3 ReguLelmabtaohrImypaiannDdevceloopmmepnlt iBahnd c| eSurkuisk kMsurabahah | RM12,000,000 | A3 | Originated on Tokenkan  Page 19 of 25
+Changes in law, regulation and government policy
+The Issuer requires a developer licence and advertising and sale permits for each development under Malaysian housing development
+legislation, subject to conditions on project delivery, operation of Housing Development Accounts, sale documentation and defect liability.
+Suspension of a licence or refusal of a permit would prevent the sale of units in the affected development.
+
+Planning approvals, development orders, building plan approvals, land use conversion and certificates of completion and compliance are
+granted by state and local authorities on timelines outside the control of the Issuer. Approval periods in Negeri Sembilan have lengthened
+over the past three years, and delay extends the period over which land is held without generating revenue.
+
+Bumiputera quota requirements and affordable housing obligations differ by state and materially affect achievable pricing and sales
+velocity. Changes to quota levels, required discounts, or release conditions for unsold quota units would affect returns.
+
+Liquidated ascertained damages are payable to purchasers for late delivery under statutory sale and purchase agreements. This is a
+quantifiable exposure on any delayed project and is not within the control of the Issuer where delay arises from approvals or contractor
+failure.
+
+Government policy on housing affordability, stamp duty, real property gains tax and lending guidelines has changed frequently in Malaysia
+and affects demand directly. Tightening of central bank lending guidelines has historically reduced sales conversion within a single
+quarter.
+
+As a Main Market listed issuer the Issuer is subject to the Main Market Listing Requirements, including continuing disclosure, related
+party transaction approval and the financial condition provisions applicable to listed issuers.
+
+Taxation
+Statements in this document concerning taxation are based on the laws and practice in force at the date of this document. Changes in tax
+legislation, in the interpretation or administration of tax legislation by the Inland Revenue Board, or in the availability of incentives
+currently enjoyed by the Group could increase the effective tax rate of the Group and reduce the cash flow available for debt service.
+Prospective investors should consult their own tax advisers as to the tax consequences of acquiring, holding and disposing of the Sukuk.
+
+Anti-money laundering and sanctions
+The Group is subject to anti-money laundering, counter-terrorism financing and sanctions regimes applicable in Malaysia and in the
+jurisdictions in which it operates or into which it sells. A failure by the Group or its counterparties to comply with these regimes could
+result in fines, restrictions on banking relationships and reputational damage.
+
+7.4 Operational risks
+
+Dependence on key personnel
+The performance of the Group depends to a significant extent on the continued service of its senior management team and of technical and
+operational personnel with specialised experience. Competition for such personnel in Malaysia is intense. The loss of one or more members
+of senior management, or an inability to attract and retain suitably qualified staff, could disrupt operations and impair the ability of the
+Group to execute its strategy.
+
+Information technology and cyber security
+The Group relies on information technology systems for its operational, financial and customer-facing processes. A material failure of these
+systems, a successful cyber intrusion, a ransomware incident or a breach of personal data protected under applicable data protection
+legislation could interrupt operations, expose the Group to regulatory penalties and civil claims, and damage its reputation.
+
+Insurance
+The Group maintains insurance cover which it considers appropriate for its operations, including property damage, business interruption,
+public liability and, where relevant, contractors' all risks cover. However, such cover is subject to policy limits, deductibles and exclusions,
+and certain risks are not commercially insurable. A loss which is uninsured, underinsured or excluded could have a material adverse effect
+on the financial condition of the Group.
+
+Litigation and disputes
+The Group is, from time to time, party to claims and disputes arising in the ordinary course of business. As at the date of this document, the
+Directors are not aware of any pending or threatened litigation which, if determined adversely, would have a material adverse effect on the
+financial condition of the Group. There is no assurance that material claims will not arise in future.
+
+Related party transactions
+The Group enters into transactions with related parties in the ordinary course of business. Although the Directors are of the view that such
+transactions are conducted on arm's length terms and on a basis not more favourable to the related party than to an unrelated third party,
+there is a risk that the terms of such transactions may differ from those which could be obtained from independent parties.
+
+7.5 Forward-looking statements
+
+This document contains forward-looking statements, including statements regarding the intentions, beliefs and current expectations of the
+
+Issuer concerning its results of operations, financial condition, liquidity, prospects, growth and strategy. Words such as anticipates,
+
+believes, estimates, expects, intends, may, plans, projects and targets, and similar expressions, are intended to identify such statements.
+
+Forward-looking statements are not guarantees of future performance and involve known and unknown risks, uncertainties and
+
+assumptions. Actual results may differ materially from those expressed or implied. The Issuer does not undertake any obligation to update
+
+or revise aLneymbfoahrwImapriadn-lDoeovkelionpgmesnttaBtehdm|enStu,kuskaMveuraabsahraehqu| iRreMd12b,0y00la,0w00o|r Ab3y |thOerigtienartmedsoonfTtohkeenkTarnansaction Documents.  Page 20 of 25
+8. INVESTOR FREQUENTLY ASKED QUESTIONS
+
+The questions and answers below are provided for the convenience of prospective investors and are intended as a plain-language guide
+only. They do not form part of the terms and conditions of the Sukuk and are qualified in their entirety by the detailed provisions of this
+document and of the Transaction Documents. In the event of any inconsistency, the Transaction Documents shall prevail.
+
+What is the profit rate, and how is it determined?
+
+The profit rate is 6.20 per cent. per annum on nominal value, fixed for four years. That is RM3.10 per RM100 held every six months, or
+RM6.20 a year. Under the Murabahah structure the total profit is fixed at the outset and cannot vary with the performance of the Issuer.
+The rate reflects the A3 rating, which sits toward the lower end of the investment grade range, and the cyclicality of property development
+described in Section 7.2.
+
+How often are payments made, and when will I receive them?
+
+Profit is paid semi-annually in arrears in arrears on 20 April and 20 October of each year, with the first payment falling due on 20 April
+2027 and the final payment falling due on the maturity date, 20 October 2030. Payments are made to the persons shown in the records of
+the depository at the close of business on the relevant record date, which falls two business days before the payment date. Payments are
+credited directly through RENTAS; no physical certificates are issued and no coupons need to be presented.
+
+When will I get my principal back?
+
+The full RM100 per RM100 of nominal value is repaid on 20 October 2030 together with the final profit payment. There is no amortisation.
+The Issuer may call the whole issue from the second anniversary at a small premium.
+
+What happens if the Issuer defaults?
+
+A default arises if the Issuer fails to pay any amount due within the applicable grace period, breaches a financial covenant, breaches
+another material obligation and fails to remedy it within the cure period, becomes subject to insolvency proceedings, or triggers one of the
+other events of default described in Section 4.9. Upon a continuing event of default, the Trustee may, and must if directed by an
+extraordinary resolution of Sukukholders, accelerate the Sukuk so that the full nominal value and accrued profit become immediately due
+and payable.
+
+The Sukuk are unsecured, so the Trustee would prove in a winding-up rather than enforce security, and investors should weigh three
+features of a developer's balance sheet. First, 77.1 per cent. of the financing of the Issuer is secured on its land and work in progress and
+ranks ahead. Second, purchaser monies in Housing Development Accounts, RM8.6 million as at 31 December 2025, are ring-fenced by
+statute and unavailable to any creditor. Third, a partially built development is worth far less than a finished one, so recovery depends on
+whether projects can be completed rather than liquidated. The unencumbered asset covenant at 130 per cent. of unsecured debt is the
+principal protection, and the project account undertaking is intended to capture development surpluses as they are released.
+
+Individual investors do not enforce directly. The Trustee acts on behalf of all Sukukholders collectively, which prevents a disorderly race to
+enforce and ensures that any recoveries are distributed rateably in accordance with the priority of payments set out in the Trust Deed.
+
+Is this issuance Shariah compliant?
+
+Yes. The structure is Murabahah effected through a Tawarruq arrangement: Sukukholders, through the Trustee, purchase Shariah-
+compliant commodities and sell them to the Issuer at a deferred price comprising nominal value plus an agreed profit. The deferred sale
+price is the obligation owed to investors. The structure has been reviewed and approved by Ibnu Hakim Shariah Advisory Sdn Bhd.
+Investors should consult their own Shariah advisers.
+
+What are the main risks I should focus on?
+
+The Issuer would direct attention to five risks in particular. First, credit risk: repayment depends entirely on the Issuer, and the Sukuk
+benefit from no third-party guarantee. Second, refinancing risk: the Sukuk repay in a single bullet payment at maturity and the Issuer
+expects to refinance rather than fully amortise from operating cash flow. Third, profit rate risk: the rate is fixed, so the market value of the
+Sukuk will fall if benchmark yields rise. Fourth, liquidity risk: the Sukuk are unlisted, secondary market trading may be thin, and investors
+should be prepared to hold to maturity. Fifth, the sector-specific risks described in Section 7.2, which for the Issuer principally concern the
+cyclicality and lumpiness of development earnings, sensitivity of sales rates to interest rates and mortgage approval, construction cost
+inflation and contractor failure, holding costs on unsold inventory and undeveloped land, dependence on planning and development
+approvals, and liquidated damages exposure on late delivery. Section 7 should be read in full.
+
+How will the proceeds be used?
+
+The gross proceeds of RM12.0 million will be applied as set out in Section 5: RM5.8 million to infrastructure and earthworks for Lembah
+Impian phase 3, RM3.2 million to construction working capital, RM2.4 million to refinancing a bridging facility, RM340,000 to general
+working capital, and RM260,000 to the expenses of the offering including the Platform origination fee.
+
+What is the credit rating, and what does it mean?
+
+RAM Rating Services Berhad has assigned a rating of A3 with a stable outlook to the Sukuk. On the rating scale of the agency, an A rating
+denotes adequate capacity to meet financial obligations, with greater susceptibility to adverse changes in circumstances and economic
+conditions than obligations rated in the AA and AAA categories. The numerical modifier 3 indicates the lower end of that band, immediately
+above the BBB category and therefore toward the lower end of investment grade. A rating is an opinion on relative creditworthiness at a
+given point in time. It is not a recommendation to buy, sell or hold, it does not comment on the market price or suitability of the instrument
+for any particular investor, and it may be reviewed, downgraded or withdrawn at any time.
+
+                 Lembah Impian Development Bhd | Sukuk Murabahah | RM12,000,000 | A3 | Originated on Tokenkan  Page 21 of 25
+
+Who can invest, and in what amounts?
+The Sukuk are issued in denominations of RM1,000 nominal value. Fractional interests in the Sukuk are made available through the
+Tokenkan platform, under which an investor may subscribe for an interest of not less than RM100 and in increments of RM1 thereafter.
+The platform operator holds the underlying Sukuk and records the fractional entitlement of each investor. An investor holding a fractional
+interest is entitled to the corresponding share of each profit payment and of the redemption proceeds, but is not the registered holder of
+the Sukuk and exercises rights under the Trust Deed through the platform operator.
+
+Are the Sukuk secured?
+No. This is unsecured, and Section 4.6 explains why: the assets capable of bearing security are already charged to project financiers, at
+RM116.6 million out of RM151.2 million of total financing. The negative pledge also permits the Issuer to keep charging new development
+land ahead of Sukukholders, so it should not be read as freezing the position. The substantive protections are the unencumbered asset
+covenant at 130 per cent., the project account undertaking, the connected party valuation requirement and the dividend restriction.
+
+Where do I rank against other creditors?
+Sukukholders rank as senior unsecured creditors, equally with each other and with the Anchor Investor. They rank behind RM116.6 million
+of secured project financing to the extent of its security, behind preferential claims, and are structurally subordinated to the creditors of
+the project subsidiaries. Housing Development Account monies belong to purchasers and sit outside the reach of all creditors.
+
+Can the Issuer redeem early, and what would I receive?
+The Issuer may call the whole issue from the second anniversary at 101.00 per cent. of nominal value, falling to 100.50 per cent. from the
+third. Investors have a put right on a change of control, and a mandatory redemption applies to the proceeds of large land disposals not
+reinvested. Otherwise the only exit is a sale into the Anchor Investor standing bid described in Section 9.5, which is discounted, capped at
+RM180,000 a month and may be suspended.
+
+How is my investment taxed?
+The tax treatment of profit depends on the residence, legal form and tax status of the investor. Withholding tax may apply to payments
+made to certain non-resident investors, subject to any relief available under an applicable double taxation agreement. Certain classes of
+Malaysian institutional investors enjoy exemptions in respect of profit income from ringgit-denominated sukuk. The Issuer does not provide
+tax advice, and prospective investors should consult their own advisers.
+
+How will I be kept informed after issuance?
+The Issuer is required under the Trust Deed to deliver to the Trustee its audited consolidated financial statements within 120 days of each
+financial year end and its unaudited semi-annual accounts within 90 days of each half year end, together with a compliance certificate
+confirming observance of the financial covenants. The Issuer must also notify the Trustee promptly of any event of default or potential
+event of default, and of any development which would have a material adverse effect. The rating agency conducts a formal review of the
+rating at least annually.
+
+Can I sell before maturity?
+Fractional interests may be offered for sale through the matching facility operated by the Tokenkan platform, and the platform may also
+quote an indicative price at which it is prepared to take the position. Investors should understand clearly that this is not a listed market
+and that no party is obliged to buy. Whether a sale can be effected, and at what price, depends on the presence of a willing counterparty,
+on prevailing market yields and on the credit standing of the Issuer at the time; the price may be above or below the nominal value. An
+investor who is unable to sell should expect to hold to maturity, at which point the full nominal value becomes payable.
+
+What happened in FY2024?
+Revenue fell from RM118.4 million to RM104.2 million and profit from RM9.4 million to RM3.0 million. The cause was timing rather than
+distress: the phase 1 development at Nilai completed in the first half of the year while phase 2 had not yet reached the construction stages
+that generate material revenue recognition, so the Issuer had a gap.
+
+This is normal for a developer with a small number of concurrent projects and investors should expect it to recur within the four-year
+tenure. The number that matters in a trough is coverage. EBITDA cover of finance costs fell to 2.1 times in FY2024 against a covenanted
+minimum of 2.00 times, and financing to EBITDA rose to 9.2 times against a maximum of 8.00 times, which would have been a breach had
+this issue and its covenants been in place. Section 6.4 sets out what a repeat would look like on the enlarged debt, and it is the single most
+important passage in this document.
+
+Where can I obtain further information?
+Copies of the Trust Deed, the other Transaction Documents, the audited financial statements of the Issuer for the three financial years
+covered by this document, the rating letter and the Shariah pronouncement and the constitution of the Issuer are available for inspection
+at the registered office of the Issuer during normal business hours for the period during which the Sukuk remain outstanding. Enquiries
+may be directed to the Registrar and Paying Agent, Tokenkan Capital Sdn Bhd.
+
+Lembah Impian Development Bhd | Sukuk Murabahah | RM12,000,000 | A3 | Originated on Tokenkan  Page 22 of 25
+9. ORIGINATION, ALLOCATION AND THE PLATFORM
+
+9.1 How this offering was originated
+
+This offering was originated directly by the Issuer through Tokenkan Capital Sdn Bhd, which operates the Tokenkan platform. No
+investment bank has acted as lead arranger, lead manager or underwriter.
+
+The Issuer is a company listed on the Main Market of Bursa Malaysia with a market capitalisation of RM142.6 million. An issue of this size
+could not have carried the fixed cost of a conventional bond issuance, in which rating, trustee, legal, Shariah advisory, registry, settlement
+and underwriting fees are incurred at broadly the same magnitude whether a company raises RM5 million or RM50 million. The Platform
+exists to compress that cost base, and this document should be read as the product of that compression.
+
+What the Platform does
+The Platform structured this offering, prepared this document with the Issuer, conducted the credit review summarised in Section 6, set
+the indicative pricing range in consultation with the Anchor Investor, and distributes the sukuk to retail investors. It maintains the register
+of holders and pays the periodic distributions.
+
+What the Platform does not do
+The Platform does not issue or hold the sukuk. Token issuance and custody are performed by Sentinel Digital Custody Sdn Bhd, a Digital
+Asset Custodian registered with the Securities Commission Malaysia. The Platform has no ability to move, encumber or apply an investor's
+holding, and an investor's entitlement does not form part of the assets of the Platform.
+
+The Platform does not underwrite this offering. It has given no commitment to subscribe for any portion not taken up, and holds none of
+the sukuk on its own account. Section 5.5 sets out what happens if the offering does not reach its minimum.
+
+The Platform does not operate an exchange or an order book, and does not match buyers with sellers. Section 9.5 describes the only exit
+mechanism available at launch.
+
+The Platform is not an adviser to investors. It is remunerated by the Issuer as set out in Section 5.2, and it charges investors a transaction
+fee on purchases and sales. Its remuneration therefore rises with both the size of the offering and the volume of investor activity. Investors
+should weigh this when reading any material prepared by the Platform, including the automated explanatory tools available on it, which
+are provided for convenience, are grounded in this document, and do not constitute advice or a recommendation.
+
+The Platform does not guarantee the obligations of the Issuer. On a default, the recourse of investors is to the Issuer through the Trustee,
+as set out in Section 4.9, and not to the Platform.
+
+9.2 Parties independent of the Issuer and the Platform
+
+The following functions are performed by parties independent of both the Issuer and the Platform, and their independence is the substance
+of the protection they provide:
+
+    the Digital Asset Custodian, which issues and safekeeps the holdings and maintains records independently of the Platform;
+    the Trustee, which holds the benefit of the covenants for investors, monitors compliance, convenes meetings of holders and enforces on
+    their instruction. It is remunerated by the Issuer but owes its duties to holders;
+    the Auditor, which audited the financial statements from which Section 6 is drawn;
+    the Solicitors, who advised on the Transaction Documents; and
+    where applicable, the Rating Agency, the Shariah Adviser and the Independent Valuer.
+
+Neither the Issuer nor the Platform may remove or replace the Trustee or the Digital Asset Custodian without the consent of holders by
+extraordinary resolution.
+
+9.3 Fractional holding
+
+Investors hold fractional interests recorded by the Digital Asset Custodian and reflected in the register maintained by the Platform. A
+fractional interest carries the same economic entitlement, proportionate to its size, as a whole unit of nominal value, and the same right to
+vote at meetings of holders. It is not a separate class and is not subordinated.
+
+9.4 The Anchor Investor and allocation of this issue                                        Nominal value  Proportion
+                                                                                           RM8,400,000         70.0%
+This issue is not distributed wholly to retail investors. It is allocated as follows:      RM3,600,000         30.0%
+                                                                                       RM12,000,000
+  Allocation                                                                                                 100.0%
+ Anchor Investor
+ Retail investors through the Platform
+ Total
+
+The Anchor Investor for this issue is Meridian Credit Opportunities Fund I, a professional credit fund. Investors should understand why this
+structure exists and what it does and does not do for them.
+
+What the Anchor Investor provides
+It provideLsemcbraehdIimtpivanalDidevaetlioopnmentht Bahtd a| nSuukunkpMrourvaebnahaphla| tRfoMr1m2,00c0a,0n0n0o|t As3u|ppOlryiginaabteoduotn Tiotskeenlfk.anThe Anchor Investor conducPtaegde 2i3tsof 2o5wn credit
+assessment of the Issuer, independently of the Platform, and committed to its allocation on the basis of that assessment. A professional
+credit investor taking 70.0% of the issue at the same price and on the same terms as retail investors is a meaningful signal, and it is the
+principal comfort available to a retail subscriber to a small unlisted issue of this kind.
+
+It also provides the standing bid described in Section 9.5, which is the only route by which a retail investor can exit before maturity.
+
+What it does not provide
+The Anchor Investor does not guarantee the obligations of the Issuer and has no liability to retail investors if the Issuer defaults. It ranks
+equally with retail holders, not behind them, so it bears loss alongside them rather than ahead of them.
+
+It is not an underwriter. It has committed to its own allocation only, and will not absorb any part of the retail tranche which is not taken up.
+
+Investors should also note that the Anchor Investor participated in setting the pricing of this issue. Its interest in obtaining a higher return
+is not aligned with the interest of a retail subscriber, although both pay the same price for the same instrument.
+
+9.5 The standing bid, and its limits
+
+The Anchor Investor has undertaken to the Trustee to maintain a standing bid for sukuk held by retail investors, at a price determined by
+the formula published on the Platform and set out in the Standing Bid Agreement, which is available for inspection under Section 10.3.
+
+The formula prices the sukuk by discounting the remaining scheduled payments at a reference yield, being the yield on Malaysian
+Government Securities of comparable remaining tenure plus the credit spread at which this issue was priced, and then applying a discount
+of 1.25 per cent. to reflect the cost of the Anchor Investor providing the facility. The formula is mechanical and is not a negotiation.
+
+Investors should be clear about four limitations:
+
+    The price is not the nominal value. Because the formula responds to prevailing yields, an investor selling into the standing bid when
+    yields have risen will receive less than RM100 per RM100 of nominal value, and in adverse conditions materially less. The discount of
+    1.25 per cent. applies in every case, including when yields have not moved.
+    The bid is capped. The Anchor Investor is obliged to purchase not more than RM180,000 of nominal value in aggregate in any calendar
+    month. If retail investors seek to sell more than that in a month, requests are met in the order received and the balance carries to the
+    following month.
+    The bid may be suspended. The undertaking is suspended while an event of default is continuing, during the fifteen business days
+    before and after a periodic payment date, and where the Anchor Investor is prevented from dealing by applicable law. Investors should
+    note that the first of these means the standing bid is least likely to be available at precisely the moment they most want to sell.
+    The bid terminates. The undertaking ends if the Anchor Investor ceases to hold at least half of its original allocation, on its insolvency,
+    or at the maturity date. If it terminates before maturity, investors have no exit mechanism at all until Recognized Market Operator
+    registration is obtained, and there is no assurance as to when that will occur.
+
+The Trustee monitors compliance with the Standing Bid Agreement and reports on it in the periodic reporting published through the
+Platform.
+
+9.6 Position limits
+
+The Platform applies limits on the exposure a retail investor may take to any single issuer, in order to prevent a concentrated loss on a
+single small credit. An investor may not hold more than RM25,000 in nominal value of the sukuk of any one issuer, nor more than twenty-
+five per cent. of the aggregate value of their holdings across the Platform in any one issuer.
+
+Investors should treat these limits as a floor on prudence rather than a substitute for it. The limits are set by the Platform and may be
+varied. They do not imply that an investment at the limit is suitable.
+
+9.7 What happens if the Platform ceases to operate
+
+The entitlements of investors do not depend on the continued operation of the Platform. Holdings are issued and safekept by the Digital
+Asset Custodian, which is registered with the Securities Commission Malaysia and subject to its own regulatory obligations, and the
+register is replicated daily to the Trustee.
+
+If the Platform ceases to operate, the Trustee is empowered under the Trust Deed to appoint a replacement registrar and paying agent,
+and the obligations of the Issuer to holders are unaffected. Investors should nonetheless expect the practical consequences to include the
+suspension of the standing bid facility, since it is administered through the Platform, and a period during which distributions may be
+delayed while arrangements are transferred.
+
+Lembah Impian Development Bhd | Sukuk Murabahah | RM12,000,000 | A3 | Originated on Tokenkan  Page 24 of 25
+10. CORPORATE DIRECTORY AND STATUTORY INFORMATION
+
+10.1 The Issuer                        Lembah Impian Development Bhd
+                                       Registration No. 200401022518 (654187-P)
+ Registered name                       Suite 9-2, Menara Impian, Jalan Tun Razak, 50400 Kuala Lumpur, Malaysia
+ Registration number                   Galeri Jualan Lembah Impian, Jalan Lembah Utama, 71800 Nilai, Negeri Sembilan, Malaysia
+ Registered office                     Incorporated in Malaysia on 14 July 2004 as a private limited company, converted to a public
+ Business address                      company on 3 May 2012 and listed on the Main Market of Bursa Malaysia on 18 October 2012
+ Date and place of incorporation       31 December
+                                       Ooi Bee Hoon (MAICSA 7043918)
+ Financial year end
+ Company secretary
+
+10.2 Advisers and transaction parties
+
+Originating Platform                   Tokenkan Capital Sdn Bhd (Registration No. 202301009284 (1502773-D))
+Registrar and Paying Agent             Tokenkan Capital Sdn Bhd
+Digital Asset Custodian                Sentinel Digital Custody Sdn Bhd, registered with the Securities Commission Malaysia
+Trustee                                Amanah Wilayah Trustee Berhad
+Shariah Adviser                        Ibnu Hakim Shariah Advisory Sdn Bhd
+Rating Agency                          RAM Rating Services Berhad
+Auditor                                Sim Abdullah & Associates PLT
+Solicitors                             Krishnan Yeoh & Partners
+Independent Valuer                     Chandra Nakamura Valuers Sdn Bhd
+Anchor Investor                        Meridian Credit Opportunities Fund I, a professional credit fund managed by Meridian Capital
+                                       Partners Sdn Bhd
+Auditors                               Sim Abdullah & Associates PLT (AF 1382)
+Solicitors                             Krishnan Yeoh & Partners
+Rating agency                          RAM Rating Services Berhad
+
+10.3 Documents available for inspection
+
+For so long as any Sukuk remain outstanding, copies of the following documents may be inspected at the registered office of the Issuer
+during normal business hours on any business day:
+
+    the constitution of the Issuer;
+    the audited consolidated financial statements of the Issuer for the three financial years covered by Section 6, together with the reports
+    of the auditors thereon;
+    the Trust Deed and the other Transaction Documents;
+    the rating letter issued by RAM Rating Services Berhad in respect of the Sukuk;
+    the pronouncement of the Shariah Adviser in respect of the structure of the Sukuk; and
+    the material contracts referred to in this document.
+
+10.4 Responsibility statement
+
+The Directors of the Issuer have seen and approved this document. They collectively and individually accept full responsibility for the
+accuracy of the information contained in it, and confirm that, having made all reasonable enquiries, and to the best of their knowledge and
+belief, there are no other facts the omission of which would make any statement in this document misleading.
+
+10.5 Consents
+
+The Trustee, Amanah Wilayah Trustee Berhad, the auditors, Sim Abdullah & Associates PLT (AF 1382), and the solicitors, Krishnan Yeoh &
+Partners, the rating agency, RAM Rating Services Berhad, Ibnu Hakim Shariah Advisory Sdn Bhd, as Shariah Adviser, have each given and
+have not withdrawn their written consent to the inclusion in this document of their names and, where applicable, of their reports and
+opinions in the form and context in which they appear. Tokenkan Capital Sdn Bhd has given and has not withdrawn its written consent to
+the inclusion of its name as Originating Platform, Registrar and Paying Agent, and Sentinel Digital Custody Sdn Bhd, registered with the
+Securities Commission Malaysia has given and has not withdrawn its written consent to the inclusion of its name as Digital Asset
+Custodian.
+
+Lembah Impian Development Bhd | Sukuk Murabahah | RM12,000,000 | A3 | Originated on Tokenkan  Page 25 of 25
+

@@ -3,3 +3,4 @@ server.log
 server.err
 .env
 *.local
+server_test.log

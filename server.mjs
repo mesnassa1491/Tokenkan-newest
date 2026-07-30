@@ -30,6 +30,12 @@ import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
+
+// Optional local config: a gitignored .env file next to this script, loaded
+// on top of whatever's already in the environment (real env vars still win —
+// loadEnvFile does not overwrite existing keys).
+try { process.loadEnvFile(path.join(HERE, '.env')); } catch {}
+
 const PORT = Number(process.env.PORT || 3000);
 
 const GEMINI_KEY = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY || '';
@@ -65,22 +71,32 @@ const MAX_PROSPECTUS_CHARS = Number(process.env.TOKENKAN_MAX_PROSPECTUS_CHARS ||
 
 /* ── Grounding corpus ─────────────────────────────────────────────────── */
 
-const PROSPECTUS_PATH = path.join(HERE, 'prospectus.txt');
-let PROSPECTUS = '';
-if (existsSync(PROSPECTUS_PATH)) {
-  PROSPECTUS = readFileSync(PROSPECTUS_PATH, 'utf8');
-  if (MAX_PROSPECTUS_CHARS > 0 && PROSPECTUS.length > MAX_PROSPECTUS_CHARS) {
-    PROSPECTUS = PROSPECTUS.slice(0, MAX_PROSPECTUS_CHARS);
+// Every offering has its own prospectus. The text is extracted from the PDF of
+// the same name in /prospectus and loaded once at boot, keyed by asset id, so a
+// question about one instrument is never answered from another's document.
+const PROSPECTUS_BY_ASSET = {
+  sw: 'tk1_sajian_warisan_sukuk_murabahah',
+  li: 'tk2_lembah_impian_sukuk_murabahah',
+  st: 'tk3_suria_teknik_green_sri_sukuk',
+  pr: 'tk4_pekan_retail_medium_term_notes',
+  mq: 'tk5_mediq_peranti_sukuk_murabahah',
+  gl: 'tk6_gerak_logistik_sukuk_murabahah',
+};
+
+const PROSPECTUS = {};
+for (const [id, base] of Object.entries(PROSPECTUS_BY_ASSET)) {
+  const p = path.join(HERE, 'prospectus', base + '.txt');
+  if (!existsSync(p)) continue;
+  let text = readFileSync(p, 'utf8');
+  if (MAX_PROSPECTUS_CHARS > 0 && text.length > MAX_PROSPECTUS_CHARS) {
+    text = text.slice(0, MAX_PROSPECTUS_CHARS);
   }
+  PROSPECTUS[id] = text;
 }
 
-// The prospectus on file is the real Sukuk Ihsan document, which is the source
-// for the Amanah Ihsan Education offering only. Every other instrument in the
-// prototype is fictional and has no prospectus behind it — the model is told so
-// explicitly rather than being left to answer from an unrelated document.
-const GROUNDED_ASSET_ID = 'aie';
+const PROSPECTUS_CHARS = Object.values(PROSPECTUS).reduce((n, t) => n + t.length, 0);
 
-const ROLE = `You are the Prospectus Explainer inside Tokenkan, a Malaysian retail app for tokenised sukuk and bonds. You explain a fixed-income offering to an ordinary retail investor who is not a finance professional.
+const ROLE = `You are the Prospectus Explainer inside Tokenkan, a Malaysian retail app for fractional sukuk and bonds. You explain a fixed-income offering to an ordinary retail investor who is not a finance professional.
 
 How to answer:
 - Plain English. Short sentences. No jargon without immediately explaining it.
@@ -88,7 +104,7 @@ How to answer:
 - Be concrete about money: name the rate, the dates, and the ringgit amounts where you can.
 - Keep it to roughly 120 words unless the question genuinely needs more.
 - Never invent a number, date, or term. If the source material does not answer the question, say plainly that it is not covered and say what the investor should check instead.
-- Be straight about downside. This person is deciding whether to put money in. Do not soften credit risk, the absence of PIDM protection, or the KPI step-down.
+- Be straight about downside. This person is deciding whether to put money in. Do not soften credit risk, the absence of PIDM protection, the fact that two of the six offerings are unrated, or the limits on exiting before maturity.
 - You are not a licensed financial adviser and must not tell the reader whether to buy. Explain the instrument; leave the decision to them.
 
 Format:
@@ -122,7 +138,8 @@ function factsToText(facts) {
 // Returned as parts so each provider can assemble them its own way — the
 // Anthropic path marks the big one cacheable, Gemini just concatenates.
 function systemParts(asset, facts) {
-  const grounded = asset.id === GROUNDED_ASSET_ID && PROSPECTUS.length > 0;
+  const doc = PROSPECTUS[asset.id] || '';
+  const grounded = doc.length > 0;
   const parts = [{ text: ROLE }];
 
   if (grounded) {
@@ -130,7 +147,7 @@ function systemParts(asset, facts) {
       cacheable: true,
       text:
         'The following is the prospectus for the offering under discussion. Answer from it wherever it is relevant, and cite the section you used.\n\n' +
-        '<prospectus>\n' + PROSPECTUS + '\n</prospectus>',
+        '<prospectus>\n' + doc + '\n</prospectus>',
     });
   }
 
@@ -138,13 +155,10 @@ function systemParts(asset, facts) {
     text:
       'The offering the investor is currently looking at — this is the exact fact sheet already shown on their screen, so answer consistently with it:\n\n' +
       factsToText(facts) + '\n' +
-      (asset.hasKpi
-        ? '\nKPI step-down: if the funded schools meet their targets, the nominal value repaid at maturity is reduced by up to 6.5% of principal. Better project performance means less capital returned. This is the single most important thing for this investor to understand.\n'
-        : '') +
-      '\nPlatform facts: Tokenkan Capital Sdn Bhd is a Recognised Market Operator registered with the Securities Commission Malaysia. Investments are not protected by PIDM. Cash sits in a segregated trust account with Maybank Islamic.\n' +
+      '\nPlatform facts, stated as the offering documents state them: Tokenkan Capital Sdn Bhd operates the Platform and acts as Registrar and Paying Agent. The Platform is NOT an exchange and does not issue or hold the instruments — issuance and custody are performed by Sentinel Digital Custody Sdn Bhd, a Digital Asset Custodian registered with the Securities Commission Malaysia. Peer-to-peer trading is deferred to a later phase pending RMO registration, so exit before maturity is available only through the Anchor Investor standing bid, which is priced at a discount, capped monthly and may be suspended. Investments are not protected by PIDM.\n' +
       (grounded
-        ? '\nThe prospectus above is the source document for this offering. Note it is the first 70 of 223 pages, so late appendices are not available to you — say so if a question lands outside what you can see.'
-        : '\nThere is NO prospectus on file for this offering — only the fact sheet above. Answer structural and general Islamic-finance questions from your own knowledge, but say clearly when something would need to be confirmed against a real offering document, and do not state issuer-specific facts beyond what the fact sheet gives you.'),
+        ? '\nThe prospectus above is the complete offering document for this instrument and is the source you should answer from.'
+        : '\nThere is NO prospectus on file for this offering — only the fact sheet above. Answer structural and general questions from your own knowledge, but say clearly when something would need to be confirmed against a real offering document, and do not state issuer-specific facts beyond what the fact sheet gives you.'),
   });
 
   return parts;
@@ -524,7 +538,8 @@ createServer((req, res) => {
       baseUrl: activeBase(),
       compatMode: PROVIDER === 'anthropic' ? ANTHROPIC_COMPAT : undefined,
       hasKey: hasKey(),
-      prospectusChars: PROSPECTUS.length,
+      prospectusChars: PROSPECTUS_CHARS,
+      prospectusesLoaded: Object.keys(PROSPECTUS),
     }));
     return;
   }
@@ -535,7 +550,7 @@ createServer((req, res) => {
   console.log(`  provider    ${PROVIDER}${PROVIDER === 'anthropic' && ANTHROPIC_COMPAT ? ' (compatible gateway)' : ''}`);
   console.log(`  endpoint    ${activeBase()}`);
   console.log(`  model       ${activeModel()}`);
-  console.log(`  prospectus  ${PROSPECTUS.length.toLocaleString()} chars`);
+  console.log(`  prospectus  ${Object.keys(PROSPECTUS).length} documents, ${PROSPECTUS_CHARS.toLocaleString()} chars total`);
   if (!hasKey()) {
     const v = PROVIDER === 'gemini' ? 'GEMINI_API_KEY' : 'ANTHROPIC_API_KEY / ANTHROPIC_AUTH_TOKEN';
     console.log(`\n  ⚠  ${v} is not set — the app runs, but the`);
